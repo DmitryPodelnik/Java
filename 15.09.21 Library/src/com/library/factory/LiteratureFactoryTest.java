@@ -23,4 +23,10 @@ public class LiteratureFactoryTest {
                 literatureFactory.registerFactory( journalFactory ) ) ;
 
     }
+
+
+    @Test
+    public void createFrom() {
+        
+    }
 }

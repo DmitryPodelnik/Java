@@ -34,6 +34,7 @@ public class LiteratureFactory {
      * @return concrete Literature
      */
     Literature createFrom(JSONObject obj ) {
+
         return null ;
     }
 
