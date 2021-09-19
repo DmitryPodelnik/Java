@@ -6,11 +6,11 @@ public class Newspaper
     // publishing office of newspaper
     private String _publishingHouse;
 
-    public String get_publishingHouse() {
+    public String getPublishingHouse() {
         return _publishingHouse;
     }
 
-    public void set_publishingHouse(String _publishingHouse) {
+    public void setPublishingHouse(String _publishingHouse) {
         this._publishingHouse = _publishingHouse;
     }
 

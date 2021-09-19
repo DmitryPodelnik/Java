@@ -1,5 +1,7 @@
 package com.library.factory;
 
+import com.library.lib.Book;
+import com.library.lib.Journal;
 import com.library.lib.Literature;
 import org.json.JSONObject;
 
@@ -33,9 +35,25 @@ public class LiteratureFactory {
      * @param obj JSON Object with concrete fields
      * @return concrete Literature
      */
-    Literature createFrom(JSONObject obj ) {
+    Literature createFrom( JSONObject obj ) {
 
-        return null ;
+        try {
+            if (obj.getString("type") == "Book") {
+                return new Book (
+                        obj.getString("title"),
+                        obj.getString("author")
+                );
+            }
+            else if (obj.getString("type") == "Journal") {
+                return new Journal(
+                  obj.getString("title"),
+                  obj.getString("number")
+                );
+            }
+        } catch (Exception ex) {
+            System.out.println("Cannot create literature from JSON obj.");
+        }
+        return null;
     }
 
 

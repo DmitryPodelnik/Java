@@ -1,5 +1,6 @@
 package com.library.factory;
 
+import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -27,6 +28,13 @@ public class LiteratureFactoryTest {
 
     @Test
     public void createFrom() {
-        
+        JSONObject objBook = TestSamples.getJsonBook();
+        JSONObject objJournal = TestSamples.getJsonJournal();
+        JSONObject objInvalid= TestSamples.getJsonInvalidType();
+        LiteratureFactory literatureFactory = new LiteratureFactory();
+
+        Assert.assertNotNull(literatureFactory.createFrom(objBook));
+        Assert.assertNotNull(literatureFactory.createFrom(objJournal));
+        Assert.assertNull(literatureFactory.createFrom(objInvalid));
     }
 }
