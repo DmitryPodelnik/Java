@@ -3,6 +3,10 @@ package step.java.library.Factory;
 import org.json.JSONObject;
 import step.java.library.Literature;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 public class LiteratureFactory {
@@ -34,7 +38,7 @@ public class LiteratureFactory {
      * @param obj JSON Object with concrete fields
      * @return concrete Literature
      */
-    Literature createFrom(JSONObject obj) {
+    Literature createFrom (JSONObject obj) {
         for (ConcreteFactory factory : _factories) {
             Literature lit = factory.create(obj);
             if (lit != null) {
@@ -43,6 +47,27 @@ public class LiteratureFactory {
         }
         return null;
     }
+
+    public Literature createFrom (File file) {
+        if (file == null) {
+            return null;
+        }
+
+        try (InputStream reader = new FileInputStream(file)) {
+            int sym;
+            StringBuilder sb = new StringBuilder();
+
+            while((sym = reader.read()) != -1) {
+                sb.append((char) sym);
+            }
+
+            return this.createFrom( new JSONObject(sb.toString()) );
+        } catch(Exception ex) {
+            System.out.println(ex.getMessage());
+            return null;
+        }
+    }
+
 
 
 

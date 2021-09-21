@@ -4,10 +4,7 @@ import step.java.library.Book;
 import step.java.library.Factory.BookFactory;
 import step.java.library.Factory.TestSamples;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -54,8 +51,7 @@ public class CreateFiles {
         // try () {} catch() {}
         try (  // try-with-resource (~using(){} in C#)
                 OutputStream writer =
-                     new FileOutputStream(file)
-        ){
+                     new FileOutputStream(file) ){
             writer.write(
                     TestSamples.getJsonBook()
                     .toString().getBytes()
@@ -66,6 +62,32 @@ public class CreateFiles {
             System.err.println(ex.getMessage());
         }
 
+    }
+
+    /**
+     * Read all file data and return as string
+     * @param filename
+     * @return
+     */
+    public String getFileContent(String filename) {
+        File file = new File(filename);
+        if(!file.exists()) {
+            return null;
+        }
+        try (InputStream reader = new FileInputStream(file)) {
+            int sym; // symbol from the file, -1 -> EOF
+            StringBuilder sb = new StringBuilder();
+
+            while((sym = reader.read()) != -1) {
+                // str += (char) sym; not correct
+                sb.append((char) sym);
+            }
+
+            return sb.toString();
+        } catch(IOException ex) {
+            System.out.println(ex.getMessage());
+            return null;
+        }
     }
 }
 /*
