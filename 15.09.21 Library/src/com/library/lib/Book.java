@@ -34,6 +34,8 @@ public class Book
 
     /**
      *
+     * @param lit - Literature object
+     * @return JSON string if lit is instanceof Book or null
      */
     @Override
     public String toJsonString (Literature lit) {

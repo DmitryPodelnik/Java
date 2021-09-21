@@ -14,7 +14,8 @@ public abstract class Literature {  // base - superclass
     }
 
     /**
-     *
+     * should be realized in concrete literatures
+     * to parse literature object to JSON string
      */
     public abstract String toJsonString (Literature lit) ;
 

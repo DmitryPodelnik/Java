@@ -32,6 +32,11 @@ public class Newspaper
         );
     }
 
+    /**
+     *
+     * @param lit - Literature object
+     * @return JSON string if lit is instanceof Newspaper or null
+     */
     @Override
     public String toJsonString (Literature lit) {
         if (lit instanceof Newspaper) {

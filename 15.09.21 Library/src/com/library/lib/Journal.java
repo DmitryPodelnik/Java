@@ -27,6 +27,11 @@ public class Journal extends Literature {
         );
     }
 
+    /**
+     *
+     * @param lit - Literature object
+     * @return JSON string if lit is instanceof Journal or null
+     */
     @Override
     public String toJsonString (Literature lit) {
         if (lit instanceof Journal) {
