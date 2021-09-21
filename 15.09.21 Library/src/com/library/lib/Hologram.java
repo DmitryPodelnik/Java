@@ -10,4 +10,5 @@ public class Hologram
     public void print() {
 
     }
+
 }

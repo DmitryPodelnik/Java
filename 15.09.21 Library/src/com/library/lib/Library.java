@@ -1,5 +1,8 @@
 package com.library.lib;
 
+import com.library.factory.LiteratureFactory;
+
+import java.io.File;
 import java.util.ArrayList;
 
 public class Library {
@@ -20,5 +23,36 @@ public class Library {
             lit.print() ;
             System.out.println() ;  // new line
         }
+    }
+    /**
+     * Scan directory for JSON files and try to add them to funds
+     * @param dirname directory path
+     */
+    public void addDirectory (String dirname) {
+        String tag = "Library.addDirectory ";
+        if (dirname == null) {
+            System.err.println(tag + "no directory");
+            return;
+        }
+
+        File dir = new File(dirname);
+        if (!dir.isDirectory()) {
+            System.err.println(tag + "path is not directory");
+            return;
+        }
+
+        LiteratureFactory literatureFactory = new LiteratureFactory();
+        for (File file : dir.listFiles()) {
+            Literature lit = literatureFactory.createFrom(file);
+            System.out.print( file.getName() + " ");
+
+            if( lit == null ) {
+                System.out.println("ignored");
+            } else {
+                this.add(lit);
+                System.out.println("added");
+            }
+        }
+
     }
 }

@@ -24,4 +24,9 @@ public class Journal extends Literature {
                 number
         );
     }
+
+    @Override
+    public String toString() {
+        return super.getTitle() + "_" + this.getNumber();
+    }
 }

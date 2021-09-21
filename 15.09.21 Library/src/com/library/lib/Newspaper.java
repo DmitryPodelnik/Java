@@ -29,4 +29,9 @@ public class Newspaper
                 _publishingHouse
         );
     }
+
+    @Override
+    public String toString() {
+        return super.getTitle() + "_" + this.getPublishingHouse();
+    }
 }
