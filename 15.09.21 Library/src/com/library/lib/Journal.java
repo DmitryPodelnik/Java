@@ -27,6 +27,7 @@ public class Journal extends Literature {
         );
     }
 
+    @Override
     public String toJsonString (Literature lit) {
         if (lit instanceof Journal) {
             try {

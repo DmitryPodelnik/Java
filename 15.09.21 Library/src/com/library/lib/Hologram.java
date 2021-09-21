@@ -11,4 +11,10 @@ public class Hologram
 
     }
 
+    @Override
+    public String toJsonString(Literature lit) {
+
+        return null;
+    }
+
 }

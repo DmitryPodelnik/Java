@@ -32,6 +32,10 @@ public class Book
         );
     }
 
+    /**
+     *
+     */
+    @Override
     public String toJsonString (Literature lit) {
         if (lit instanceof Book) {
             try {

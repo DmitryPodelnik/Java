@@ -32,6 +32,7 @@ public class Newspaper
         );
     }
 
+    @Override
     public String toJsonString (Literature lit) {
         if (lit instanceof Newspaper) {
             try {
