@@ -3,6 +3,7 @@ package com.library.fs;
 import com.library.factory.BookFactory;
 import com.library.factory.TestSamples;
 import com.library.lib.Book;
+import org.apache.commons.io.FilenameUtils;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -84,6 +85,30 @@ public class CreateFiles {
             System.out.println(ex.getMessage());
             return null;
         }
+    }
+
+    /**
+     *
+     * @return
+     */
+    public static boolean checkRightExtension(String filename) {
+        return isJsonFile(filename) || isExeFile(filename) || isTxtFile(filename);
+    }
+
+    public static boolean isJsonFile(String filename) {
+        return FilenameUtils.getExtension(filename) == "json"
+                ? true
+                : false;
+    }
+    public static boolean isExeFile(String filename) {
+        return FilenameUtils.getExtension(filename) == "exe"
+                ? true
+                : false;
+    }
+    public static boolean isTxtFile(String filename) {
+        return FilenameUtils.getExtension(filename) == "txt"
+                ? true
+                : false;
     }
 }
 
