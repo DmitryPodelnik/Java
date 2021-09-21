@@ -1,6 +1,7 @@
 package com.library.lib;
 
 import com.library.factory.LiteratureFactory;
+import com.library.fs.CreateFiles;
 import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
@@ -47,7 +48,7 @@ public class Library {
             Literature lit = literatureFactory.createFrom(file);
             System.out.print( file.getName() + " ");
 
-            if( lit == null ) {
+            if( lit == null && !CreateFiles.checkRightExtension(file.getName())) {
                 System.out.println("ignored");
             } else {
                 this.add(lit);

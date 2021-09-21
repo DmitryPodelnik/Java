@@ -88,8 +88,8 @@ public class CreateFiles {
     }
 
     /**
-     *
-     * @return
+     * check for right file extension (.exe, .json or .txt)
+     * @return true if extension is right and false if not
      */
     public static boolean checkRightExtension(String filename) {
         return isJsonFile(filename) || isExeFile(filename) || isTxtFile(filename);
