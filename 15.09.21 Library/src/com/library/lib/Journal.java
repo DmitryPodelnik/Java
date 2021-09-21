@@ -1,5 +1,7 @@
 package com.library.lib;
 
+import org.json.JSONObject;
+
 public class Journal extends Literature {
     private String number ;  // Year, No (2021,1)
 
@@ -23,6 +25,23 @@ public class Journal extends Literature {
                 super.getTitle(),
                 number
         );
+    }
+
+    public String toJsonString (Literature lit) {
+        if (lit instanceof Journal) {
+            try {
+                Journal journal = (Journal) lit;
+
+                JSONObject obj = new JSONObject();
+                obj.put("title", journal.getTitle());
+                obj.put("author", journal.getNumber());
+
+                return obj.toString();
+            } catch (Exception ex) {
+                System.err.println(ex.getMessage());
+            }
+        }
+        return null;
     }
 
     @Override

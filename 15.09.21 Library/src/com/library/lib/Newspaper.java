@@ -1,5 +1,7 @@
 package com.library.lib;
 
+import org.json.JSONObject;
+
 public class Newspaper
         extends Literature {
 
@@ -28,6 +30,23 @@ public class Newspaper
                 super.getTitle(),
                 _publishingHouse
         );
+    }
+
+    public String toJsonString (Literature lit) {
+        if (lit instanceof Newspaper) {
+            try {
+                Newspaper newspaper = (Newspaper) lit;
+
+                JSONObject obj = new JSONObject();
+                obj.put("title", newspaper.getTitle());
+                obj.put("publisher", newspaper.getPublishingHouse());
+
+                return obj.toString();
+            } catch (Exception ex) {
+                System.err.println(ex.getMessage());
+            }
+        }
+        return null;
     }
 
     @Override

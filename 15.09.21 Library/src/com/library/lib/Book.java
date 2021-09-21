@@ -1,5 +1,7 @@
 package com.library.lib;
 
+import org.json.JSONObject;
+
 public class Book
         extends Literature {  // extension - inheritance
 
@@ -28,6 +30,23 @@ public class Book
                 super.getTitle(),
                 author
         );
+    }
+
+    public String toJsonString (Literature lit) {
+        if (lit instanceof Book) {
+            try {
+                Book book = (Book) lit;
+
+                JSONObject obj = new JSONObject();
+                obj.put("title", book.getTitle());
+                obj.put("author", book.getAuthor());
+
+                return obj.toString();
+            } catch (Exception ex) {
+                System.err.println(ex.getMessage());
+            }
+        }
+        return null;
     }
 
     @Override
