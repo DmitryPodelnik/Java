@@ -21,6 +21,6 @@ public class Main {
         // System.out.println(creator.getFileContent("./src/step/java/fs/" + "Jack London_Martin Eden.json"));
         // creator.createBook();
 
-        new Threads().demo();
+        new Threads().demo2();
     }
 }

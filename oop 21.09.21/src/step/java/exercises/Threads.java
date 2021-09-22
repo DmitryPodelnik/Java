@@ -32,6 +32,21 @@ public class Threads {
         new NumberedThread(7).start();
     }
 
+    double res;
+    public void demo2() {
+        Runnable plus10percent = () -> {
+            double oldValue = res;  // read
+            double newValue = oldValue + 0.1 * oldValue;
+            res = newValue; // write
+            System.out.println(newValue);
+        };
+        res = 100;
+
+        for (int i = 0; i< 12; ++i) {
+            new Thread(plus10percent).start();
+        }
+    }
+
     class NumberedThread extends Thread {
         int num;
 
@@ -51,4 +66,7 @@ public class Threads {
     В Java методы не являются самостоятельными, в поток передается объект с одним методом.
     Основным классом для управления потоками является Thread. Основным методом, который выполняется, является run().
     Runnable - интерфейс для объектов, запускаемых в отдельных потоках.
+
+    II Синхронизация потоков - главная проблема: работа с одной памятью (с одной общей переменной).
+    Суть - разделеннные во время операции чтения и записи.
  */

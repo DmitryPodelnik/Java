@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2d49e859-3522-4ac7-93d2-a1b782b5aa26" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/src/step/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/step/java/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/step/java/exercises/Threads.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/step/java/exercises/Threads.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -21,7 +22,7 @@
         <entry file="file://$PROJECT_DIR$/src/step/java/Main.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="357">
-              <caret line="23" column="29" selection-start-line="23" selection-start-column="29" selection-end-line="23" selection-end-column="29" />
+              <caret line="23" column="30" lean-forward="true" selection-start-line="23" selection-start-column="30" selection-end-line="23" selection-end-column="30" />
             </state>
           </provider>
         </entry>
@@ -29,11 +30,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/step/java/exercises/Threads.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="333">
-              <caret line="39" column="57" selection-start-line="39" selection-start-column="57" selection-end-line="39" selection-end-column="57" />
+            <state relative-caret-position="129">
+              <caret line="40" column="41" selection-start-line="40" selection-start-column="41" selection-end-line="40" selection-end-column="41" />
               <folding>
-                <element signature="e#103#230#0" expanded="true" />
-                <element signature="e#229#230#0" expanded="true" />
+                <element signature="method#demo#0;class#Threads#0" />
                 <element signature="e#409#410#0" expanded="true" />
                 <element signature="e#498#499#0" expanded="true" />
                 <element signature="e#851#852#0" expanded="true" />
@@ -62,8 +62,8 @@
       <list>
         <option value="$PROJECT_DIR$/src/step/java/library/Factory/LiteratureFactory.java" />
         <option value="$PROJECT_DIR$/.idea/workspace.xml" />
-        <option value="$PROJECT_DIR$/src/step/java/Main.java" />
         <option value="$PROJECT_DIR$/src/step/java/exercises/Thread.java" />
+        <option value="$PROJECT_DIR$/src/step/java/Main.java" />
         <option value="$PROJECT_DIR$/src/step/java/exercises/Threads.java" />
       </list>
     </option>
@@ -162,12 +162,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1632291349770</updated>
-      <workItem from="1632291353833" duration="3080000" />
+      <workItem from="1632291353833" duration="6168000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3080000" />
+    <option name="totallyTimeSpent" value="6168000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -225,17 +225,16 @@
     <entry file="file://$PROJECT_DIR$/src/step/java/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
-          <caret line="23" column="29" selection-start-line="23" selection-start-column="29" selection-end-line="23" selection-end-column="29" />
+          <caret line="23" column="30" lean-forward="true" selection-start-line="23" selection-start-column="30" selection-end-line="23" selection-end-column="30" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/step/java/exercises/Threads.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="333">
-          <caret line="39" column="57" selection-start-line="39" selection-start-column="57" selection-end-line="39" selection-end-column="57" />
+        <state relative-caret-position="129">
+          <caret line="40" column="41" selection-start-line="40" selection-start-column="41" selection-end-line="40" selection-end-column="41" />
           <folding>
-            <element signature="e#103#230#0" expanded="true" />
-            <element signature="e#229#230#0" expanded="true" />
+            <element signature="method#demo#0;class#Threads#0" />
             <element signature="e#409#410#0" expanded="true" />
             <element signature="e#498#499#0" expanded="true" />
             <element signature="e#851#852#0" expanded="true" />
