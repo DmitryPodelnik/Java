@@ -79,7 +79,7 @@ public class Library {
         */
         // Задача: реализовать работу с фалйами асинхронно
         for (File file : dir.listFiles()) {
-            Runnable plus10percent = () -> {
+            Runnable createFactory = () -> {
                 Literature lit;
                 synchronized (file) {
                     lit = literatureFactory.createFrom(file);
@@ -92,7 +92,9 @@ public class Library {
                     this.add(lit);
                     System.out.println("added");
                 }
-            }
+            };
+
+            new Thread(createFactory).start();
         }
     }
 }
