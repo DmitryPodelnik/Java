@@ -1,5 +1,7 @@
 package step.java.library;
 
+import org.json.JSONObject;
+
 public class Journal
         extends Literature
         implements Printable
@@ -28,4 +30,32 @@ public class Journal
 
         );
     }
+
+            /**
+             *
+             * @param lit - Literature object
+             * @return JSON string if lit is instanceof Journal or null
+             */
+            @Override
+            public String toJsonString (Literature lit) {
+                if (lit instanceof Journal) {
+                    try {
+                        Journal journal = (Journal) lit;
+
+                        JSONObject obj = new JSONObject();
+                        obj.put("title", journal.getTitle());
+                        obj.put("author", journal.getNumber());
+
+                        return obj.toString();
+                    } catch (Exception ex) {
+                        System.err.println(ex.getMessage());
+                    }
+                }
+                return null;
+            }
+
+            @Override
+            public String toString() {
+                return super.getTitle() + "_" + this.getNumber();
+            }
 }
