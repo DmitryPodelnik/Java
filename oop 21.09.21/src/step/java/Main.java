@@ -13,7 +13,7 @@ public class Main {
         // lib.add(new Newspaper("Ukrainian Truth", "Fronir Ukraine"));
         // lib.add(new Hologram("Pectoral"));
         lib.addDirectory("./src/step/java/fs/");
-        lib.print();
+        //lib.print();
 
         // CreateFiles creator = new CreateFiles();
         // creator.showDir();

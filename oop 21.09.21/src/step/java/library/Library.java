@@ -5,11 +5,14 @@ import step.java.library.Factory.LiteratureFactory;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Library {
     // Aggregation - collection of ...
     private ArrayList<Literature> _funds ;  // Funds
     //        = new ArrayList<>();  // Not recommended: code/declaration mixing
+
+    private AtomicInteger count = new AtomicInteger(0);
 
     public Library() {
         _funds = new ArrayList<>(); // OK
@@ -79,7 +82,10 @@ public class Library {
         */
         // Задача: реализовать работу с фалйами асинхронно
         for (File file : dir.listFiles()) {
+
             Runnable createFactory = () -> {
+                count.addAndGet(1);
+
                 Literature lit;
                 synchronized (file) {
                     lit = literatureFactory.createFrom(file);
@@ -91,6 +97,10 @@ public class Library {
                 } else {
                     this.add(lit);
                     System.out.println("added");
+                }
+
+                if (count.get() == dir.listFiles().length) {
+                    this.print();
                 }
             };
 
