@@ -35,9 +35,14 @@ public class Threads {
     double res;
     public void demo2() {
         Runnable plus10percent = () -> {
+            /*
             double oldValue = res;  // read
             double newValue = oldValue + 0.1 * oldValue;
             res = newValue; // write
+             */
+            double newValue = res + 0.1 * res;
+            res = newValue;
+            // res *= 1.1;
             System.out.println(newValue);
         };
         res = 100;
@@ -69,4 +74,8 @@ public class Threads {
 
     II Синхронизация потоков - главная проблема: работа с одной памятью (с одной общей переменной).
     Суть - разделеннные во время операции чтения и записи.
+    С учетом того, что операция присваивания по сути разделена во времени (на вычисление - чтение и запись), то
+    любая операция присваивания (с общей переменной) при многопоточности является опасной.
+    Одно из направлений решения проблемы - атомарные типы:
+    AtomicBoolean, AtomicInteger, ..., которые на внутреннем уровне создают транзакции чтения - записи.
  */
