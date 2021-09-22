@@ -10,4 +10,11 @@ public class Hologram
     public void print() {
 
     }
+
+    @Override
+    public String toJsonString(Literature lit) {
+
+        return null;
+    }
+
 }

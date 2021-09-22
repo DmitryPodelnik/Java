@@ -5,6 +5,9 @@ import com.library.lib.Journal;
 import com.library.lib.Literature;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 public class LiteratureFactory {
@@ -54,6 +57,26 @@ public class LiteratureFactory {
             System.out.println("Cannot create literature from JSON obj.");
         }
         return null;
+    }
+
+    public Literature createFrom (File file) {
+        if (file == null) {
+            return null;
+        }
+
+        try (InputStream reader = new FileInputStream(file)) {
+            int sym;
+            StringBuilder sb = new StringBuilder();
+
+            while((sym = reader.read()) != -1) {
+                sb.append((char) sym);
+            }
+
+            return this.createFrom( new JSONObject(sb.toString()) );
+        } catch(Exception ex) {
+            System.out.println(ex.getMessage());
+            return null;
+        }
     }
 
 
