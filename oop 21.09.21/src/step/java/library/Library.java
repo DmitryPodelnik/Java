@@ -63,7 +63,7 @@ public class Library {
 
         LiteratureFactory literatureFactory = new LiteratureFactory();
 
-
+        /*
         for (File file : dir.listFiles()) {
             Literature lit = literatureFactory.createFrom(file);
             System.out.print( file.getName() + " ");
@@ -76,6 +76,23 @@ public class Library {
                 System.out.println("added");
             }
         }
+        */
+        // Задача: реализовать работу с фалйами асинхронно
+        for (File file : dir.listFiles()) {
+            Runnable plus10percent = () -> {
+                Literature lit;
+                synchronized (file) {
+                    lit = literatureFactory.createFrom(file);
+                }
 
+                // if lit is NOT NULL and has right file extension (.exe, .json or .txt), then add or ignore
+                if (lit == null && !CreateFiles.checkRightExtension(file.getName())) {
+                    System.out.println("ignored");
+                } else {
+                    this.add(lit);
+                    System.out.println("added");
+                }
+            }
+        }
     }
 }

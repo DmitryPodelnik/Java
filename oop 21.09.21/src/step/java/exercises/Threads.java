@@ -36,11 +36,6 @@ public class Threads {
     private final Object semaphore = new Object();
     public void demo2() {
         Runnable plus10percent = () -> {
-            /*
-            double oldValue = res;  // read
-            double newValue = oldValue + 0.1 * oldValue;
-            res = newValue; // write
-             */
             double oldValue;
             double newValue;
             synchronized (semaphore) {
@@ -49,17 +44,10 @@ public class Threads {
                 res = newValue; // write
             }
             System.out.println(newValue);
-
-            /*
-            double newValue = res + 0.1 * res;
-            res = newValue;
-            // res *= 1.1;
-            System.out.println(newValue);
-             */
         };
         res = 100;
 
-        for (int i = 0; i< 12; ++i) {
+        for (int i = 0; i < 12; ++i) {
             new Thread(plus10percent).start();
         }
     }
