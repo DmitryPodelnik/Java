@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2d49e859-3522-4ac7-93d2-a1b782b5aa26" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/step/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/step/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/step/java/exercises/Thread.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/step/java/exercises/Threads.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/step/java/exercises/Threads.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -31,11 +29,17 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/step/java/exercises/Threads.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="21" column="31" selection-start-line="21" selection-start-column="31" selection-end-line="21" selection-end-column="31" />
+            <state relative-caret-position="333">
+              <caret line="39" column="57" selection-start-line="39" selection-start-column="57" selection-end-line="39" selection-end-column="57" />
               <folding>
-                <element signature="e#353#354#0" expanded="true" />
-                <element signature="e#401#402#0" expanded="true" />
+                <element signature="e#103#230#0" expanded="true" />
+                <element signature="e#229#230#0" expanded="true" />
+                <element signature="e#409#410#0" expanded="true" />
+                <element signature="e#498#499#0" expanded="true" />
+                <element signature="e#851#852#0" expanded="true" />
+                <element signature="e#888#889#0" expanded="true" />
+                <element signature="e#976#977#0" expanded="true" />
+                <element signature="e#1065#1066#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -158,12 +162,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1632291349770</updated>
-      <workItem from="1632291353833" duration="2310000" />
+      <workItem from="1632291353833" duration="3080000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2310000" />
+    <option name="totallyTimeSpent" value="3080000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -227,11 +231,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/step/java/exercises/Threads.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="21" column="31" selection-start-line="21" selection-start-column="31" selection-end-line="21" selection-end-column="31" />
+        <state relative-caret-position="333">
+          <caret line="39" column="57" selection-start-line="39" selection-start-column="57" selection-end-line="39" selection-end-column="57" />
           <folding>
-            <element signature="e#353#354#0" expanded="true" />
-            <element signature="e#401#402#0" expanded="true" />
+            <element signature="e#103#230#0" expanded="true" />
+            <element signature="e#229#230#0" expanded="true" />
+            <element signature="e#409#410#0" expanded="true" />
+            <element signature="e#498#499#0" expanded="true" />
+            <element signature="e#851#852#0" expanded="true" />
+            <element signature="e#888#889#0" expanded="true" />
+            <element signature="e#976#977#0" expanded="true" />
+            <element signature="e#1065#1066#0" expanded="true" />
           </folding>
         </state>
       </provider>

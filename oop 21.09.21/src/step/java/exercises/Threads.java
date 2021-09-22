@@ -10,7 +10,7 @@ public class Threads {
             }
         };
         thread1.start();
-        
+
         new Thread(
                 new Runnable() {
                     @Override
@@ -26,6 +26,23 @@ public class Threads {
         new Thread(r3).start();
 
         new Thread(() -> System.out.println("Thread 4")).start();
+
+        new NumberedThread(5).start();
+        new NumberedThread(6).start();
+        new NumberedThread(7).start();
+    }
+
+    class NumberedThread extends Thread {
+        int num;
+
+        public NumberedThread(int num) {
+            this.num = num;
+        }
+
+        @Override
+        public void run() {
+            System.out.println("Hello from thread " + num);
+        }
     }
 }
 
