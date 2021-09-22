@@ -32,7 +32,8 @@ public class Threads {
         new NumberedThread(7).start();
     }
 
-    double res;
+    private double res;  // non-reference type, not valid for synchronization
+    private final Object semaphore = new Object();
     public void demo2() {
         Runnable plus10percent = () -> {
             /*
@@ -40,10 +41,21 @@ public class Threads {
             double newValue = oldValue + 0.1 * oldValue;
             res = newValue; // write
              */
+            double oldValue;
+            double newValue;
+            synchronized (semaphore) {
+                oldValue = res;  // read
+                newValue = oldValue + 0.1 * oldValue;
+                res = newValue; // write
+            }
+            System.out.println(newValue);
+
+            /*
             double newValue = res + 0.1 * res;
             res = newValue;
             // res *= 1.1;
             System.out.println(newValue);
+             */
         };
         res = 100;
 
@@ -93,4 +105,13 @@ public class Threads {
     AtomicBoolean, AtomicInteger, ..., которые на внутреннем уровне создают транзакции чтения - записи.
         Другой подход - синхронизация: создание блокироваки переменной
     на использование (~ как блокировка открытого файла) + создание и обслуживание очереди ожидающих потоков.
+    Аналогично .NET, все объекты (ссылочные типы) в Java имеют признак блокировки потока.
+    ! Если все тело метода находится в синхро-блоке, то реально многопоточность не имеет эффекта.
+    ! Синхронизация по не константному (не финальному) объекту
+    Довольно часто синхроблок делают по самому объекту, с которым введется работа:
+        synchronized (label) { label.text = "..." }
+    НО! такой подход может привести к проблеме.
+        synchronized (str) { str += "..." }
+    ! str += сформирует новую строку (новый объект)
+    В итоге старый объект остается "закрытым" (и не будет открытым), а новый не защищен от других потоков.
  */
