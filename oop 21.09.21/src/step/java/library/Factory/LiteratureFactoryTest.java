@@ -18,26 +18,12 @@ public class LiteratureFactoryTest {
         JournalFactory journalFactory = new JournalFactory();
         NewspaperFactory newspaperFactory = new NewspaperFactory();
 
-        Assert.assertTrue(
-                litFactory.registerFactory(bookFactory)
-        );
-        Assert.assertFalse(
-                litFactory.registerFactory(bookFactory)
-        );
-
-        Assert.assertTrue(
-                litFactory.registerFactory(journalFactory)
-        );
-        Assert.assertFalse(
-                litFactory.registerFactory(journalFactory)
-        );
-
-        Assert.assertTrue(
-                litFactory.registerFactory(newspaperFactory)
-        );
-        Assert.assertFalse(
-                litFactory.registerFactory(newspaperFactory)
-        );
+        Assert.assertTrue(litFactory.registerFactory(bookFactory));
+        Assert.assertFalse(litFactory.registerFactory(bookFactory));
+        Assert.assertTrue(litFactory.registerFactory(journalFactory));
+        Assert.assertFalse(litFactory.registerFactory(journalFactory));
+        Assert.assertTrue(litFactory.registerFactory(newspaperFactory));
+        Assert.assertFalse(litFactory.registerFactory(newspaperFactory));
     }
 
     @Test
@@ -45,9 +31,11 @@ public class LiteratureFactoryTest {
         BookFactory bookFactory = new BookFactory();
         JournalFactory journalFactory = new JournalFactory();
         NewspaperFactory newspaperFactory = new NewspaperFactory();
+
         LiteratureFactory literatureFactory = new LiteratureFactory();
-        literatureFactory.registerFactory(bookFactory);
-        literatureFactory.registerFactory(journalFactory);
+//        literatureFactory.registerFactory(bookFactory);
+//        literatureFactory.registerFactory(journalFactory);
+//        literatureFactory.registerFactory(newspaperFactory);
 
         Literature lit;
         lit = literatureFactory.createFrom(TestSamples.getJsonBook());

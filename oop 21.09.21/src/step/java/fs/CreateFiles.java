@@ -1,5 +1,6 @@
 package step.java.fs;
 
+import org.apache.commons.io.FilenameUtils;
 import step.java.library.Book;
 import step.java.library.Factory.BookFactory;
 import step.java.library.Factory.TestSamples;
@@ -88,6 +89,30 @@ public class CreateFiles {
             System.out.println(ex.getMessage());
             return null;
         }
+    }
+
+    /**
+     * check for right file extension (.exe, .json or .txt)
+     * @return true if extension is right and false if not
+     */
+    public static boolean checkRightExtension(String filename) {
+        return isJsonFile(filename) || isExeFile(filename) || isTxtFile(filename);
+    }
+
+    public static boolean isJsonFile(String filename) {
+        return FilenameUtils.getExtension(filename) == "json"
+                ? true
+                : false;
+    }
+    public static boolean isExeFile(String filename) {
+        return FilenameUtils.getExtension(filename) == "exe"
+                ? true
+                : false;
+    }
+    public static boolean isTxtFile(String filename) {
+        return FilenameUtils.getExtension(filename) == "txt"
+                ? true
+                : false;
     }
 }
 /*

@@ -8,6 +8,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class LiteratureFactory {
     /**
@@ -16,7 +17,11 @@ public class LiteratureFactory {
     private ArrayList<ConcreteFactory> _factories;
 
     public LiteratureFactory() {
+
         _factories = new ArrayList<>();
+        registerFactory(new BookFactory());
+        registerFactory(new JournalFactory());
+        registerFactory(new NewspaperFactory());
     }
 
     /**
@@ -53,6 +58,19 @@ public class LiteratureFactory {
             return null;
         }
 
+        try (Scanner scanner = new Scanner(file)) {
+            StringBuilder sb = new StringBuilder();
+
+            while(scanner.hasNext()) {
+                sb.append(scanner.nextLine());
+            }
+
+            return this.createFrom( new JSONObject(sb.toString()) );
+        } catch(Exception ex) {
+            System.out.println(ex.getMessage());
+            return null;
+        }
+        /* // Low-level reading
         try (InputStream reader = new FileInputStream(file)) {
             int sym;
             StringBuilder sb = new StringBuilder();
@@ -66,6 +84,7 @@ public class LiteratureFactory {
             System.out.println(ex.getMessage());
             return null;
         }
+         */
     }
 
 

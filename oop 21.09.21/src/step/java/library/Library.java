@@ -1,5 +1,6 @@
 package step.java.library;
 
+import step.java.fs.CreateFiles;
 import step.java.library.Factory.LiteratureFactory;
 
 import java.io.File;
@@ -61,11 +62,14 @@ public class Library {
         }
 
         LiteratureFactory literatureFactory = new LiteratureFactory();
+
+
         for (File file : dir.listFiles()) {
             Literature lit = literatureFactory.createFrom(file);
             System.out.print( file.getName() + " ");
 
-            if( lit == null ) {
+            // if lit is NOT NULL and has right file extension (.exe, .json or .txt), then add or ignore
+            if(lit == null && !CreateFiles.checkRightExtension(file.getName())) {
                 System.out.println("ignored");
             } else {
                 this.add(lit);
