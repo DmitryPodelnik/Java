@@ -12,7 +12,10 @@ public class Main {
         // lib.add( new Book( "Martin Eden", "Jack London" ) );
         // lib.add(new Newspaper("Ukrainian Truth", "Fronir Ukraine"));
         // lib.add(new Hologram("Pectoral"));
-        lib.addDirectory("./src/step/java/fs/");
+        lib.addDirectoryAsync("./src/step/java/fs/", lib::print);
+        System.out.println("--------");
+        lib.print();
+        System.out.println("--------");
         //lib.print();
 
         // CreateFiles creator = new CreateFiles();
