@@ -12,8 +12,40 @@ import java.sql.SQLException;
 
 public class Db {
 
+    private final String PREFIX = "KH181_14_";
+
     public void demo() {
         Connection connection;  // ~SqlConnection
+
+        // Loading config: ../config/db.json
+        String connectionString;
+
+        File file = new File("./src/step/java/config/db.json");
+        if (!file.exists()) {
+            System.out.println("Config location error");
+            return;
+        }
+        JSONObject conf;
+        try {
+            conf = new JSONObject(
+                    new String(
+                            new FileInputStream(file)
+                                    .readAllBytes()
+                    )
+            );
+
+            connectionString = String.format(
+                    "jdbc:oracle:thin:%s/%s@%s:%d:XE",
+                    conf.getString("user"),
+                    conf.getString("pass"),
+                    conf.getString("host"),
+                    conf.getInt("port")
+            );
+
+        } catch (IOException ex) {
+            System.err.println(ex.getMessage());
+            return;
+        }
 
         try {
             // Registering driver
@@ -21,38 +53,20 @@ public class Db {
                     // Don't forget add OJDBC.JAR library
                     new oracle.jdbc.driver.OracleDriver()
             );
+
+            // Connecting...
+            connection = DriverManager.getConnection(
+                    connectionString
+            );
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
             return;
         }
-        // Loading config: ../config/db.json
-        String connectionString;
 
-        File file = new File("./src/step/java/config/db.json");
-        if(!file.exists()) {
-            System.out.println("Config location error");
-            return;
-        }
-            JSONObject conf;
-            try {
-               conf = new JSONObject(
-                        new String (
-                                new FileInputStream (file)
-                                        .readAllBytes()
-                        )
-                );
+        // Queries
+        // ! Single DB - user prefixes
 
-                connectionString = String.format(
-                        "jdbc:oracle:thin:%s/%s@%s:%d:XE",
-                        conf.getString("user"),
-                        conf.getString("pass"),
-                        conf.getString("host"),
-                        conf.getInt("port")
-                );
-            } catch (IOException ex) {
-                System.err.println(ex.getMessage());
-                return;
-            }
+
         System.out.println(connectionString);
     }
 }

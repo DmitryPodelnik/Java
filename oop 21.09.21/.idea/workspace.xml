@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2d49e859-3522-4ac7-93d2-a1b782b5aa26" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/ojdbc8.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/step/java/exercises/Db.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/oop.iml" beforeDir="false" afterPath="$PROJECT_DIR$/oop.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/step/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/step/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/step/java/exercises/Db.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/step/java/exercises/Db.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -32,8 +28,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/step/java/exercises/Db.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="484">
-              <caret line="59" column="43" selection-start-line="59" selection-start-column="43" selection-end-line="59" selection-end-column="43" />
+            <state relative-caret-position="-391">
+              <caret line="16" column="24" lean-forward="true" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -100,7 +96,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="260" />
     <option name="y" value="20" />
     <option name="width" value="1400" />
@@ -223,15 +219,15 @@
       <updated>1632291349770</updated>
       <workItem from="1632291353833" duration="13075000" />
       <workItem from="1632376160414" duration="3553000" />
-      <workItem from="1632463624711" duration="4926000" />
+      <workItem from="1632463624711" duration="6353000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="21554000" />
+    <option name="totallyTimeSpent" value="22981000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2553305" />
@@ -340,8 +336,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/step/java/exercises/Db.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="484">
-          <caret line="59" column="43" selection-start-line="59" selection-start-column="43" selection-end-line="59" selection-end-column="43" />
+        <state relative-caret-position="-391">
+          <caret line="16" column="24" lean-forward="true" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
