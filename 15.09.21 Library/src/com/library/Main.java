@@ -1,5 +1,6 @@
 package com.library;
 
+import com.library.exercises.Db;
 import com.library.factory.LiteratureFactory;
 import com.library.lib.*;
 
@@ -11,8 +12,10 @@ public class Main {
 //        lib.add( new Book( "Martin Eden", "Jack London" ) );
 //        lib.add(new Newspaper("Ukrainian Truth", "Fronir Ukraine"));
 //        lib.add(new Hologram("Pectoral"));
-        lib.addDirectory("./src/com/library/fs");
-        lib.print();
+//        lib.addDirectory("./src/com/library/fs");
+//        lib.print();
+        Db db = new Db();
+        db.demo();
 
         // CreateFiles creator = new CreateFiles();
         // creator.showDir();
