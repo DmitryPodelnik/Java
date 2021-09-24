@@ -11,9 +11,12 @@ public class Library {
     // Aggregation - collection of ...
     private ArrayList<Literature> funds ;   // Funds
     // = new ArrayList<>() ;  // Not recommend: code/declaration mixing
+    private int n;  // threads counter
+    private final Object mutex;
 
     public Library() {
         funds = new ArrayList<>() ;  // OK
+        mutex = new Object();
     }
 
     public void add( Literature lit ) {
