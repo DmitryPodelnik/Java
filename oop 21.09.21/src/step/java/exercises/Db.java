@@ -6,10 +6,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class Db {
 
@@ -89,11 +86,22 @@ public class Db {
                 "VALUES('%s', (SELECT id FROM %sexercise WHERE name = '%s'))",
                 PREFIX, "Pavlovna", PREFIX, "Petrovich"
         );
-         */
-        
+
         try (Statement statement = connection.createStatement()) {
             // statement ~ SqlCommand
             statement.executeUpdate(query);
+        }
+        catch (SQLException ex) {
+            System.err.println(ex.getMessage() + " " + query);
+            return;
+        }
+        */
+
+        query = "INSERT INTO " + PREFIX + "exercise(name) VALUES(?)";
+
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, "Kuzmich");
+            statement.executeUpdate();
         }
         catch (SQLException ex) {
             System.err.println(ex.getMessage() + " " + query);
