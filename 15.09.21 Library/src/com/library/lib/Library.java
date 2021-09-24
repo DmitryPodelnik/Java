@@ -52,7 +52,7 @@ public class Library {
             System.out.print( file.getName() + " ");
 
             // if lit is NOT NULL and has right file extension (.exe, .json or .txt), then add or ignore
-            if( lit == null && !CreateFiles.checkRightExtension(file.getName())) {
+            if ( lit == null && !CreateFiles.checkRightExtension(file.getName())) {
                 System.out.println("ignored");
             } else {
                 this.add(lit);
@@ -81,7 +81,7 @@ public class Library {
 
         LiteratureFactory literatureFactory = new LiteratureFactory();
 
-        // Задача: реализовать работу с фалйами асинхронно
+        // Task: realize async work with files
         n = 0; // clear counter
         for (File file : dir.listFiles()) {
             n++; // increase threads counter
@@ -96,16 +96,12 @@ public class Library {
                     }
 
                     // if lit is NOT NULL and has right file extension (.exe, .json or .txt), then add or ignore
-                    if (lit == null && !CreateFiles.checkRightExtension(file.getName())) {
+                    if ( lit == null && !CreateFiles.checkRightExtension(file.getName())) {
                         System.out.println("ignored");
                     } else {
                         this.add(lit);
                         System.out.println("added");
                     }
-
-                    // if (count.get() == dir.listFiles().length) {
-                    //    this.print();
-                    // }
                 }
                 finally {
                     synchronized (mutex) {

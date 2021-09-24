@@ -12,10 +12,10 @@ public class Main {
 //        lib.add( new Book( "Martin Eden", "Jack London" ) );
 //        lib.add(new Newspaper("Ukrainian Truth", "Fronir Ukraine"));
 //        lib.add(new Hologram("Pectoral"));
-//        lib.addDirectory("./src/com/library/fs");
-//        lib.print();
-        Db db = new Db();
-        db.demo();
+        lib.addDirectoryAsync("./src/com/library/fs", lib::print);
+        // lib.print();
+//        Db db = new Db();
+//        db.demo();
 
         // CreateFiles creator = new CreateFiles();
         // creator.showDir();
