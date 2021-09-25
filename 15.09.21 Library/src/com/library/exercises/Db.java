@@ -97,6 +97,117 @@ public class Db {
         }
         */
 
+        // HOMEWORK
+
+        // create cinemas table
+        /*
+        query = "CREATE TABLE " + "Cinemas" + "exercise( "
+                + "id RAW(16) DEFAULT SYS_GUID() PRIMARY KEY, "
+                + "city NVARCHAR2(50) NOT NULL,"
+                + "street NVARCHAR2(50) NOT NULL,"
+                + "house NVARCHAR2(10) NOT NULL)";
+         */
+
+        // create cinemas' phones table
+        /*
+        query = "CREATE TABLE " + "Cinemas Phones" + "exercise( "
+                + "id RAW(16) DEFAULT SYS_GUID() PRIMARY KEY, "
+                + "phone NVARCHAR2(30) NOT NULL,"
+                + "id_cinema RAW(16))";
+         */
+
+        // create countries table
+        /*
+        query = "CREATE TABLE " + "Countries" + "exercise( "
+                + "id RAW(16) DEFAULT SYS_GUID() PRIMARY KEY, "
+                + "country NVARCHAR2(30) NOT NULL)";
+         */
+
+        // create genres table
+        /*
+        query = "CREATE TABLE " + "Genres" + "exercise( "
+                + "id RAW(16) DEFAULT SYS_GUID() PRIMARY KEY, "
+                + "name NVARCHAR2(25) NOT NULL)";
+         */
+
+        // add address
+        /*
+        query = String.format(
+                "INSERT INTO %sexercise(city, street, house)" +
+                        "VALUES('%s', '%s','%s')",
+                "Cinemas", "Odesa", "Main road", "24"
+        );
+         */
+
+        // add phone number
+        /*
+        query = String.format(
+                "INSERT INTO %sexercise(phone, id_cinema)" +
+                        "VALUES('%s', (SELECT id FROM %sexercise WHERE name = '%s'))",
+                "Cinemas Phones", "380508763182", "Cinemas", "PlanetaKino"
+        );
+         */
+
+        // add country
+        /*
+        query = String.format(
+                "INSERT INTO %sexercise(country)" +
+                        "VALUES('%s')",
+                "Countries", "Ukraine"
+        );
+         */
+
+        // add genre
+        /*
+        query = String.format(
+                "INSERT INTO %sexercise(country)" +
+                        "VALUES('%s')",
+                "Genres", "Action"
+        );
+
+        try (Statement statement = connection.createStatement()) {
+            // statement ~ SqlCommand
+            statement.executeUpdate(query);
+        }
+        catch (SQLException ex) {
+            System.err.println(ex.getMessage() + " " + query);
+            return;
+        }
+        */
+
+        /*
+        query = String.format(
+                "INSERT INTO %sexercise(country)" +
+                        "VALUES('%s')",
+                "Genres", "Action"
+        );
+         */
+
+        /*
+        query = "INSERT INTO " + "Genres" + "exercise(name) VALUES(?)";
+
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, "Comedy");
+            statement.executeUpdate();
+        }
+        catch (SQLException ex) {
+            System.err.println(ex.getMessage() + " " + query);
+            return;
+        }
+         */
+
+        query = "INSERT INTO " + "Countries" + "exercise(country) VALUES(?)";
+
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, "Ukraine");
+            statement.executeUpdate();
+        }
+        catch (SQLException ex) {
+            System.err.println(ex.getMessage() + " " + query);
+            return;
+        }
+
+        /*
         query = "INSERT INTO " + PREFIX + "exercise(name) VALUES(?)";
 
         try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -107,6 +218,7 @@ public class Db {
             System.err.println(ex.getMessage() + " " + query);
             return;
         }
+         */
 
         System.out.println("OK");
     }
