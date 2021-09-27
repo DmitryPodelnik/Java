@@ -240,13 +240,14 @@ public class Db {
          */
 
         String connectionString;
-
-        File file = new File("./src/step/java/config/db3.json");
+        // Loading config: ../config/db3.json
+        File file = new File("./src/com/library/config/db3.json");
         if (!file.exists()) {
             System.out.println("Config location error");
             return;
         }
         JSONObject conf;
+        String user, pass;
         try {
             conf = new JSONObject(
                     new String(
@@ -264,11 +265,13 @@ public class Db {
                     conf.getInt( "port" ),
                     conf.getString( "schema" )
             ) ;
-
+            user = conf.getString("user");
+            pass = conf.getString("pass");
         } catch (IOException ex) {
             System.err.println(ex.getMessage());
             return;
         }
+        System.out.println(connectionString);
     }
 }
 /*

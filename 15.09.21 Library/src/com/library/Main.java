@@ -23,7 +23,7 @@ public class Main {
         // System.out.println(creator.getFileContent("./src/step/java/fs/" + "Jack London_Martin Eden.json"));
         // creator.createBook();
 
-        new Db().demo_xe();
-        // new Db().demo_maria();
+        //  Db().demo_xe();
+         new Db().demo_maria();
     }
 }
