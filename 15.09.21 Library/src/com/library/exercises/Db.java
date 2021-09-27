@@ -302,9 +302,13 @@ public class Db {
                 + "name VARCHAR(64) NOT NULL,"
                 + "id_parent BIGINT )";
          */
-
+        /*
         query = "INSERT INTO exercise(id, name)" +
                 "VALUES(uuid_short(), 'Petrovich')";
+        */
+
+        query = "INSERT INTO exercise VALUES(uuid_short(), 'Lukich', " +
+                "(SELECT id FROM exercise WHERE name = 'Petrovich'))";
 
         try (Statement statement =
                      connection.createStatement()) {
