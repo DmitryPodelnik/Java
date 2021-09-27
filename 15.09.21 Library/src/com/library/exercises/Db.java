@@ -411,6 +411,32 @@ public class Db {
 
         System.out.println("Maria OK");
     }
+
+    /// HOMEWORK
+    public void createUserTable() {
+
+        String query;
+
+        // ORACLE
+        /*
+        query = "CREATE TABLE " + PREFIX + "exercise( "
+                + "id RAW(16) DEFAULT SYS_GUID() PRIMARY KEY, "
+                + "name NVARCHAR2(64) NOT NULL,"
+                + "login NVARCHAR2(64) NOT NULL,"
+                + "pass_salt NCHAR(40) NOT NULL),"
+                + "pass_hash NCHAR(40) NOT NULL)";
+        */
+
+        // MySQL
+        /*
+        query = "CREATE TABLE IF NOT EXISTS exercise( "
+                + "id BIGINT DEFAULT UUID_SHORT() PRIMARY KEY, "
+                + "name VARCHAR(64) NOT NULL,"
+                + "login VARCHAR2(64) NOT NULL,"
+                + "pass_salt CHAR(40) NOT NULL),"
+                + "pass_hash CHAR(40) NOT NULL)";
+         */
+    }
 }
 /*
     Работа с базами данных.
