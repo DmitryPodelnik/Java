@@ -21,7 +21,7 @@ public class Db {
         // Loading config: ../config/db.json
         String connectionString;
 
-        File file = new File("./src/step/java/config/db.json");
+        File file = new File("./src/com/library/config/db.json");
         if (!file.exists()) {
             System.out.println("Config location error");
             return;
@@ -223,6 +223,7 @@ public class Db {
         }
          */
 
+        /*
         query = "SELECT * FROM" + PREFIX + "exercise";
         try (   Statement statement = connection.createStatement();
                 ResultSet res = statement.executeQuery(query)
@@ -239,6 +240,7 @@ public class Db {
             System.err.println(ex.getMessage());
             return;
         }
+        */
 
         System.out.println("OK");
     }
