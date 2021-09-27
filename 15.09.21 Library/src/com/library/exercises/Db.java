@@ -271,11 +271,11 @@ public class Db {
             System.err.println(ex.getMessage());
             return;
         }
-        System.out.println(connectionString);
+        // System.out.println(connectionString);
 
         // Alternative for driver registering
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException ex) {
             System.err.println("Driver class is not found");
             return;
@@ -284,12 +284,33 @@ public class Db {
         try {
             connection = DriverManager.getConnection(
                 connectionString,
-                    user,
-                    pass
-            );
+                    user, pass);
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
+            return;
         }
+        String query;
+        /*
+                query = "CREATE TABLE " + PREFIX + "exercise( "
+                + "id RAW(16) DEFAULT SYS_GUID() PRIMARY KEY, "
+                + "name NVARCHAR2(64) NOT NULL,"
+                + "id_parent RAW(16) )";
+         */
+        query = "CREATE TABLE IF NOT EXISTS exercise( "
+                + "id BIGINT DEFAULT UUID_SHORT() PRIMARY KEY, "
+                + "name VARCHAR(64) NOT NULL,"
+                + "id_parent BIGINT )";
+
+        try (Statement statement =
+                     connection.createStatement()) {
+            statement.executeUpdate(query);
+        }
+        catch (SQLException ex) {
+            System.err.println(ex.getMessage() + " " + query);
+            return;
+        }
+
+        System.out.println("OK");
     }
 }
 /*
