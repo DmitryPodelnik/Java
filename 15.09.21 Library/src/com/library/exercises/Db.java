@@ -255,15 +255,15 @@ public class Db {
                     )
             );
 
-            connectionString = String.format(
-                    "jdbc:%s://%s:%d/%s"
-                    + "?useUnicode=true&characterEncoding=UTF-8"
-                    + "&useJDBCCompliantTimezoneShift=true&use"
-                    conf.getString("dbms"),
-                    conf.getString("host"),
-                    conf.getInt("port"),
-                    conf.getString("schema")
-            );
+            connectionString = String.format (
+                    "jdbc:%s://%s:%d/%s"   // Размещение БД
+                            + "?useUnicode=true&characterEncoding=UTF-8"             // Кодировка канала (подключения)
+                            + "&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",   // При проблемах согласования времени
+                    conf.getString( "dbms" ),
+                    conf.getString( "host" ),
+                    conf.getInt( "port" ),
+                    conf.getString( "schema" )
+            ) ;
 
         } catch (IOException ex) {
             System.err.println(ex.getMessage());
