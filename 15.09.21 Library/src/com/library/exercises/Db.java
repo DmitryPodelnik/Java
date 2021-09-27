@@ -272,6 +272,24 @@ public class Db {
             return;
         }
         System.out.println(connectionString);
+
+        // Alternative for driver registering
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException ex) {
+            System.err.println("Driver class is not found");
+            return;
+        }
+        Connection connection;
+        try {
+            connection = DriverManager.getConnection(
+                connectionString,
+                    user,
+                    pass
+            );
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
     }
 }
 /*
