@@ -307,12 +307,28 @@ public class Db {
                 "VALUES(uuid_short(), 'Petrovich')";
         */
 
+        /* ! The same table for INSERT and SELECT - error
         query = "INSERT INTO exercise VALUES(uuid_short(), 'Lukich', " +
                 "(SELECT id FROM exercise WHERE name = 'Petrovich'))";
+         */
 
-        try (Statement statement =
-                     connection.createStatement()) {
-            statement.executeUpdate(query);
+        // 1. Subquery
+        String subquery = "SELECT id FROM exercise WHERE name = 'Petrovich'";
+        // 2. Prepared query with placeholder
+        query = "INSERT INTO exercise VALUES(uuid_short(), 'Lukich', ?)" ;
+
+        try (Statement statement = connection.createStatement();
+             PreparedStatement prep = connection.prepareStatement(query)
+        ) {
+            ResultSet res = statement.executeQuery(subquery);
+            if (res.next()) {  // next ~ read - fetch a row
+                prep.setString(
+                        1,
+                        res.getString(1)  // ! indexing origin - from 1 !
+                );
+                prep.executeUpdate();
+            }
+           // statement.executeUpdate(query);
         }
         catch (SQLException ex) {
             System.err.println(ex.getMessage() + " " + query);
