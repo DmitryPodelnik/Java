@@ -6,11 +6,42 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 
 public class Db {
 
     private final String PREFIX = "KH181_14_";
+
+    public String hash( String str ) {
+        if( str == null ) str = "" ;
+        try {
+            MessageDigest messageDigest =
+                    MessageDigest.getInstance( "MD5" ) ;
+            byte[] src = str.getBytes() ;
+            byte[] res = messageDigest.digest( src ) ;
+            // return DatatypeConverter.printHexBinary( res ) ;
+
+            StringBuilder sb = new StringBuilder();
+            for (byte b : res) {
+                sb.append(Integer.toHexString(b & 0xFF));
+            }
+            return sb.toString();
+        } catch( NoSuchAlgorithmException ex ) {
+            System.err.println( ex.getMessage() ) ;
+            return null ;
+        }
+    }
+
+    public void auth_maria() {
+        // User authorization demo
+        // 1. Algo: No password in database
+        // 1.1. Hash
+        // 1.2. Salt
+
+        System.out.println(hash("123"));
+    }
 
     /**
      * Oracle DB Express Edition

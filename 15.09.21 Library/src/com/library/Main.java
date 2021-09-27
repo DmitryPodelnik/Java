@@ -24,6 +24,7 @@ public class Main {
         // creator.createBook();
 
          // new Db().demo_xe();
-         new Db().demo_maria();
+         // new Db().demo_maria();
+          new Db().auth_maria();
     }
 }
