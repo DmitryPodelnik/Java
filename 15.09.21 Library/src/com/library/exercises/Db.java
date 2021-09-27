@@ -419,7 +419,7 @@ public class Db {
 
         // ORACLE
         /*
-        query = "CREATE TABLE " + PREFIX + "exercise( "
+        query = "CREATE TABLE " + PREFIX + "users( "
                 + "id RAW(16) DEFAULT SYS_GUID() PRIMARY KEY, "
                 + "name NVARCHAR2(64) NOT NULL,"
                 + "login NVARCHAR2(64) NOT NULL,"
@@ -429,7 +429,7 @@ public class Db {
 
         // MySQL
         /*
-        query = "CREATE TABLE IF NOT EXISTS exercise( "
+        query = "CREATE TABLE IF NOT EXISTS Users( "
                 + "id BIGINT DEFAULT UUID_SHORT() PRIMARY KEY, "
                 + "name VARCHAR(64) NOT NULL,"
                 + "login VARCHAR2(64) NOT NULL,"
