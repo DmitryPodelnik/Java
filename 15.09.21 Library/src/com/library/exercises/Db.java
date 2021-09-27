@@ -296,10 +296,15 @@ public class Db {
                 + "name NVARCHAR2(64) NOT NULL,"
                 + "id_parent RAW(16) )";
          */
+        /*
         query = "CREATE TABLE IF NOT EXISTS exercise( "
                 + "id BIGINT DEFAULT UUID_SHORT() PRIMARY KEY, "
                 + "name VARCHAR(64) NOT NULL,"
                 + "id_parent BIGINT )";
+         */
+
+        query = "INSERT INTO exercise(id, name)" +
+                "VALUES(uuid_short(), 'Petrovich')";
 
         try (Statement statement =
                      connection.createStatement()) {
@@ -310,7 +315,7 @@ public class Db {
             return;
         }
 
-        System.out.println("OK");
+        System.out.println("Maria OK");
     }
 }
 /*
