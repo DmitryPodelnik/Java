@@ -223,6 +223,23 @@ public class Db {
         }
          */
 
+        query = "SELECT * FROM" + PREFIX + "exercise";
+        try (   Statement statement = connection.createStatement();
+                ResultSet res = statement.executeQuery(query)
+        ) {
+            while (res.next()) {
+                System.out.printf(
+                        "%s\t%s\t%s%n",
+                        res.getString(1),
+                        res.getString("name"),
+                        res.getString(3)
+                );
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+            return;
+        }
+
         System.out.println("OK");
     }
 
@@ -312,6 +329,7 @@ public class Db {
                 "(SELECT id FROM exercise WHERE name = 'Petrovich'))";
          */
 
+        /*
         // 1. Subquery
         String subquery = "SELECT id FROM exercise WHERE name = 'Petrovich'";
         // 2. Prepared query with placeholder
@@ -332,6 +350,25 @@ public class Db {
         }
         catch (SQLException ex) {
             System.err.println(ex.getMessage() + " " + query);
+            return;
+        }
+         */
+
+        // Read-queries
+        query = "SELECT * FROM exercise";
+        try (   Statement statement = connection.createStatement();
+                ResultSet res = statement.executeQuery(query)
+        ) {
+            while (res.next()) {
+                System.out.printf(
+                        "%s\t%s\t%s%n",
+                        res.getString(1),
+                        res.getString("name"),
+                        res.getString(3)
+                );
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
             return;
         }
 
