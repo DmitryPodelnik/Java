@@ -12,7 +12,10 @@ public class Db {
 
     private final String PREFIX = "KH181_14_";
 
-    public void demo() {
+    /**
+     * Oracle DB Express Edition
+     */
+    public void demo_xe() {
         Connection connection;  // ~SqlConnection
 
         // Loading config: ../config/db.json
@@ -195,7 +198,7 @@ public class Db {
             return;
         }
          */
-
+        /*
         query = "INSERT INTO " + "Countries" + "exercise(country) VALUES(?)";
 
         try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -206,7 +209,7 @@ public class Db {
             System.err.println(ex.getMessage() + " " + query);
             return;
         }
-
+        */
         /*
         query = "INSERT INTO " + PREFIX + "exercise(name) VALUES(?)";
 
@@ -221,6 +224,51 @@ public class Db {
          */
 
         System.out.println("OK");
+    }
+
+    /**
+     * Oracle MariaDB (ex MySQL)
+     */
+    public void demo_maria() {
+        /*
+            Preface: 1. Install MySQL/MariaDB
+            2. Create DataBase (CREATE DATABASE J181;)
+            3. Create ALL PRIVILEGES ON J181
+                (GRANT ALL PRIVILEGES ON J181.* TO 'user181'@'localhost' IDENTIFIED BY 'pass181';)
+            4.
+
+         */
+
+        String connectionString;
+
+        File file = new File("./src/step/java/config/db3.json");
+        if (!file.exists()) {
+            System.out.println("Config location error");
+            return;
+        }
+        JSONObject conf;
+        try {
+            conf = new JSONObject(
+                    new String(
+                            new FileInputStream(file)
+                                    .readAllBytes()
+                    )
+            );
+
+            connectionString = String.format(
+                    "jdbc:%s://%s:%d/%s"
+                    + "?useUnicode=true&characterEncoding=UTF-8"
+                    + "&useJDBCCompliantTimezoneShift=true&use"
+                    conf.getString("dbms"),
+                    conf.getString("host"),
+                    conf.getInt("port"),
+                    conf.getString("schema")
+            );
+
+        } catch (IOException ex) {
+            System.err.println(ex.getMessage());
+            return;
+        }
     }
 }
 /*
