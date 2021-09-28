@@ -141,20 +141,23 @@ public class Db {
                 )) {
                     prep.setString(1, authData[0]);
                     ResultSet res = prep.executeQuery();
-                    if (res.next()) {
+                    if (!res.next()) {
                         if (authData[1].length() > 4) {
                             try (PreparedStatement prep2 = getConnection().prepareStatement(
                                     "INSERT INTO " + PREFIX + "users (login, name, pass_salt, pass_hash)" +
                                             "VALUES(?, ?, ?, ?)"
                             )) {
+                                String login = authData[0];
                                 String name = authData[2];
                                 String salt = hash(name);
                                 String pass = hash(salt + "123");
-                                prep2.setString(1, "user1");
+                                prep2.setString(1, login);
                                 prep2.setString(2, name);
                                 prep2.setString(3, salt);
                                 prep2.setString(4, pass);
                                 prep2.executeUpdate();
+
+                                System.out.print(name + "has been successfully registered!");
                             } catch (SQLException ex) {
                                 System.err.println(ex.getMessage());
                             }
