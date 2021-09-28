@@ -97,6 +97,25 @@ public class Db {
                     "pass_salt CHAR(40)," +
                     "pass_hash CHAR(40) ) ";
 
+            statement.executeUpdate(query);
+            String name = "Petrovich";
+            String salt = hash(name);
+            String pass = hash(salt + "123");
+            query = "INSERT INTO " + PREFIX + "users (login, name, pass_salt, pass_hash)" +
+                   String.format("VALUES('user1', %s, %s, %s)",
+                        name, salt, pass
+                   );
+            statement.executeUpdate(query);
+
+            name = "Lukich";
+            salt = hash(name);
+            pass = hash(salt + "321");
+            query = "INSERT INTO " + PREFIX + "users (login, name, pass_salt, pass_hash)" +
+                    String.format("VALUES('user2', '%s', '%s', '%s')",
+                            name,salt, pass
+                    );
+            statement.executeUpdate(query);
+            
         } catch (SQLException ex) {
             System.err.println(ex.getMessage() + " : " + query);
             return;
