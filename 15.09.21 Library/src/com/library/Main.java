@@ -25,6 +25,6 @@ public class Main {
 
          // new Db().demo_xe();
          // new Db().demo_maria();
-          new Db().auth_maria();
+          new Db().register_xe();
     }
 }
