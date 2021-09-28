@@ -98,24 +98,35 @@ public class Db {
                     "pass_hash CHAR(40) ) ";
 
             statement.executeUpdate(query);
+
+            PreparedStatement prep = getConnection().prepareStatement(
+              "INSERT INTO " + PREFIX + "users (login, name, pass_salt, pass_hash)" +
+                   "VALUES(?, ?, ?, ?)"
+            );
+            statement.executeUpdate(query);
             String name = "Petrovich";
             String salt = hash(name);
             String pass = hash(salt + "123");
-            query = "INSERT INTO " + PREFIX + "users (login, name, pass_salt, pass_hash)" +
-                   String.format("VALUES('user1', %s, %s, %s)",
-                        name, salt, pass
-                   );
-            statement.executeUpdate(query);
+            prep.setString(1, "user1");
+            prep.setString(2, name);
+            prep.setString(3, salt);
+            prep.setString(4, pass);
+            prep.executeUpdate();
 
             name = "Lukich";
             salt = hash(name);
             pass = hash(salt + "321");
+            prep.setString(1, "user2");
+            prep.setString(2, name);
+            prep.setString(3, salt);
+            prep.setString(4, pass);
+            prep.executeUpdate();
             query = "INSERT INTO " + PREFIX + "users (login, name, pass_salt, pass_hash)" +
                     String.format("VALUES('user2', '%s', '%s', '%s')",
                             name,salt, pass
                     );
             statement.executeUpdate(query);
-            
+
         } catch (SQLException ex) {
             System.err.println(ex.getMessage() + " : " + query);
             return;
