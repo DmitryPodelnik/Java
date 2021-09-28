@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2d49e859-3522-4ac7-93d2-a1b782b5aa26" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/step/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/step/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/step/java/exercises/Db.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/step/java/exercises/Db.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -29,11 +28,12 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/step/java/exercises/Db.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="95">
-              <caret line="94" column="46" selection-start-line="94" selection-start-column="46" selection-end-line="94" selection-end-column="46" />
+            <state relative-caret-position="306">
+              <caret line="110" column="49" selection-start-line="110" selection-start-column="49" selection-end-line="110" selection-end-column="49" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#hash#0;class#Db#0" />
+                <element signature="method#auth_xe#0;class#Db#0" />
               </folding>
             </state>
           </provider>
@@ -234,15 +234,16 @@
       <workItem from="1632291353833" duration="13075000" />
       <workItem from="1632376160414" duration="3553000" />
       <workItem from="1632463624711" duration="11409000" />
-      <workItem from="1632808247229" duration="6607000" />
+      <workItem from="1632808247229" duration="6835000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="34644000" />
+    <option name="totallyTimeSpent" value="34872000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25799572" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -366,11 +367,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/step/java/exercises/Db.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="94" column="46" selection-start-line="94" selection-start-column="46" selection-end-line="94" selection-end-column="46" />
+        <state relative-caret-position="306">
+          <caret line="110" column="49" selection-start-line="110" selection-start-column="49" selection-end-line="110" selection-end-column="49" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#hash#0;class#Db#0" />
+            <element signature="method#auth_xe#0;class#Db#0" />
           </folding>
         </state>
       </provider>
