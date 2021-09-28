@@ -108,7 +108,12 @@ public class Db {
                     String salt = res.getString("PASS_SALT");
                     String hash = res.getString("PASS_HASH");
                     String pass = hash(salt + authData[1]);
-                    System.out.println(pass + "\n" + hash);
+                    //System.out.println(pass + "\n" + hash);
+                    if (pass.equals(hash)) {
+                        System.out.printf("Hello, %s", authData[0]);
+                    } else {
+                        System.out.println("Incorrect login/password");
+                    }
                 } else {
                     System.out.println("Login unknown");
                 }
