@@ -126,6 +126,7 @@ public class Db {
 
     public void register_xe() {
         do {
+            System.out.println("REGISTRATION");
             System.out.println("Login/Password/Name: ");
             Scanner scanner = new Scanner(System.in);
             String userInput = scanner.nextLine();
@@ -141,7 +142,25 @@ public class Db {
                     prep.setString(1, authData[0]);
                     ResultSet res = prep.executeQuery();
                     if (res.next()) {
-
+                        if (authData[1].length() > 4) {
+                            try (PreparedStatement prep = getConnection().prepareStatement(
+                                    "INSERT INTO " + PREFIX + "users (login, name, pass_salt, pass_hash)" +
+                                            "VALUES(?, ?, ?, ?)"
+                            )) {
+                                String name = authData[2];
+                                String salt = hash(name);
+                                String pass = hash(salt + "123");
+                                prep.setString(1, "user1");
+                                prep.setString(2, name);
+                                prep.setString(3, salt);
+                                prep.setString(4, pass);
+                                prep.executeUpdate();
+                            } catch (SQLException ex) {
+                                System.err.println(ex.getMessage());
+                            }
+                        } else {
+                            System.out.println("Password must be bigger than 4 symbols!");
+                        }
                     } else {
                         System.out.println("Login already exists");
                     }
