@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2d49e859-3522-4ac7-93d2-a1b782b5aa26" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/step/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/step/java/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/step/java/exercises/Db.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/step/java/exercises/Db.java" afterDir="false" />
     </list>
@@ -30,15 +29,19 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/step/java/exercises/Db.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="157" column="63" selection-start-line="157" selection-start-column="63" selection-end-line="157" selection-end-column="63" />
+            <state relative-caret-position="537">
+              <caret line="114" column="50" selection-start-line="114" selection-start-column="50" selection-end-line="114" selection-end-column="50" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#getConnection#0;class#Db#0" />
                 <element signature="method#hash#0;class#Db#0" />
               </folding>
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/step/java/config/db.json">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -141,6 +144,13 @@
               <item name="oop 21.09.21" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Main.java" type="b2602c69:ProjectViewProjectNode" />
+              <item name="oop 21.09.21" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="exercises" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -224,12 +234,12 @@
       <workItem from="1632291353833" duration="13075000" />
       <workItem from="1632376160414" duration="3553000" />
       <workItem from="1632463624711" duration="11409000" />
-      <workItem from="1632808247229" duration="4419000" />
+      <workItem from="1632808247229" duration="6210000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="32456000" />
+    <option name="totallyTimeSpent" value="34247000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -277,6 +287,12 @@
           <line>91</line>
           <properties />
           <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/step/java/exercises/Db.java</url>
+          <line>24</line>
+          <properties />
+          <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/step/java/library/Library.java</url>
@@ -339,6 +355,9 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/step/java/config/db.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/step/java/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="418">
@@ -348,11 +367,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/step/java/exercises/Db.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="157" column="63" selection-start-line="157" selection-start-column="63" selection-end-line="157" selection-end-column="63" />
+        <state relative-caret-position="537">
+          <caret line="114" column="50" selection-start-line="114" selection-start-column="50" selection-end-line="114" selection-end-column="50" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#getConnection#0;class#Db#0" />
             <element signature="method#hash#0;class#Db#0" />
           </folding>
         </state>

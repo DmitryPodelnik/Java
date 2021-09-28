@@ -1,5 +1,6 @@
 package step.java.exercises;
 
+import oracle.jdbc.internal.OracleStatement;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -21,7 +22,7 @@ public class Db {
             // Loading config: ../config/db.json
             String connectionString;
 
-            File file = new File("./src/com/library/config/db.json");
+            File file = new File("./src/step/java/config/db.json");
             if (!file.exists()) {
                 System.out.println("Config location error");
                 return null;
@@ -91,8 +92,29 @@ public class Db {
     public void login_xe() {
         System.out.println("Login/Password: ");
         Scanner scanner = new Scanner(System.in);
-        scanner.nextLine();
+        String userInput = scanner.nextLine();
+        String[] authData = userInput.split("/");
+        System.out.println(authData[0] + " " + authData[1]);
 
+        if( authData.length != 2) {
+            System.out.println("Invalid input format");
+        } else {
+            try (PreparedStatement prep = getConnection().prepareStatement(
+                    "SELECT U.* FROM " + PREFIX + "users U WHERE U.login=? "
+            )) {
+                prep.setString(1, authData[0]);
+                ResultSet res = prep.executeQuery();
+                if (res.next()) {
+                    String salt = res.getString("PASS_SALT");
+                    String hash = res.getString("PASS_HASH");
+                    System.out.println(salt + " " + hash);
+                } else {
+                    System.out.println("Login unknown");
+                }
+            } catch (SQLException ex) {
+                System.err.println(ex.getMessage());
+            }
+        }
 
     }
     public void auth_xe() {
@@ -155,7 +177,7 @@ public class Db {
         // Loading config: ../config/db.json
         String connectionString;
 
-        File file = new File("./src/step/java/config/db.json");
+        File file = new File("./src/step/java/config/db3.json");
         if (!file.exists()) {
             System.out.println("Config location error");
             return;
@@ -394,7 +416,7 @@ public class Db {
 
         String connectionString;
         // Loading config: ../config/db3.json
-        File file = new File("./src/com/library/config/db3.json");
+        File file = new File("./src/step/java/config/db3.json");
         if (!file.exists()) {
             System.out.println("Config location error");
             return;
