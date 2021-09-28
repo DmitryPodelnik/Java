@@ -92,6 +92,8 @@ public class Db {
         System.out.println("Login/Password: ");
         Scanner scanner = new Scanner(System.in);
         scanner.nextLine();
+
+
     }
     public void auth_xe() {
         String query = "";
@@ -153,7 +155,7 @@ public class Db {
         // Loading config: ../config/db.json
         String connectionString;
 
-        File file = new File("./src/com/library/config/db.json");
+        File file = new File("./src/step/java/config/db.json");
         if (!file.exists()) {
             System.out.println("Config location error");
             return;

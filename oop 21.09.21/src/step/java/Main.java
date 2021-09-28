@@ -30,6 +30,7 @@ public class Main {
 
         // Db db = new Db();
         // db.demo();
-        new Db().login_xe();
+        // new Db().login_xe();
+        new Db().auth_xe();
     }
 }
