@@ -133,7 +133,7 @@ public class Db {
             String[] authData = userInput.split("/");
             System.out.println(authData[0] + " " + authData[1] + authData[2]);
 
-            if (authData.length != 2) {
+            if (authData.length != 3) {
                 System.out.println("Invalid input format");
             } else {
                 try (PreparedStatement prep = getConnection().prepareStatement(
@@ -143,18 +143,18 @@ public class Db {
                     ResultSet res = prep.executeQuery();
                     if (res.next()) {
                         if (authData[1].length() > 4) {
-                            try (PreparedStatement prep = getConnection().prepareStatement(
+                            try (PreparedStatement prep2 = getConnection().prepareStatement(
                                     "INSERT INTO " + PREFIX + "users (login, name, pass_salt, pass_hash)" +
                                             "VALUES(?, ?, ?, ?)"
                             )) {
                                 String name = authData[2];
                                 String salt = hash(name);
                                 String pass = hash(salt + "123");
-                                prep.setString(1, "user1");
-                                prep.setString(2, name);
-                                prep.setString(3, salt);
-                                prep.setString(4, pass);
-                                prep.executeUpdate();
+                                prep2.setString(1, "user1");
+                                prep2.setString(2, name);
+                                prep2.setString(3, salt);
+                                prep2.setString(4, pass);
+                                prep2.executeUpdate();
                             } catch (SQLException ex) {
                                 System.err.println(ex.getMessage());
                             }
