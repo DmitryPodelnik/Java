@@ -88,12 +88,17 @@ public class Db {
     }
 
     public void auth_xe() {
+        String query;
         try (Statement statement = getConnection().createStatement()) {
-            String query;
-            query = "SELECT * FROM" + PREFIX + "exercise";
-            
+            query = "CREATE TABLE " + PREFIX + "users (" +
+                    "id RAW(16) DEFAULT SYS_GUID() PRIMARY KEY," +
+                    "login NVARCHAR2(64) NOT NULL," +
+                    "name NVARCHAR2(64)," +
+                    "pass_salt CHAR(40)," +
+                    "pass_hash CHAR(40) ) ";
+
         } catch (SQLException ex) {
-            System.err.println(ex.getMessage());
+            System.err.println(ex.getMessage() + " : " + query);
             return;
         }
     }
