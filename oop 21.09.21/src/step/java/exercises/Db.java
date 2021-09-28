@@ -108,21 +108,52 @@ public class Db {
                     String salt = res.getString("PASS_SALT");
                     String hash = res.getString("PASS_HASH");
                     String pass = hash(salt + authData[1]);
-                    //System.out.println(pass + "\n" + hash);
+                    // System.out.println(pass + "\n" + hash);
                     if (pass.equals(hash)) {
-                        System.out.printf("Hello, %s", authData[0]);
+                        System.out.printf("Hello, %s", res.getString("NAME"));
                     } else {
                         System.out.println("Incorrect login/password");
                     }
                 } else {
                     System.out.println("Login unknown");
                 }
-            } catch (SQLException ex) {
+            } catch (Exception ex) {
                 System.err.println(ex.getMessage());
             }
         }
 
     }
+
+    public void register_xe() {
+        do {
+            System.out.println("Login/Password/Name: ");
+            Scanner scanner = new Scanner(System.in);
+            String userInput = scanner.nextLine();
+            String[] authData = userInput.split("/");
+            System.out.println(authData[0] + " " + authData[1] + authData[2]);
+
+            if (authData.length != 2) {
+                System.out.println("Invalid input format");
+            } else {
+                try (PreparedStatement prep = getConnection().prepareStatement(
+                        "SELECT U.* FROM " + PREFIX + "users U WHERE U.login=?"
+                )) {
+                    prep.setString(1, authData[0]);
+                    ResultSet res = prep.executeQuery();
+                    if (res.next()) {
+
+                    } else {
+                        System.out.println("Login already exists");
+                    }
+
+                } catch (Exception ex) {
+                    System.err.println(ex.getMessage());
+                }
+            }
+
+        } while (false);
+    }
+
     public void auth_xe() {
         String query = "";
         try (Statement statement = getConnection().createStatement()) {
