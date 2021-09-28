@@ -103,7 +103,6 @@ public class Db {
               "INSERT INTO " + PREFIX + "users (login, name, pass_salt, pass_hash)" +
                    "VALUES(?, ?, ?, ?)"
             );
-            statement.executeUpdate(query);
             String name = "Petrovich";
             String salt = hash(name);
             String pass = hash(salt + "123");
@@ -120,7 +119,6 @@ public class Db {
             prep.setString(2, name);
             prep.setString(3, salt);
             prep.setString(4, pass);
-            prep.executeUpdate();
             query = "INSERT INTO " + PREFIX + "users (login, name, pass_salt, pass_hash)" +
                     String.format("VALUES('user2', '%s', '%s', '%s')",
                             name,salt, pass
