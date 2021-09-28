@@ -28,7 +28,8 @@ public class Main {
 
         // new Threads().demo2();
 
-        Db db = new Db();
-        db.demo();
+        // Db db = new Db();
+        // db.demo();
+        new Db().login_xe();
     }
 }

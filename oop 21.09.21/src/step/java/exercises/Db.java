@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
+import java.util.Scanner;
 
 public class Db {
     private final String PREFIX = "KH181_14_";
@@ -87,8 +88,13 @@ public class Db {
         }
     }
 
+    public void login_xe() {
+        System.out.println("Login/Password: ");
+        Scanner scanner = new Scanner(System.in);
+        scanner.nextLine();
+    }
     public void auth_xe() {
-        String query;
+        String query = "";
         try (Statement statement = getConnection().createStatement()) {
             query = "CREATE TABLE " + PREFIX + "users (" +
                     "id RAW(16) DEFAULT SYS_GUID() PRIMARY KEY," +
