@@ -137,7 +137,7 @@ public class Db {
                 System.out.println("Invalid input format");
             } else {
                 try (PreparedStatement prep = getConnection().prepareStatement(
-                        "SELECT id FROM " + PREFIX + "users WHERE login=?"
+                        "SELECT U.id FROM " + PREFIX + "users U WHERE U.login=?"
                 )) {
                     prep.setString(1, authData[0]);
                     ResultSet res = prep.executeQuery();
