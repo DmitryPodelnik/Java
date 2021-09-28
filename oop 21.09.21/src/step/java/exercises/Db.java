@@ -119,11 +119,7 @@ public class Db {
             prep.setString(2, name);
             prep.setString(3, salt);
             prep.setString(4, pass);
-            query = "INSERT INTO " + PREFIX + "users (login, name, pass_salt, pass_hash)" +
-                    String.format("VALUES('user2', '%s', '%s', '%s')",
-                            name,salt, pass
-                    );
-            statement.executeUpdate(query);
+            prep.executeUpdate();
 
         } catch (SQLException ex) {
             System.err.println(ex.getMessage() + " : " + query);
