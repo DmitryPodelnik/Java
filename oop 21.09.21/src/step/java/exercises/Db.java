@@ -91,19 +91,7 @@ public class Db {
         try (Statement statement = getConnection().createStatement()) {
             String query;
             query = "SELECT * FROM" + PREFIX + "exercise";
-            ResultSet res = statement.executeQuery(query);
-                while (res.next()) {
-                    System.out.printf(
-                            "%s\t%s\t%s%n",
-                            res.getString(1),
-                            res.getString("name"),
-                            res.getString(3)
-                    );
-                }
-            } catch (SQLException ex) {
-                System.err.println(ex.getMessage());
-                return;
-            }
+            
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
             return;
