@@ -20,6 +20,8 @@ x = <b><%= x %></b>
 <i>Not less than 20</i>
 <% } %>
 <br/>
-<jsp:include page="for_fragment.jsp" />
+<jsp:include page="for_fragment.jsp">
+
+</jsp:include>
 </body>
 </html>
