@@ -9,22 +9,17 @@
 <html>
 <head>
     <title>Основы JSP</title>
-    <% int x = 10; %>
-    x = <b><%= x %></b>
-    <br/>
-    <% if (x < 20) { %>
-        <i>Less than 20</i>
-    <% } else { %>
-        <i>Not less than 20</i>
-    <% } %>
-    <br/>
-    <ul>
-        <% for (int i = 0; i < x; ++i) { %>
-            <li>Item <%= i + 1 %></li>
-        <% } %>
-    </ul>
 </head>
 <body>
-
+<% int x = 10; %>
+x = <b><%= x %></b>
+<br/>
+<% if (x < 20) { %>
+<i>Less than 20</i>
+<% } else { %>
+<i>Not less than 20</i>
+<% } %>
+<br/>
+<jsp:include page="for_fragment.jsp" />
 </body>
 </html>

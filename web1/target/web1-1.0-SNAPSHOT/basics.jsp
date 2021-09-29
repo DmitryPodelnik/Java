@@ -17,6 +17,9 @@
     <% } else { %>
         <i>Not less than 20</i>
     <% } %>
+    <br/>
+    <jsp:include page="for_fragment.jsp" />
+
 </head>
 <body>
 
