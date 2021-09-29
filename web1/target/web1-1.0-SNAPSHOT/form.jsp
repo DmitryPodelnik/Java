@@ -10,6 +10,7 @@
     String button = request.getParameter("button");
     String loginMessage = "";
     String realNameMessage = "";
+    String passwordMessage = "", confirmPasswordMessage = "";
     if (button != null) {
         String login = request.getParameter("login");
         if (login == null || login.isEmpty()) {
@@ -29,6 +30,25 @@
                 realNameMessage = "Real name shell not be shorter than 2 symbols";
             }
         }
+
+        String password = request.getParameter("password");
+        if (password == null || password.isEmpty()) {
+            passwordMessage = "Password shell not be empty";
+        } else {
+            if (!password.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$")) {
+                passwordMessage = "Password does not follow requirements!";
+            }
+        }
+
+        String confirmPassword = request.getParameter("confirmPassword");
+        if (confirmPassword == null || confirmPassword.isEmpty()) {
+            confirmPasswordMessage = "Confirm password shell not be empty";
+        } else {
+            if (!password.equals(confirmPassword)) {
+                confirmPasswordMessage = "Password are not equals";
+            }
+        }
+
     }
 %>
 
@@ -49,10 +69,12 @@
         <div>
             <label>Password:</label>
             <input type="password" name="password"/>
+            <i><%= passwordMessage %></i>
         </div>
         <div>
             <label>Confirm Password:</label>
-            <input type="password" name="confirmPassword"/>
+            <input type="password" name="confirmPassword"
+            <i><%= confirmPasswordMessage %></i>
         </div>
         <div>
             <label>Real name:</label>
