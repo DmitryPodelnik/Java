@@ -60,7 +60,9 @@
 <%-- Комментарий в JSP, не попадает в HTMl--%>
 <%= str%>
 <br/>
-    <a href="basics.jsp">Основы JSP</a>
+<a href="basics.jsp">Основы JSP</a>
+<br/>
+<a href="params.jsp">Передача параметров</a>
 <br/>
 <a href="hello-servlet">Hello Servlet</a>
 </body>
