@@ -1,4 +1,4 @@
-<%@ page import="java.util.Locale" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: inko1
   Date: 29.09.2021
@@ -13,11 +13,6 @@
         String login = request.getParameter("login");
         if (login == null || login.isEmpty()) {
             loginMessage = "Login shell not be empty";
-        } else {
-            if (login.toLowerCase().equals("user1")
-             || login.equalsIgnoreCase("user1")) {
-                loginMessage = "Login in use";
-            }
         }
     }
 %>
