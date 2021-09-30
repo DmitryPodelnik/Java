@@ -1,5 +1,8 @@
 package step.java.web1;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import step.java.web1.models.Book;
 
 import javax.servlet.ServletException;
@@ -18,10 +21,12 @@ public class ApiHelloServlet
             throws ServletException, IOException {
         resp.getWriter().print(
                 // "Hello from API"
-                new Book(
+                toStringFromJson(
+                        new Book(
                         "Stainback",
                         "Grapes of Wrath"
                         ).toJsonString()
+                )
         );
 
     }
@@ -39,5 +44,18 @@ public class ApiHelloServlet
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.getWriter().print("Hello from DELETE API");
+    }
+
+    private String toStringFromJson(String jsonString) {
+        JSONParser jsonParser = new JSONParser();
+        JSONObject obj = new JSONObject();
+
+        try {
+            obj = (JSONObject) jsonParser.parse(jsonString);
+            return "Title: " + obj.get("title").toString() + "\nAuthor: " + obj.get("author").toString();
+        } catch (ParseException ignore) {
+
+        }
+        return null;
     }
 }
