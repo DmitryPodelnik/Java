@@ -1,5 +1,7 @@
 package step.java.web1;
 
+import step.java.web1.models.Book;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,7 +16,13 @@ public class ApiHelloServlet
     protected void doGet(HttpServletRequest req,
                          HttpServletResponse resp)
             throws ServletException, IOException {
-        resp.getWriter().print("Hello from API");
+        resp.getWriter().print(
+                // "Hello from API"
+                new Book(
+                        "Stainback",
+                        "Grapes of Wrath"
+                        ).toJsonString()
+        );
 
     }
 
