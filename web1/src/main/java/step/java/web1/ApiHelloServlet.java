@@ -16,13 +16,6 @@ public class ApiHelloServlet
     protected void doGet(HttpServletRequest req,
                          HttpServletResponse resp)
             throws ServletException, IOException {
-
-        try {
-            Class.forName("org.json.JSONObject");
-        } catch (ClassNotFoundException ignored) {
-            resp.getWriter().print("No class");
-            return;
-        }
         resp.getWriter().print(
                 // "Hello from API"
                 new Book(

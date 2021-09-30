@@ -1,6 +1,6 @@
 package step.java.web1.models;
 
-import org.json.JSONObject;
+import org.json.simple.JSONObject;
 
 public class Book {
     private String author;
