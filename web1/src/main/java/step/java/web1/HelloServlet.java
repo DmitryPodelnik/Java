@@ -57,10 +57,18 @@ public class HelloServlet extends HttpServlet {
         String cellphoneMessage = "";
         if (cellphone == null || cellphone.isEmpty()) {
             cellphoneMessage = "Cellphone cannot be empty";
+        } else {
+            if (!cellphone.matches("^[^0-9\\+]$") {
+                cellphoneMessage = "Cellphone must have only digits";
+            }
         }
         String usernameMessage = "";
         if (username == null || username.isEmpty()) {
             usernameMessage = "Username cannot be empty";
+        } else {
+            if (!username.matches("^\\d+$")) {
+                usernameMessage = "Username must have no digits";
+            }
         }
         // HTTP сессия - способ хранения данных между запросами
         HttpSession session = req.getSession();
