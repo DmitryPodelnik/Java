@@ -58,7 +58,7 @@ public class HelloServlet extends HttpServlet {
         if (cellphone == null || cellphone.isEmpty()) {
             cellphoneMessage = "Cellphone cannot be empty";
         } else {
-            if (!cellphone.matches("^[^0-9\\+]$") {
+            if (!cellphone.matches("^\\d+$")) {
                 cellphoneMessage = "Cellphone must have only digits";
             }
         }
@@ -66,7 +66,7 @@ public class HelloServlet extends HttpServlet {
         if (username == null || username.isEmpty()) {
             usernameMessage = "Username cannot be empty";
         } else {
-            if (!username.matches("^\\d+$")) {
+            if (!username.matches("^\\D+$")) {
                 usernameMessage = "Username must have no digits";
             }
         }
