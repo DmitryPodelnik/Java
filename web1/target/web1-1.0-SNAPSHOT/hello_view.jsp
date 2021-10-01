@@ -30,5 +30,13 @@
     <button onclick="deleteClick()">DELETE</button>
     <p id="server-result"></p>
     <script src="js/hello_view.js"></script>
+
+<h2>Формы. Продвинутая работа</h2>
+<form method="post" action="" >
+    Телефон <input name="cellular" />
+    Имя <input name="username" />
+    <input type="submit" value="Заказ звонка" />
+</form>
+
 </body>
 </html>

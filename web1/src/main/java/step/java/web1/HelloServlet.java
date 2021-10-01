@@ -32,6 +32,17 @@ public class HelloServlet extends HttpServlet {
         }
     }
 
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String cellphone = req.getParameter("cellular");
+        String username = req.getParameter("username");
+
+        String cellphoneMessage = "";
+        if (cellphone == null || cellphone.isEmpty()) {
+
+        }
+    }
+
     public void destroy() {
     }
 }
