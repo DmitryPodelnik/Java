@@ -41,7 +41,10 @@ public class HelloServlet extends HttpServlet {
         if (cellphone == null || cellphone.isEmpty()) {
             cellphoneMessage = "Cellphone cannot be empty";
         }
-        //resp.sendRedirect();
+
+        resp.sendRedirect(req.getRequestURI());
+        // Клиент получит ответ со статусом 30х и Location: тот же адрес - Browser отправит запрос
+        // на этот адрес методом GET !!!
 
         // !! На запросы POST нельзя строить View
         /*
