@@ -34,9 +34,17 @@
 <h2>Формы. Продвинутая работа</h2>
 <form method="post" action="" >
     Телефон <input name="cellular" />
+    <%= request.getAttribute("cellphoneMessage") %>
+    <br/>
     Имя <input name="username" />
     <input type="submit" value="Заказ звонка" />
 </form>
+    <br/>getContextPath() <%= request.getContextPath() %>
+    <br/>getPathInfo()    <%= request.getPathInfo()    %>
+    <br/>getQueryString() <%= request.getQueryString() %>
+    <br/>getRequestURI()  <%= request.getRequestURI()  %>
+    <br/>getServletPath() <%= request.getServletPath() %>
+
 
 </body>
 </html>

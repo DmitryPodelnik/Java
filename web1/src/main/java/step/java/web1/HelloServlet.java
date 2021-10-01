@@ -39,8 +39,20 @@ public class HelloServlet extends HttpServlet {
 
         String cellphoneMessage = "";
         if (cellphone == null || cellphone.isEmpty()) {
-
+            cellphoneMessage = "Cellphone cannot be empty";
         }
+        //resp.sendRedirect();
+
+        // !! На запросы POST нельзя строить View
+        /*
+        req.setAttribute("cellphoneMessage", cellphoneMessage);
+        try {
+            req.getRequestDispatcher("hello_view.jsp")
+               .forward(req, resp);
+        } catch (ServletException ex) {
+            System.out.println(ex.getMessage());
+        }
+         */
     }
 
     public void destroy() {
