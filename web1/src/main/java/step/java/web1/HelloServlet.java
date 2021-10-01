@@ -29,15 +29,25 @@ public class HelloServlet extends HttpServlet {
             } else {
                 cellphoneMessage = "";
             }
+
             String usernameMessage = (String) session.getAttribute("usernameMessage");
             if (usernameMessage != null) {
                 session.removeAttribute("usernameMessage");
             } else {
                 usernameMessage = "";
             }
+
+            String emailMessage = (String) session.getAttribute("emailMessage");
+            if (emailMessage != null) {
+                session.removeAttribute("emailMessage");
+            } else {
+                emailMessage = "";
+            }
+
             // включаем сообщение в атрибуты запроса (для View)
             request.setAttribute("cellphoneMessage", cellphoneMessage);
             request.setAttribute("usernameMessage", usernameMessage);
+            request.setAttribute("emailMessage", emailMessage);
 
             // Часть задачи по подстановке прошлых данных
 
@@ -75,6 +85,7 @@ public class HelloServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String cellphone = req.getParameter("cellular");
         String username = req.getParameter("username");
+        String email = req.getParameter("email");
 
         String cellphoneMessage = "";
         if (cellphone == null || cellphone.isEmpty()) {
@@ -84,6 +95,7 @@ public class HelloServlet extends HttpServlet {
                 cellphoneMessage = "Cellphone must have only digits";
             }
         }
+
         String usernameMessage = "";
         if (username == null || username.isEmpty()) {
             usernameMessage = "Username cannot be empty";
@@ -93,18 +105,30 @@ public class HelloServlet extends HttpServlet {
             }
         }
 
+        String emailMessage = "";
+        if (email == null || email.isEmpty()) {
+            emailMessage = "Email cannot be empty";
+        } else {
+            if (!email.matches("^[a-zA-Z]\\w{2,15}@([a-z]+\\.)+[a-z]{2,3}$")) {
+                emailMessage = "Incorrect email";
+            }
+        }
+
         // HTTP сессия - способ хранения данных между запросами
         HttpSession session = req.getSession();
         session.setAttribute("cellphoneMessage", cellphoneMessage);
         session.setAttribute("usernameMessage", usernameMessage);
+        session.setAttribute("emailMessage", emailMessage);
 
         // Задача: отображать на форме ранее введенные значения,
         // ЕСЛИ данные формы не приняты
-        if (usernameMessage.length() > 0 || cellphoneMessage.length() > 0) {
+        if (usernameMessage.length() > 0 || cellphoneMessage.length() > 0
+            || emailMessage.length() > 0) {
             // есть сообщение(я) - валидация не прошла
             // сохраняем в сессию полученные значения
             session.setAttribute("cellValue", cellphone);
             session.setAttribute("nameValue", username);
+            session.setAttribute("emailValue", email);
         }
 
         resp.sendRedirect(req.getRequestURI());

@@ -39,8 +39,11 @@
     <br/>
     Имя <input name="username"
                value="<%= (request.getAttribute("nameValue") == null) ? "" : request.getAttribute("nameValue") %>" />
+    <br/>
+    Email <input name="email"
+               value="<%= (request.getAttribute("emailValue") == null) ? "" : request.getAttribute("emailValue") %>" />
     <input type="submit" value="Заказ звонка" />
-    <%= request.getAttribute("usernameMessage") %>
+    <%= request.getAttribute("emailMessage") %>
 </form>
     <br/>getContextPath() <%= request.getContextPath() %>
     <br/>getPathInfo()    <%= request.getPathInfo()    %>
