@@ -104,7 +104,7 @@ public class HelloServlet extends HttpServlet {
             // есть сообщение(я) - валидация не прошла
             // сохраняем в сессию полученные значения
             session.setAttribute("cellValue", cellphone);
-            session.setAttribute("nameVale", username);
+            session.setAttribute("nameValue", username);
         }
 
         resp.sendRedirect(req.getRequestURI());

@@ -34,11 +34,11 @@
 <h2>Формы. Продвинутая работа</h2>
 <form method="post" action="" >
     Телефон <input name="cellular"
-                   value="<%= request.getAttribute("cellValue") %>" />
+                   value="<%= (request.getAttribute("cellValue") == null) ? "" : request.getAttribute("cellValue") %>" />
     <%= request.getAttribute("cellphoneMessage") %>
     <br/>
     Имя <input name="username"
-               value="<%= request.getAttribute("nameValue") %>" />
+               value="<%= (request.getAttribute("nameValue") == null) ? "" : request.getAttribute("nameValue") %>" />
     <input type="submit" value="Заказ звонка" />
     <%= request.getAttribute("usernameMessage") %>
 </form>
