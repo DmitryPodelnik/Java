@@ -34,7 +34,7 @@ public class HelloServlet extends HttpServlet {
             }
             // включаем сообщение в атрибуты запроса (для View)
             request.setAttribute("cellphoneMessage", cellphoneMessage);
-            request.setAttribute("usernameMessage", cellphoneMessage);
+            request.setAttribute("usernameMessage", usernameMessage);
             // Загружаем представление (View)
             request
                     .getRequestDispatcher("hello_view.jsp")
@@ -70,10 +70,20 @@ public class HelloServlet extends HttpServlet {
                 usernameMessage = "Username must have no digits";
             }
         }
+
         // HTTP сессия - способ хранения данных между запросами
         HttpSession session = req.getSession();
         session.setAttribute("cellphoneMessage", cellphoneMessage);
         session.setAttribute("usernameMessage", usernameMessage);
+
+        // Задача: отображать на форме ранее введенные значения,
+        // ЕСЛИ данные формы не приняты
+        if (usernameMessage.length() > 0 || cellphoneMessage.length() > 0) {
+            // есть сообщение(я) - валидация не прошла
+            // сохраняем в сессию полученные значения
+            session.setAttribute("cellValue", cellphone);
+            session.setAttribute("nameVale", username);
+        }
 
         resp.sendRedirect(req.getRequestURI());
         // Клиент получит ответ со статусом 30х и Location: тот же адрес - Browser отправит запрос
