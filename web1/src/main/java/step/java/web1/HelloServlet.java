@@ -1,6 +1,7 @@
 package step.java.web1;
 
 import java.io.*;
+import java.util.Enumeration;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -37,23 +38,21 @@ public class HelloServlet extends HttpServlet {
             request.setAttribute("usernameMessage", usernameMessage);
 
             // Часть задачи по подстановке прошлых данных
-            String cellValue = (String) session.getAttribute("cellValue");
-            if (cellValue != null) {
-                request.setAttribute("cellValue", cellValue);
-                session.removeAttribute("cellValue");
-            } else {
-                request.setAttribute("cellValue", "");
-            }
 
-            for (String attrName :
-                    new String[] {"cellValue", "nameValue"}) {
-                String theValue =
-                        (String) session.getAttribute(attrName);
-                if (theValue != null) {
-                    session.removeAttribute(attrName);
+            //  for (String attrName :
+            //        new String[] {"cellValue", "nameValue"}) {
+            Enumeration<String> names = session.getAttributeNames();
+            while (names.hasMoreElements()) {
+                String attrName = names.nextElement();
+                if (attrName.endsWith("Value")) {
+                    String theValue =
+                            (String) session.getAttribute(attrName);
+                    if (theValue != null) {
+                        session.removeAttribute(attrName);
+                    }
+                    request.setAttribute(attrName,
+                            (theValue == null) ? "" : theValue);
                 }
-                request.setAttribute(attrName,
-                        (theValue == null) ? "" : theValue);
             }
 
             // Загружаем представление (View)
