@@ -35,6 +35,27 @@ public class HelloServlet extends HttpServlet {
             // включаем сообщение в атрибуты запроса (для View)
             request.setAttribute("cellphoneMessage", cellphoneMessage);
             request.setAttribute("usernameMessage", usernameMessage);
+
+            // Часть задачи по подстановке прошлых данных
+            String cellValue = (String) session.getAttribute("cellValue");
+            if (cellValue != null) {
+                request.setAttribute("cellValue", cellValue);
+                session.removeAttribute("cellValue");
+            } else {
+                request.setAttribute("cellValue", "");
+            }
+
+            for (String attrName :
+                    new String[] {"cellValue", "nameValue"}) {
+                String theValue =
+                        (String) session.getAttribute(attrName);
+                if (theValue != null) {
+                    session.removeAttribute(attrName);
+                }
+                request.setAttribute(attrName,
+                        (theValue == null) ? "" : theValue);
+            }
+
             // Загружаем представление (View)
             request
                     .getRequestDispatcher("hello_view.jsp")
