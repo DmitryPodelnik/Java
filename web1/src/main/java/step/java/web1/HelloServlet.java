@@ -32,6 +32,8 @@ public class HelloServlet extends HttpServlet {
             String usernameMessage = (String) session.getAttribute("usernameMessage");
             if (usernameMessage != null) {
                 session.removeAttribute("usernameMessage");
+            } else {
+                usernameMessage = "";
             }
             // включаем сообщение в атрибуты запроса (для View)
             request.setAttribute("cellphoneMessage", cellphoneMessage);

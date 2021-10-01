@@ -38,7 +38,7 @@
     <%= request.getAttribute("cellphoneMessage") %>
     <br/>
     Имя <input name="username"
-               value="<%= request.getAttribute("cellValue") %>" />
+               value="<%= request.getAttribute("nameValue") %>" />
     <input type="submit" value="Заказ звонка" />
     <%= request.getAttribute("usernameMessage") %>
 </form>
