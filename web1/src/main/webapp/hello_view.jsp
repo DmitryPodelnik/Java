@@ -39,6 +39,7 @@
     <br/>
     Имя <input name="username"
                value="<%= (request.getAttribute("nameValue") == null) ? "" : request.getAttribute("nameValue") %>" />
+    <%= request.getAttribute("usernameMessage") %>
     <br/>
     Email <input name="email"
                value="<%= (request.getAttribute("emailValue") == null) ? "" : request.getAttribute("emailValue") %>" />
