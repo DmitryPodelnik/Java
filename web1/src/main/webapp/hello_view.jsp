@@ -38,6 +38,7 @@
     <br/>
     Имя <input name="username" />
     <input type="submit" value="Заказ звонка" />
+    <%= request.getAttribute("usernameMessage") %>
 </form>
     <br/>getContextPath() <%= request.getContextPath() %>
     <br/>getPathInfo()    <%= request.getPathInfo()    %>
