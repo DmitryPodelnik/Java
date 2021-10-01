@@ -19,6 +19,18 @@ public class HelloServlet extends HttpServlet {
         response.setContentType("text/html");
 
         try {
+            // Проверяем наличие в сессии атрибутов
+            HttpSession session = request.getSession();
+            String cellphoneMessage = (String) session.getAttribute("cellphoneMessage");
+            if (cellphoneMessage != null ) {  // есть в сессии
+                // удаляем из сессии, иначе сообщение будет с каждым обновлением страницы
+                session.removeAttribute("cellphoneMessage");
+            } else {
+                cellphoneMessage = "";
+            }
+            // включаем сообщение в атрибуты запроса (для View)
+            request.setAttribute("cellphoneMessage", cellphoneMessage);
+            // Загружаем представление (View)
             request
                     .getRequestDispatcher("hello_view.jsp")
                     .forward(request, response);
@@ -41,6 +53,9 @@ public class HelloServlet extends HttpServlet {
         if (cellphone == null || cellphone.isEmpty()) {
             cellphoneMessage = "Cellphone cannot be empty";
         }
+        // HTTP сессия - способ хранения данных между запросами
+        HttpSession session = req.getSession();
+        session.setAttribute("cellphoneMessage", cellphoneMessage);
 
         resp.sendRedirect(req.getRequestURI());
         // Клиент получит ответ со статусом 30х и Location: тот же адрес - Browser отправит запрос
