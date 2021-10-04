@@ -7,6 +7,7 @@
     <servlet>
         <servlet-name>galleryServlet</servlet-name>
         <servlet-class>step.java.web1.GalleryServlet</servlet-class>
+        <multipart-config></multipart-config>
     </servlet>
     <servlet-mapping> <!-- @WebServlet("/gallery") -->
         <servlet-name>galleryServlet</servlet-name>

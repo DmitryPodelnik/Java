@@ -16,7 +16,10 @@ public class GalleryServlet
                 download
             Uploading:
                 1. <form> <input type="file" ... />
-
+                2. <form method="post"enctype="multipart/form-data" ... />
+                3. конфиг. сервлета :
+                    а) <multipart-config />
+                    б) @MultipartConfig
          */
 
         req.getRequestDispatcher("gallery.jsp")
