@@ -34,12 +34,20 @@ public class GalleryServlet
             a) .getSubmittedFileName()
             b) extract from header:
                 content-disposition: form-daya; name="galleryfile"; filename="imp.png"
-
          */
+        String attachedFilename = null;
+        String contentDisposition = filePart.getHeader("content-disposition");
+        if (contentDisposition != null) {
+            for (String part : contentDisposition.split("; ")) {
+                if (part.startsWith("filename")) {
+                    attachedFilename = part.substring(10, part.length() -1);
+                }
+            }
+        }
 
         session.setAttribute(
                 "uploadMessage",
-                filePart.getSubmittedFileName());
+                attachedFilename == null ? "Name error" : attachedFilename);
         resp.sendRedirect(req.getRequestURI());
     }
 }
