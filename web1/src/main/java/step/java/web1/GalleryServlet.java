@@ -4,7 +4,10 @@ import step.java.web1.util.Hasher;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 
 public class GalleryServlet
                 extends HttpServlet {
@@ -76,6 +79,12 @@ public class GalleryServlet
                 // Полное имя файла
                 String filename = path + "\\" + savedFilename;
 
+                File destination = new File(filename);
+                Files.copy(
+                    filePart.getInputStream(), // source (Stream)
+                    destination.toPath() // destination (Path)
+                        StandardCopyOption.REPLACE_EXISTING
+                );
                 attachedFilename = filename;
             } else { // no file extension
                 attachedFilename = "no file extension";
