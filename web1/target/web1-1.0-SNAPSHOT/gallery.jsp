@@ -17,6 +17,12 @@
     <input type="file" name="galleryfile">
     <input type="submit" value="Send">
   </form>
-  <%= request.getAttribute("uploadMessage") %>
+  <% String fname =
+          (String) request.getAttribute("uploadMessage");
+     if (! "".equals(fname)) { %>
+
+    <img src="uploads/<%= fname %>">
+
+  <% } %>
 </body>
 </html>

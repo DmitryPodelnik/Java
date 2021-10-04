@@ -78,12 +78,13 @@ public class GalleryServlet
                 String path = req.getServletContext().getRealPath("/uploads");
                 // Полное имя файла
                 String filename = path + "\\" + savedFilename;
-
+// Задание: если файл с таким именем уже есть, то перегенерировать имя
+// ДЗ: ограничить "приём" для расширений картинок
                 File destination = new File(filename);
                 Files.copy(
                     filePart.getInputStream(), // source (Stream)
-                    destination.toPath() // destination (Path)
-                        StandardCopyOption.REPLACE_EXISTING
+                    destination.toPath(), // destination (Path)
+                    StandardCopyOption.REPLACE_EXISTING
                 );
                 attachedFilename = filename;
             } else { // no file extension
