@@ -19,6 +19,15 @@ public class GalleryServlet
                     а) <multipart-config />
                     б) @MultipartConfig
          */
+        HttpSession session = req.getSession();
+        String uploadMessage = (String) session.getAttribute("uploadMessage");
+        if (uploadMessage != null) {
+            session.removeAttribute("uploadMessage");
+        } else {
+            uploadMessage = "";
+        }
+        req.setAttribute("uploadMessage", uploadMessage);
+
 
         req.getRequestDispatcher("gallery.jsp")
                 .forward(req,resp);
@@ -41,6 +50,7 @@ public class GalleryServlet
             for (String part : contentDisposition.split("; ")) {
                 if (part.startsWith("filename")) {
                     attachedFilename = part.substring(10, part.length() -1);
+                    break;
                 }
             }
         }

@@ -11,9 +11,12 @@
   <title>Gallery</title>
 </head>
 <body>
-<form>
-  <input type="file" name="galleryfile">
-  <input type="submit" value="Send">
-</form>
+  <form method="post"
+        enctype="multipart/form-data"
+        action="" >
+    <input type="file" name="galleryfile">
+    <input type="submit" value="Send">
+  </form>
+  <%= request.getAttribute("uploadMessage") %>
 </body>
 </html>
