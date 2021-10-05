@@ -72,21 +72,27 @@ public class GalleryServlet
             int dotPosition = attachedFilename.lastIndexOf(".");
             if (dotPosition > -1) {
                 extension = attachedFilename.substring(dotPosition);
-                // формируем случайное имя файла, сохраняем расширение
-                String savedFilename = Hasher.hash(attachedFilename) + extension;
                 // Определяем путь в файловой системе
                 String path = req.getServletContext().getRealPath("/uploads");
-                // Полное имя файла
-                String filename = path + "\\" + savedFilename;
+
+                File destination;
+                do {
+                    // формируем случайное имя файла, сохраняем расширение
+                    String savedFilename = Hasher.hash(attachedFilename) + extension;
+                    // Полное имя файла
+                    String filename = path + "\\" + savedFilename;
 // Задание: если файл с таким именем уже есть, то перегенерировать имя
 // ДЗ: ограничить "приём" для расширений картинок
-                File destination = new File(filename);
+                    destination = new File(filename);
+                    attachedFilename = filename;
+                } while (destination.exists());
+
+
                 Files.copy(
                     filePart.getInputStream(), // source (Stream)
                     destination.toPath(), // destination (Path)
                     StandardCopyOption.REPLACE_EXISTING
                 );
-                attachedFilename = filename;
             } else { // no file extension
                 attachedFilename = "no file extension";
             }
