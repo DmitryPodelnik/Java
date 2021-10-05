@@ -18,7 +18,7 @@
     <br/>
     Description:
     <textarea name="galleryDescription">
-      New image
+        <%= request.getAttribute("galleryDescription") %>
     </textarea>
     <input type="submit" value="Send">
   </form>
@@ -30,6 +30,6 @@
 
   <% } %>
 
-  <%= request.getAttribute("galleryDescription") %>
+  <%= request.getAttribute("uploadMessage") %>
 </body>
 </html>

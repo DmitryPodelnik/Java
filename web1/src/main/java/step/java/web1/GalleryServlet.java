@@ -66,7 +66,7 @@ public class GalleryServlet
          */
 
         req.getRequestDispatcher("gallery.jsp")
-                .forward(req,resp);
+                .forward(req, resp);
     }
 
     @Override
@@ -86,7 +86,7 @@ public class GalleryServlet
         if (contentDisposition != null) {
             for (String part : contentDisposition.split("; ")) {
                 if (part.startsWith("filename")) {
-                    attachedFilename = part.substring(10, part.length() -1);
+                    attachedFilename = part.substring(10, part.length() - 1);
                     break;
                 }
             }
@@ -97,38 +97,42 @@ public class GalleryServlet
             int dotPosition = attachedFilename.lastIndexOf(".");
             if (dotPosition > -1) {
                 extension = attachedFilename.substring(dotPosition);
-                // Определяем путь в файловой системе
-                String path = req.getServletContext().getRealPath("/uploads");
+                if (extension.equals(".jpeg") || extension.equals(".jpg") ||
+                        extension.equals(".gif") || extension.equals(".svg+xml")) {
 
-                File destination;
-                String filename, savedFilename;
-                do {
-                    // формируем случайное имя файла, сохраняем расширение
-                    savedFilename = Hasher.hash(attachedFilename) + extension;
-                    // Полное имя файла
+                    // Определяем путь в файловой системе
+                    String path = req.getServletContext().getRealPath("/uploads");
+
+                    File destination;
+                    String filename, savedFilename;
+                    do {
+                        // формируем случайное имя файла, сохраняем расширение
+                        savedFilename = Hasher.hash(attachedFilename) + extension;
+                        // Полное имя файла
+                        filename = path + "\\" + savedFilename;
+                        destination = new File(filename);
+                        attachedFilename = filename;
+                    } while (destination.exists()); // если файл с таким именем уже есть, то перегенерировать имя
+
+
+                    Files.copy(
+                            filePart.getInputStream(), // source (Stream)
+                            destination.toPath(), // destination (Path)
+                            StandardCopyOption.REPLACE_EXISTING
+                    );
+
+                    // копируем в папку исходного проекта (для сохранения)
+                    path = "D:\\JAVA ITSTEP\\GIT\\web1\\src\\main\\webapp\\uploads";
                     filename = path + "\\" + savedFilename;
-
-// ДЗ: ограничить "приём" для расширений картинок
                     destination = new File(filename);
-                    attachedFilename = filename;
-                } while (destination.exists()); // если файл с таким именем уже есть, то перегенерировать имя
-
-
-                Files.copy(
-                    filePart.getInputStream(), // source (Stream)
-                    destination.toPath(), // destination (Path)
-                    StandardCopyOption.REPLACE_EXISTING
-                );
-
-                // копируем в папку исходного проекта (для сохранения)
-                path = "D:\\JAVA ITSTEP\\GIT\\web1\\src\\main\\webapp\\uploads";
-                filename = path + "\\" + savedFilename;
-                destination = new File(filename);
-                Files.copy(
-                        filePart.getInputStream(), // source (Stream)
-                        destination.toPath(), // destination (Path)
-                        StandardCopyOption.REPLACE_EXISTING
-                );
+                    Files.copy(
+                            filePart.getInputStream(), // source (Stream)
+                            destination.toPath(), // destination (Path)
+                            StandardCopyOption.REPLACE_EXISTING
+                    );
+                } else {
+                    attachedFilename = "no allow file extension";
+                }
             } else { // no file extension
                 attachedFilename = "no file extension";
             }
