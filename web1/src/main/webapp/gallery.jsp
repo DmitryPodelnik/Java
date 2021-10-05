@@ -15,6 +15,11 @@
         enctype="multipart/form-data"
         action="" >
     <input type="file" name="galleryfile">
+    <br/>
+    Description:
+    <textarea name="galleryDescription">
+      New image
+    </textarea>
     <input type="submit" value="Send">
   </form>
   <% String fname =
@@ -24,5 +29,7 @@
     <img src="uploads/<%= fname %>">
 
   <% } %>
+
+  <%= request.getAttribute("galleryDescription") %>
 </body>
 </html>

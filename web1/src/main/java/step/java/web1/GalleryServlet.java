@@ -31,6 +31,22 @@ public class GalleryServlet
         req.setCharacterEncoding("UTF-8");
 
         HttpSession session = req.getSession();
+        String[] sessionAttributes = {"uploadMessage", "galleryDescription"};
+        for (String attrName : sessionAttributes) {
+            String attrValue =
+                    (String) session.getAttribute(attrName);
+            if (attrValue != null) {
+                session.removeAttribute(attrName);
+            } else {
+                attrValue = "";
+            }
+            req.setAttribute(attrName, attrValue);
+        }
+
+
+
+        /*
+        // сообщение о загрузке файла (имя сохраненного файла)
         String uploadMessage = (String) session.getAttribute("uploadMessage");
         if (uploadMessage != null) {
             session.removeAttribute("uploadMessage");
@@ -39,6 +55,15 @@ public class GalleryServlet
         }
         req.setAttribute("uploadMessage", uploadMessage);
 
+        // Description
+        String galleryDescription = (String) session.getAttribute("galleryDescription");
+        if (galleryDescription != null) {
+            session.removeAttribute("galleryDescription");
+        } else {
+            galleryDescription = "";
+        }
+        req.setAttribute("galleryDescription", galleryDescription);
+         */
 
         req.getRequestDispatcher("gallery.jsp")
                 .forward(req,resp);
@@ -76,22 +101,33 @@ public class GalleryServlet
                 String path = req.getServletContext().getRealPath("/uploads");
 
                 File destination;
+                String filename, savedFilename;
                 do {
                     // формируем случайное имя файла, сохраняем расширение
-                    String savedFilename = Hasher.hash(attachedFilename) + extension;
+                    savedFilename = Hasher.hash(attachedFilename) + extension;
                     // Полное имя файла
-                    String filename = path + "\\" + savedFilename;
-// Задание: если файл с таким именем уже есть, то перегенерировать имя
+                    filename = path + "\\" + savedFilename;
+
 // ДЗ: ограничить "приём" для расширений картинок
                     destination = new File(filename);
                     attachedFilename = filename;
-                } while (destination.exists());
+                } while (destination.exists()); // если файл с таким именем уже есть, то перегенерировать имя
 
 
                 Files.copy(
                     filePart.getInputStream(), // source (Stream)
                     destination.toPath(), // destination (Path)
                     StandardCopyOption.REPLACE_EXISTING
+                );
+
+                // копируем в папку исходного проекта (для сохранения)
+                path = "D:\\JAVA ITSTEP\\GIT\\web1\\src\\main\\webapp\\uploads";
+                filename = path + "\\" + savedFilename;
+                destination = new File(filename);
+                Files.copy(
+                        filePart.getInputStream(), // source (Stream)
+                        destination.toPath(), // destination (Path)
+                        StandardCopyOption.REPLACE_EXISTING
                 );
             } else { // no file extension
                 attachedFilename = "no file extension";
@@ -101,6 +137,12 @@ public class GalleryServlet
         session.setAttribute(
                 "uploadMessage",
                 attachedFilename == null ? "Name error" : attachedFilename);
+        // конец работы с файлом
+
+        // Description передается как форма, извлекается обычным образом
+        String description = req.getParameter("galleryDescription");
+        session.setAttribute("galleryDescription", description);
+
         resp.sendRedirect(req.getRequestURI());
     }
 }
