@@ -1,3 +1,4 @@
+<%@ page import="step.java.web1.util.Db" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -68,5 +69,6 @@
 <br/>
 <a href="form.jsp">Form</a>
 <br/>
+<%= Db.getConnection() %>
 </body>
 </html>
