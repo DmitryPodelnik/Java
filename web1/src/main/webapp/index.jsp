@@ -70,6 +70,6 @@
 <a href="form.jsp">Form</a>
 <br/>
 <%= Db.getConnection() %>
-<% Db.createGallery(); %>
+<%-- Db.createGallery(); --%>
 </body>
 </html>

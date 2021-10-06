@@ -2,15 +2,13 @@ package step.java.web1.util;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import step.java.web1.models.Picture;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class Db {
     final private static String SUFFIX = "_14";
@@ -67,4 +65,21 @@ public class Db {
         }
     }
 
+    /**
+     * Inserts Picture in DB
+     */
+    public static boolean addPicture(Picture picture) {
+        if (connection == null) {
+            return false;
+        }
+        String query = "INSERT INTO images" + SUFFIX +
+                "(Name, Description) VALUES(?, ?)";
+        try(PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, picture.getName());
+            statement.setString(2, picture.getDescription());
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            System.err.println("addPicture: " + ex.getMessage() + " " + query);
+        }
+    }
 }

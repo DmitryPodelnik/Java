@@ -75,12 +75,7 @@ public class GalleryServlet
         Part filePart = req.getPart("galleryfile"); // имя <input type="file" />
         HttpSession session = req.getSession();
 
-        /*
-            Submitted file name
-            a) .getSubmittedFileName()
-            b) extract from header:
-                content-disposition: form-daya; name="galleryfile"; filename="imp.png"
-         */
+
         String attachedFilename = null;
         String contentDisposition = filePart.getHeader("content-disposition");
         if (contentDisposition != null) {
@@ -114,7 +109,6 @@ public class GalleryServlet
                         attachedFilename = filename;
                     } while (destination.exists()); // если файл с таким именем уже есть, то перегенерировать имя
 
-
                     Files.copy(
                             filePart.getInputStream(), // source (Stream)
                             destination.toPath(), // destination (Path)
@@ -130,6 +124,10 @@ public class GalleryServlet
                             destination.toPath(), // destination (Path)
                             StandardCopyOption.REPLACE_EXISTING
                     );
+                    // Файл сохранен под именем filename
+                    // Его описание в переменной description
+                    // Вносим в БД
+
                 } else {
                     attachedFilename = "no allow file extension";
                 }
@@ -156,3 +154,9 @@ public class GalleryServlet
     Отображает картинки и описания к ним.
     Поддерживает возможность загрузки новых изображений.
  */
+/*
+  Submitted file name
+    a) .getSubmittedFileName()
+    b) extract from header:
+        content-disposition: form-daya; name="galleryfile"; filename="imp.png"
+*/
