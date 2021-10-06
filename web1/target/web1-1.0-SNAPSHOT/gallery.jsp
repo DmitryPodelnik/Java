@@ -17,19 +17,16 @@
     <input type="file" name="galleryfile">
     <br/>
     Description:
-    <textarea name="galleryDescription">
-        <%= request.getAttribute("galleryDescription") %>
-    </textarea>
+    <textarea name="galleryDescription">New image</textarea>
     <input type="submit" value="Send">
   </form>
-  <% String fname =
+  <% String uploadMessage =
           (String) request.getAttribute("uploadMessage");
-     if (! "".equals(fname)) { %>
+     if (uploadMessage != null) { %>
 
-    <img src="uploads/<%= fname %>">
+    <b><%= uploadMessage %><b>
 
   <% } %>
 
-  <%= request.getAttribute("uploadMessage") %>
 </body>
 </html>
