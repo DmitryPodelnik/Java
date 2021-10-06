@@ -78,8 +78,10 @@ public class Db {
             statement.setString(1, picture.getName());
             statement.setString(2, picture.getDescription());
             statement.executeUpdate();
+            return true;
         } catch (SQLException ex) {
             System.err.println("addPicture: " + ex.getMessage() + " " + query);
+            return false;
         }
     }
 }
