@@ -2,6 +2,7 @@ package step.java.web1.filters;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import step.java.web1.util.Db;
 
 import javax.servlet.*;
 import java.io.File;
@@ -34,14 +35,18 @@ public class DbFilter implements Filter {
             System.err.println("config/db.json not found");
             return;
         }
+        JSONObject configData = null;
         try (InputStream reader = new FileInputStream(config)) {
             byte[] buf = new byte[(int) config.length()];
             reader.read(buf);
-            JSONObject configData = (JSONObject)
+            configData = (JSONObject)
                     new JSONParser().parse(new String(buf));
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }
+
+        Db.setConnection(configData);
+
         filterChain.doFilter(servletRequest, servletResponse);
     }
 
