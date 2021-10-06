@@ -1,5 +1,7 @@
 package step.java.web1;
 
+import step.java.web1.models.Picture;
+import step.java.web1.util.Db;
 import step.java.web1.util.Hasher;
 
 import javax.servlet.ServletException;
@@ -72,6 +74,12 @@ public class GalleryServlet
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
+
+        String uploadMessage = "";
+
+        // Description передается как форма, извлекается обычным образом
+        String description = req.getParameter("galleryDescription");
+
         Part filePart = req.getPart("galleryfile"); // имя <input type="file" />
         HttpSession session = req.getSession();
 
@@ -127,7 +135,11 @@ public class GalleryServlet
                     // Файл сохранен под именем filename
                     // Его описание в переменной description
                     // Вносим в БД
-
+                    if (Db.addPicture(new Picture(savedFilename, description))) {
+                        uploadMessage = "Upload OK";
+                    } else {
+                        uploadMessage = "Error inserting extension";
+                    }
                 } else {
                     attachedFilename = "no allow file extension";
                 }
@@ -138,11 +150,10 @@ public class GalleryServlet
 
         session.setAttribute(
                 "uploadMessage",
-                attachedFilename == null ? "Name error" : attachedFilename);
+                uploadMessage);
         // конец работы с файлом
 
-        // Description передается как форма, извлекается обычным образом
-        String description = req.getParameter("galleryDescription");
+
         session.setAttribute("galleryDescription", description);
 
         resp.sendRedirect(req.getRequestURI());
