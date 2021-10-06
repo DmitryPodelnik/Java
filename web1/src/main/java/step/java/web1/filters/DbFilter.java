@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.SQLException;
 
 public class DbFilter implements Filter {
 
@@ -16,6 +17,7 @@ public class DbFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         this.filterConfig = filterConfig;
+        Db.setConnection(null);
     }
 
     @Override
@@ -24,8 +26,8 @@ public class DbFilter implements Filter {
             ServletResponse servletResponse,
             FilterChain filterChain) throws IOException, ServletException {
 
-        System.out.println("Filter works");
-
+        // System.out.println("Filter works");
+        //Db.setConnection(null);
         File config = new File(
                 filterConfig
                         .getServletContext().
@@ -34,20 +36,33 @@ public class DbFilter implements Filter {
         if (!config.exists()) {
             System.err.println("config/db.json not found");
             return;
-        }
-        JSONObject configData = null;
-        try (InputStream reader = new FileInputStream(config)) {
-            byte[] buf = new byte[(int) config.length()];
-            reader.read(buf);
-            configData = (JSONObject)
-                    new JSONParser().parse(new String(buf));
-        } catch (Exception ex) {
-            System.err.println(ex.getMessage());
+        } else {
+            JSONObject configData = null;
+            try (InputStream reader = new FileInputStream(config)) {
+                int fileLength = (int) config.length();
+                byte[] buf = new byte[fileLength];
+                if (reader.read(buf) != fileLength) {
+                    throw new IOException("File read integrity falls");
+                }
+                configData = (JSONObject)
+                        new JSONParser().parse(new String(buf));
+                if (!Db.setConnection(configData)) {
+                    throw new SQLException("Db connection error");
+                }
+            } catch (Exception ex) {
+                System.err.println(ex.getMessage());
+            }
         }
 
-        Db.setConnection(configData);
-
-        filterChain.doFilter(servletRequest, servletResponse);
+        // Checking connection to be opened
+       // if (Db.getConnection() == null) {
+       //     // No connection - use static mode
+       //     servletRequest
+       //             .getRequestDispatcher("/static.jsp")
+       //             .forward(servletRequest, servletResponse);
+       // } else {
+            filterChain.doFilter(servletRequest, servletResponse);
+       // }
     }
 
     @Override

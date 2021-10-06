@@ -10,14 +10,19 @@ import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class Db {
     private static Connection connection;
 
     public static boolean setConnection(JSONObject connectionData) {
+        if (connectionData == null) {
+            connection = null;
+            return false;
+        }
+
         String connectionString;
         try {
-            new JSONParser().parse(new String(buf));
             connectionString = String.format(
                     "jdbc:oracle:thin:%s/%s@%s:%d:XE",
                     connectionData.get("user"),
@@ -39,6 +44,25 @@ public class Db {
 
     public static Connection getConnection() {
         return connection;
+    }
+
+    /**
+     * Creates table for gallery
+     */
+    public static void createGallery() {
+        if (connection == null) {
+            return;
+        }
+        String query = null;
+        try(Statement statement = connection.createStatement()) {
+            query = "CREATE TABLE" + "images( \"\n" +
+                    "ID RAW(16) DEFAULT SYS_GUID() PRIMARY KEY, " +
+                    "Filename NVARCHAR2(256) NOT NULL, " +
+                    "Description NVARCHAR(400) NULL, " +
+                    "Moment DATETIME NOT NULL)";
+        } catch (SQLException ex) {
+            System.err.println("createGallery: " + ex.getMessage() + " " + query);
+        }
     }
 
 }
