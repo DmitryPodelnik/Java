@@ -13,6 +13,11 @@ import java.sql.SQLException;
 
 public class Db {
     private static Connection connection;
+
+    public static boolean setConnection(JSONObject connectionData) {
+
+    }
+
     public static Connection getConnection() {
         if (connection == null) {
             File config = new File(

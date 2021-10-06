@@ -1,14 +1,19 @@
 package step.java.web1.filters;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
 import javax.servlet.*;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class DbFilter implements Filter {
 
     private FilterConfig filterConfig;
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        Filter.super.init(filterConfig);
         this.filterConfig = filterConfig;
     }
 
@@ -17,6 +22,24 @@ public class DbFilter implements Filter {
             ServletRequest servletRequest,
             ServletResponse servletResponse,
             FilterChain filterChain) throws IOException, ServletException {
+        // System.out.println("Filter works");
+        File config = new File(
+                filterConfig
+                        .getServletContext().
+                        getRealPath("/WEB-INF/config/")
+                + "/" + "db.json");
+        if (!config.exists()) {
+            System.err.println("config/db.json not found");
+            return null;
+        }
+        try (InputStream reader = new FileInputStream(config)) {
+            byte[] buf = new byte[(int) config.length()];
+            reader.read(buf);
+            JSONObject configData = (JSONObject)
+                    new JSONParser().parse(new String(buf));
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+        }
         filterChain.doFilter(servletRequest, servletResponse);
     }
 
