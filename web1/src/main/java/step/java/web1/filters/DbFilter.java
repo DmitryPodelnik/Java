@@ -56,14 +56,15 @@ public class DbFilter implements Filter {
         }
 
         // Checking connection to be opened
-       // if (Db.getConnection() == null) {
-       //     // No connection - use static mode
-       //     servletRequest
-       //             .getRequestDispatcher("/static.jsp")
-       //             .forward(servletRequest, servletResponse);
-       // } else {
+        if (Db.getConnection() == null) {
+            // No connection - use static mode
+            servletRequest
+                    .getRequestDispatcher("/static.jsp")
+                    .forward(servletRequest, servletResponse);
+        } else {
             filterChain.doFilter(servletRequest, servletResponse);
-       // }
+            Db.closeConnection();
+        }
     }
 
     @Override

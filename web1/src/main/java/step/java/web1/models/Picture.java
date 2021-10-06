@@ -43,4 +43,11 @@ public class Picture {
         Name = name;
         Description = description;
     }
+
+    public Picture(String id, String name, String description, String moment) {
+        Id = id;
+        Name = name;
+        Description = description;
+        Moment = moment;
+    }
 }

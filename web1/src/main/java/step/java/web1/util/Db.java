@@ -9,6 +9,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class Db {
     final private static String SUFFIX = "_14";
@@ -45,6 +46,16 @@ public class Db {
         return connection;
     }
 
+    public static void closeConnection() {
+        if (connection != null) {
+            try {
+                connection.close();
+            } catch (Exception ignored) {
+
+            }
+        }
+    }
+
     /**
      * Creates table for gallery
      */
@@ -54,7 +65,7 @@ public class Db {
         }
         String query = null;
         try(Statement statement = connection.createStatement()) {
-            query = "CREATE TABLE" + "images" + SUFFIX +
+            query = "CREATE TABLE" + "Images" + SUFFIX +
                     "(ID RAW(16) DEFAULT SYS_GUID() PRIMARY KEY, " +
                     "Filename NVARCHAR2(256) NOT NULL, " +
                     "Description NVARCHAR(400) NULL, " +
@@ -83,5 +94,29 @@ public class Db {
             System.err.println("addPicture: " + ex.getMessage() + " " + query);
             return false;
         }
+    }
+
+    /**
+     * Loads picture(s) list (gallery)
+     */
+    public static ArrayList<Picture> getPictures() {
+        ArrayList<Picture> res = null;
+        try (Statement statement = connection.createStatement()) {
+            String query = "SELECT * FROM Images" + SUFFIX;
+            ResultSet answer = statement.executeQuery(query);
+            res = new ArrayList<>();
+            while (answer.next()) {
+                res.add(new Picture(
+                        answer.getString("Id"),
+                        answer.getString("Filename"),
+                        answer.getString("Description"),
+                        answer.getString("Moment")
+                ));
+            }
+        } catch (Exception ex) {
+            System.err.println("getPictures: " + ex.getMessage());
+        }
+
+        return res;
     }
 }

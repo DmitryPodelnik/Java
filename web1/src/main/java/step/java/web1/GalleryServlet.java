@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 
 public class GalleryServlet
                 extends HttpServlet {
@@ -45,7 +46,9 @@ public class GalleryServlet
             req.setAttribute(attrName, attrValue);
         }
 
-
+        // получаем все картинки из БД
+        ArrayList<Picture> pictures =  Db.getPictures();
+        req.setAttribute("galleryImages", pictures);
 
         /*
         // сообщение о загрузке файла (имя сохраненного файла)
