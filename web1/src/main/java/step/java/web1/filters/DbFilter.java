@@ -46,9 +46,10 @@ public class DbFilter implements Filter {
                 }
                 configData = (JSONObject)
                         new JSONParser().parse(new String(buf));
-                if (!Db.setConnection(configData)) {
-                    throw new SQLException("Db connection error");
-                }
+                //if (!Db.setConnection(configData)) {
+                //    throw new SQLException("Db connection error");
+                //}
+                //// Db.setConnection(configData)
             } catch (Exception ex) {
                 System.err.println(ex.getMessage());
             }

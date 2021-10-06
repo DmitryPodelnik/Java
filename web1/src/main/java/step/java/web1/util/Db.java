@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Db {
+    final private static String SUFFIX = "_14";
     private static Connection connection;
 
     public static boolean setConnection(JSONObject connectionData) {
@@ -55,11 +56,12 @@ public class Db {
         }
         String query = null;
         try(Statement statement = connection.createStatement()) {
-            query = "CREATE TABLE" + "images( \"\n" +
-                    "ID RAW(16) DEFAULT SYS_GUID() PRIMARY KEY, " +
+            query = "CREATE TABLE" + "images" + SUFFIX +
+                    "(ID RAW(16) DEFAULT SYS_GUID() PRIMARY KEY, " +
                     "Filename NVARCHAR2(256) NOT NULL, " +
                     "Description NVARCHAR(400) NULL, " +
-                    "Moment DATETIME NOT NULL)";
+                    "Moment DATE DEFAULT CURRENT_TIMESTAMP)";
+            statement.executeUpdate(query);
         } catch (SQLException ex) {
             System.err.println("createGallery: " + ex.getMessage() + " " + query);
         }
