@@ -17,6 +17,34 @@ public class GalleryServlet
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        req.setCharacterEncoding("UTF-8");
+
+        // session attributes (messages)
+        HttpSession session = req.getSession();
+        String[] sessionAttributes = {"uploadMessage", "galleryDescription"};
+        for (String attrName : sessionAttributes) {
+            String attrValue =
+                    (String) session.getAttribute(attrName);
+            if (attrValue != null) {
+                session.removeAttribute(attrName);
+            } else {
+                attrValue = "";
+            }
+            req.setAttribute(attrName, attrValue);
+        }
+
+        // Main content - pictures collection
+        ArrayList<Picture> pictures = Db.getPictures();
+        if (pictures == null) {
+            pictures = new ArrayList<>();
+        }
+        req.setAttribute("pictures", pictures);
+
+        // goto view
+        req.getRequestDispatcher("gallery.jsp")
+                .forward(req, resp);
+
         /*
             Загрузка файла:
                 upload
@@ -31,20 +59,6 @@ public class GalleryServlet
                 5. извлечение имени файла !! по безопасности
                    крайне не рекомендуется сохранять файлы под переданными именами
          */
-        req.setCharacterEncoding("UTF-8");
-
-        HttpSession session = req.getSession();
-        String[] sessionAttributes = {"uploadMessage", "galleryDescription"};
-        for (String attrName : sessionAttributes) {
-            String attrValue =
-                    (String) session.getAttribute(attrName);
-            if (attrValue != null) {
-                session.removeAttribute(attrName);
-            } else {
-                attrValue = "";
-            }
-            req.setAttribute(attrName, attrValue);
-        }
 
         /*
         // сообщение о загрузке файла (имя сохраненного файла)
@@ -65,9 +79,6 @@ public class GalleryServlet
         }
         req.setAttribute("galleryDescription", galleryDescription);
          */
-
-        req.getRequestDispatcher("gallery.jsp")
-                .forward(req, resp);
     }
 
     @Override

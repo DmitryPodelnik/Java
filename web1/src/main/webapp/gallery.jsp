@@ -16,7 +16,11 @@
 <body>
   <h1>Gallery</h1>
   <div>
-    <% for (Picture item : Db.getPictures()) { %>
+    <%  ArrayList<Picture> pictures = (ArrayList<Picture>)
+            request.getAttribute("pictures");
+
+      if( pictures != null)
+      for (Picture item : pictures) { %>
         <div class="picture">
           <img src="uploads/<%= item.getName() %>" />
           <div>
