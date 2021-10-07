@@ -102,7 +102,7 @@ public class Db {
     public static ArrayList<Picture> getPictures() {
         ArrayList<Picture> res = null;
         try (Statement statement = connection.createStatement()) {
-            String query = "SELECT * FROM Pictures" + SUFFIX;
+            String query = "SELECT * FROM Images" + SUFFIX;
             ResultSet answer = statement.executeQuery(query);
             res = new ArrayList<>();
             while (answer.next()) {

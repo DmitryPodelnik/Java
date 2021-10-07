@@ -22,13 +22,13 @@
       if( pictures != null)
       for (Picture item : pictures) { %>
         <div class="picture">
-          <img src="uploads/<%= item.getName() %>" />
+          <img src="uploads/<%= item.getName() %>" alt="<%= item.getName() %>"/>
           <div>
             <p><%= item.getDescription() %></p>
             <p><%= item.getMoment() %></p>
             <tt><%= item.getId() %></tt>
           </div>
-          <a>Download</a>
+          <button class="downlandButton">Download</button>
         </div>
      <% } %>
   </div>
@@ -51,4 +51,6 @@
   <% } %>
 
 </body>
+
+<script src="js/gallery.js"></script>
 </html>

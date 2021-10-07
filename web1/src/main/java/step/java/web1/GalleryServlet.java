@@ -1,5 +1,6 @@
 package step.java.web1;
 
+import org.json.simple.JSONObject;
 import step.java.web1.models.Picture;
 import step.java.web1.util.Db;
 import step.java.web1.util.Hasher;
@@ -167,6 +168,22 @@ public class GalleryServlet
         session.setAttribute("galleryDescription", description);
 
         resp.sendRedirect(req.getRequestURI());
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String pictureId = req.getParameter("id");
+        JSONObject answer = new JSONObject();
+        if (pictureId == null || "".equals(pictureId)) {
+            answer.put("status", "-1");
+            answer.put("message", "Id required");
+        } else {
+            answer.put("status", "1");
+            answer.put("message", pictureId);
+        }
+
+        resp.setContentType("application/json");
+        resp.getWriter().printf(answer.toString());
     }
 }
 
