@@ -46,10 +46,6 @@ public class GalleryServlet
             req.setAttribute(attrName, attrValue);
         }
 
-        // получаем все картинки из БД
-        ArrayList<Picture> pictures =  Db.getPictures();
-        req.setAttribute("galleryImages", pictures);
-
         /*
         // сообщение о загрузке файла (имя сохраненного файла)
         String uploadMessage = (String) session.getAttribute("uploadMessage");

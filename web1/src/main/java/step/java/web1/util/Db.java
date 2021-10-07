@@ -59,7 +59,7 @@ public class Db {
     /**
      * Creates table for gallery
      */
-    public static void createGallery() {
+    private static void createGallery() {
         if (connection == null) {
             return;
         }
@@ -102,15 +102,15 @@ public class Db {
     public static ArrayList<Picture> getPictures() {
         ArrayList<Picture> res = null;
         try (Statement statement = connection.createStatement()) {
-            String query = "SELECT * FROM Images" + SUFFIX;
+            String query = "SELECT * FROM Pictures" + SUFFIX;
             ResultSet answer = statement.executeQuery(query);
             res = new ArrayList<>();
             while (answer.next()) {
                 res.add(new Picture(
-                        answer.getString("Id"),
-                        answer.getString("Filename"),
-                        answer.getString("Description"),
-                        answer.getString("Moment")
+                        answer.getString("ID"),
+                        answer.getString("FILENAME"),
+                        answer.getString("DESCRIPTION"),
+                        answer.getString("MOMENT")
                 ));
             }
         } catch (Exception ex) {

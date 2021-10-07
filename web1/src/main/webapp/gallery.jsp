@@ -1,5 +1,6 @@
 <%@ page import="step.java.web1.models.Picture" %>
-<%@ page import="java.util.ArrayList" %><%--
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="step.java.web1.util.Db" %><%--
   Created by IntelliJ IDEA.
   User: inko1
   Date: 04.10.2021
@@ -9,19 +10,19 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+  <link rel="stylesheet" href="css/gallery.css" />
   <title>Gallery</title>
 </head>
 <body>
+  <h1>Gallery</h1>
   <div>
-    <% ArrayList<Picture> pictures =
-            (ArrayList<Picture>) request.getAttribute("images");
-      for (Picture item : pictures) { %>
-        <div>
+    <% for (Picture item : Db.getPictures()) { %>
+        <div class="picture">
           <img src="uploads/<%= item.getName() %>" />
           <div>
             <p><%= item.getDescription() %></p>
             <p><%= item.getMoment() %></p>
-            <p><%= item.getId() %></p>
+            <tt><%= item.getId() %></tt>
           </div>
           <a>Download</a>
         </div>

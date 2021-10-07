@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
+Built-By: Pode_hr28
 Created-By: IntelliJ IDEA
-Built-By: inko1
-Build-Jdk: version 17
+Build-Jdk: 1.8.0_161
 
