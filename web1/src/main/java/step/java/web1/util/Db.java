@@ -59,7 +59,7 @@ public class Db {
     /**
      * Creates table for gallery
      */
-    public static void createGallery() {
+    private static void createGallery() {
         if (connection == null) {
             return;
         }
@@ -73,6 +73,37 @@ public class Db {
             statement.executeUpdate(query);
         } catch (SQLException ex) {
             System.err.println("createGallery: " + ex.getMessage() + " " + query);
+        }
+    }
+
+    /**
+     * Find picture by id
+     */
+    public static Picture getPictureById(String id) {
+        if (connection == null) {
+            return null;
+        }
+
+        try(PreparedStatement prep = connection.prepareStatement(
+                "SELECT * FROM Pictures" + SUFFIX
+                + " WHERE Id = ?"
+        )) {
+            prep.setString(1, id);
+            ResultSet res = prep.executeQuery(); // ссылка на результат
+            if (res.next()) {
+                return new Picture(
+                        res.getString("ID"),
+                        res.getString("NAME"),
+                        res.getString("DESCRIPTION"),
+                        res.getString("MOMENT")
+                )
+            } else {
+                return null;
+            }
+        } catch (SQLException ex) {
+            System.err.println("getPictureById: "
+                + ex.getMessage());
+            return null;
         }
     }
 
@@ -107,10 +138,10 @@ public class Db {
             res = new ArrayList<>();
             while (answer.next()) {
                 res.add(new Picture(
-                        answer.getString("Id"),
-                        answer.getString("Filename"),
-                        answer.getString("Description"),
-                        answer.getString("Moment")
+                        answer.getString("ID"),
+                        answer.getString("FILENAME"),
+                        answer.getString("DESCRIPTION"),
+                        answer.getString("MOMENT")
                 ));
             }
         } catch (Exception ex) {
