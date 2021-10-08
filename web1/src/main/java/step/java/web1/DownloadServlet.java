@@ -8,8 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
 @WebServlet("/download/*")
 public class DownloadServlet
@@ -47,12 +46,24 @@ public class DownloadServlet
         //  1.2. Content-Disposition
         resp.setHeader("Content-Disposition",
                        "attachment; filename=\"picture"
-                       + pic.getName().substring(pic.getName().lastIndexOf("."))\
+                       + pic.getName().substring(pic.getName().lastIndexOf("."))
                        + "\"");
         //  1.3. Content-Length
         resp.setContentLengthLong(file.length());
         // 2. Записываем (копируем) файл в поток ответа (resp)
-        //
-        resp.getWriter().print(fullname);
+        OutputStream out = resp.getOutputStream();
+        byte[] buf = new byte[512];
+        int n;
+        try (InputStream inp = new FileInputStream(file)) {
+            while (( n = inp.read(buf) ) != -1) {
+                out.write(buf, 0, n);
+            }
+        } catch (IOException ex) {
+            System.err.println("Download Servlet: " + ex.getMessage());
+            resp.setStatus(418);
+            resp.getWriter().print("IO error");
+        }
+
+        // resp.getWriter().print(fullname);
     }
 }
