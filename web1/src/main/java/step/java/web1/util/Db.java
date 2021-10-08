@@ -96,7 +96,7 @@ public class Db {
                         res.getString("NAME"),
                         res.getString("DESCRIPTION"),
                         res.getString("MOMENT")
-                )
+                );
             } else {
                 return null;
             }
