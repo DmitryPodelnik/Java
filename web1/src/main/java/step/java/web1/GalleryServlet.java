@@ -38,6 +38,7 @@ public class GalleryServlet
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+<<<<<<< HEAD
         req.setCharacterEncoding( "UTF-8" ) ;
         HttpSession session = req.getSession() ;
 
@@ -48,6 +49,18 @@ public class GalleryServlet
                     session.getAttribute( attrName ) ;
             if( attrValue != null ) {
                 session.removeAttribute( attrName ) ;
+=======
+        req.setCharacterEncoding("UTF-8");
+
+        // session attributes (messages)
+        HttpSession session = req.getSession();
+        String[] sessionAttributes = {"uploadMessage", "galleryDescription"};
+        for (String attrName : sessionAttributes) {
+            String attrValue =
+                    (String) session.getAttribute(attrName);
+            if (attrValue != null) {
+                session.removeAttribute(attrName);
+>>>>>>> 01a956e5dbad6870f7ca975992d844ff3d772484
             } else {
                 attrValue = "" ;
             }
@@ -55,6 +68,7 @@ public class GalleryServlet
         }
 
         // Main content - pictures collection
+<<<<<<< HEAD
         ArrayList<Picture> pictures = Db.getPictures() ;
         Picture[] picturesArr = ( pictures == null )
                 ? new Picture[0]
@@ -65,6 +79,52 @@ public class GalleryServlet
         // goto view
         req.getRequestDispatcher( "gallery.jsp" )
                 .forward( req, resp ) ;
+=======
+        ArrayList<Picture> pictures = Db.getPictures();
+        if (pictures == null) {
+            pictures = new ArrayList<>();
+        }
+        req.setAttribute("pictures", pictures);
+
+        // goto view
+        req.getRequestDispatcher("gallery.jsp")
+                .forward(req, resp);
+
+        /*
+            Загрузка файла:
+                upload
+                download
+            Uploading:
+                1. <form> <input type="file" ... />
+                2. <form method="post"enctype="multipart/form-data" ... />
+                3. конфиг. сервлета :
+                    а) <multipart-config />
+                    б) @MultipartConfig
+                4. приём файла: в методе doPost через req.getPart
+                5. извлечение имени файла !! по безопасности
+                   крайне не рекомендуется сохранять файлы под переданными именами
+         */
+
+        /*
+        // сообщение о загрузке файла (имя сохраненного файла)
+        String uploadMessage = (String) session.getAttribute("uploadMessage");
+        if (uploadMessage != null) {
+            session.removeAttribute("uploadMessage");
+        } else {
+            uploadMessage = "";
+        }
+        req.setAttribute("uploadMessage", uploadMessage);
+
+        // Description
+        String galleryDescription = (String) session.getAttribute("galleryDescription");
+        if (galleryDescription != null) {
+            session.removeAttribute("galleryDescription");
+        } else {
+            galleryDescription = "";
+        }
+        req.setAttribute("galleryDescription", galleryDescription);
+         */
+>>>>>>> 01a956e5dbad6870f7ca975992d844ff3d772484
     }
 
     @Override
@@ -144,6 +204,22 @@ public class GalleryServlet
         session.setAttribute( "galleryDescription", description ) ;
 
         resp.sendRedirect( req.getRequestURI() ) ;
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String pictureId = req.getParameter("id");
+        JSONObject answer = new JSONObject();
+        if (pictureId == null || "".equals(pictureId)) {
+            answer.put("status", "-1");
+            answer.put("message", "Id required");
+        } else {
+            answer.put("status", "1");
+            answer.put("message", pictureId);
+        }
+
+        resp.setContentType("application/json");
+        resp.getWriter().printf(answer.toString());
     }
 }
 /*
