@@ -24,10 +24,52 @@ public class GalleryServlet extends HttpServlet {
             answer.put( "status", "-1" ) ;
             answer.put( "message", "Id required" ) ;
         } else {
-            // Удаление из БД
 
-            answer.put( "status", "1" ) ;
-            answer.put( "message", pictureId ) ;
+            Picture deletingPicture = Db.getPictureById(pictureId);
+            String deletingPictureFullName = deletingPicture.getName();
+
+            String path = req.getServletContext().getRealPath("/uploads");
+
+            String extension;
+            int dotPosition = deletingPictureFullName.lastIndexOf(".");
+            if (dotPosition > -1) {
+                extension = deletingPictureFullName.substring(dotPosition);
+
+                File destination;
+                String filename, savedFilename;
+                do {
+                    // хэшируем имя файла и добавляем расширение
+                    savedFilename = Hasher.hash(deletingPictureFullName) + extension;
+                    // Полное имя файла
+                    filename = path + "\\" + savedFilename;
+                    destination = new File(filename);
+                } while (!destination.exists());  // если файл с таким именем уже есть, сгенерировать другое имя
+
+                Files.delete(
+                        destination.toPath()     // destination (Path)
+                );
+                ;
+
+                // удаляем из папки исходного проекта
+                path = "D:\\JAVA_ITSTEP\\GIT\\web1\\src\\main\\webapp\\uploads";
+                filename = path + "\\" + savedFilename;
+                destination = new File(filename);
+                Files.delete(
+                        destination.toPath()     // destination (Path)
+                );
+                ;
+                // Файл удалён под именем  savedFilename
+                // Его описание в переменной   description
+
+                // Удаление из БД
+                if (Db.deletePicture(pictureId)) {
+                    answer.put("status", "1");
+                    answer.put("message", "File is deleted by id: " + pictureId);
+                } else {
+                    answer.put("status", "-1");
+                    answer.put("message", "File wasn't deleted");
+                }
+            }
         }
 
         resp.setContentType( "application/json" ) ;

@@ -108,7 +108,7 @@ public class Db {
         if (connection == null) {
             return false;
         }
-        String query = "INSERT INTO images" + SUFFIX +
+        String query = "INSERT INTO Pictures" + SUFFIX +
                 "(Name, Description) VALUES(?, ?)";
         try(PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, picture.getName());
@@ -117,6 +117,22 @@ public class Db {
             return true;
         } catch (SQLException ex) {
             System.err.println("addPicture: " + ex.getMessage() + " " + query);
+            return false;
+        }
+    }
+
+    public static boolean deletePicture(String id) {
+        if (connection == null) {
+            return false;
+        }
+        String query = "DELETE FROM Pictures" + SUFFIX +
+                " WHERE Id=(?)";
+        try(PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, id);
+            statement.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            System.err.println("deletePicture: " + ex.getMessage() + " " + query);
             return false;
         }
     }

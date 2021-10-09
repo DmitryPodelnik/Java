@@ -44,6 +44,12 @@ function deleteClick(e) {
             .then(r => r.json())
             .then(j => {
                 console.log(j);
+
+                const obj = JSON.parse(j);
+                alert(obj.message);
+                if (obj.status === 1) {
+                    window.location.reload(false);
+                }
             });
     }
 }
