@@ -19,11 +19,30 @@ function editClick(e) {
     // разрешить редактирование описания
     const container = e.target.parentNode ;
     const descr = container.querySelector("p");
+    let content = descr.innerText;
     descr.setAttribute( "contenteditable", "true");
     descr.focus();
 
     // Поменять картинку кнопки на "V"
     e.target.style["background-position"] = "50% 50%" ;
+    e.target.onclick = () => {
+        descr.removeAttribute("contenteditable");
+        container.removeChild( cancelBtn ) ;
+        // Поменять картинку кнопки на "Edit"
+        e.target.style["background-position"] = "0% 0%" ;
+
+        fetch("?id="+pid +"&descr="+descr.innerText,{method:"put"})
+            .then(r => r.json())
+            .then(j => {
+                console.log(j);
+
+                const obj = JSON.parse(j);
+                alert(obj.message);
+                if (obj.status === 1) {
+                    window.location.reload(false);
+                }
+            });
+    };
 
     // добавить кнопку "Х"
     const cancelBtn = document.createElement("div");
@@ -33,6 +52,7 @@ function editClick(e) {
         container.removeChild( cancelBtn ) ;
         descr.removeAttribute("contenteditable");
         e.target.style["background-position"] = "0 0" ;
+        descr.innerText = content;
     };
     container.appendChild(cancelBtn);
 }
@@ -44,6 +64,12 @@ function deleteClick(e) {
             .then(r => r.json())
             .then(j => {
                 console.log(j);
+
+                const obj = JSON.parse(j);
+                alert(obj.message);
+                if (obj.status === 1) {
+                    window.location.reload(false);
+                }
             });
     }
 }

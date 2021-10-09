@@ -16,6 +16,28 @@ import java.util.ArrayList;
 public class GalleryServlet extends HttpServlet {
 
     @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String pictureId = req.getParameter( "id" ) ;
+        String pictureDescr = req.getParameter( "descr" ) ;
+
+        JSONObject answer = new JSONObject() ;
+        if( pictureId == null || "".equals( pictureId ) ) {
+            answer.put( "status", "-1" ) ;
+            answer.put( "message", "Id required" ) ;
+        } else {
+            if (Db.editPicture(pictureId, pictureDescr)) {
+
+            } else {
+                answer.put( "status", "1" ) ;
+                answer.put( "message", "Picture was edited" ) ;
+            }
+        }
+
+        resp.setContentType( "application/json" ) ;
+        resp.getWriter().print( answer.toString() ) ;
+    }
+
+    @Override
     @SuppressWarnings("unchecked")
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String pictureId = req.getParameter( "id" ) ;

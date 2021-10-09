@@ -127,8 +127,26 @@ public class Db {
         }
         String query = "DELETE FROM Pictures" + SUFFIX +
                 " WHERE Id=(?)";
-        try(PreparedStatement statement = connection.prepareStatement(query)) {
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, id);
+            statement.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            System.err.println("deletePicture: " + ex.getMessage() + " " + query);
+            return false;
+        }
+    }
+
+    public static boolean editPicture(String id, String descr) {
+        if (connection == null) {
+            return false;
+        }
+        String query = "UPDATE Pictures" + SUFFIX +
+                " SET DESCRIPTION=(?) " +
+                " WHERE Id=(?)";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, descr);
+            statement.setString(2, id);
             statement.executeUpdate();
             return true;
         } catch (SQLException ex) {

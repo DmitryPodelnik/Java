@@ -1,12 +1,6 @@
 <%@ page import="step.java.web1.models.Picture" %>
 <%@ page import="step.java.web1.util.Db" %>
-<%@ page import="java.util.ArrayList" %><%--
-  Created by IntelliJ IDEA.
-  User: samoylenko_d
-  Date: 04.10.2021
-  Time: 9:47
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
