@@ -1,13 +1,7 @@
 package step.java.web1.util;
 
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import step.java.web1.models.Picture;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 

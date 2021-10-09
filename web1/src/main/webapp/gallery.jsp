@@ -1,17 +1,6 @@
 <%@ page import="step.java.web1.models.Picture" %>
-<<<<<<< HEAD
 <%@ page import="step.java.web1.util.Db" %>
-<%@ page import="java.util.ArrayList" %><%--
-=======
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="step.java.web1.util.Db" %><%--
->>>>>>> 01a956e5dbad6870f7ca975992d844ff3d772484
-  Created by IntelliJ IDEA.
-  User: samoylenko_d
-  Date: 04.10.2021
-  Time: 9:47
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
@@ -19,7 +8,6 @@
   <title>Gallery</title>
 </head>
 <body>
-<<<<<<< HEAD
 <h1>Галерея</h1>
 <%  Picture[] pictures ;
   try {
@@ -35,41 +23,9 @@
   <p><%= pic.getDescription() %></p>
   <i><%= pic.getMoment() %></i>
   <tt><%= pic.getId() %></tt>
-  <button>Удалить</button>
-  <div class="tool-button tool-download"></div>
-=======
-  <h1>Gallery</h1>
-  <div>
-    <%  ArrayList<Picture> pictures = (ArrayList<Picture>)
-            request.getAttribute("pictures");
-
-      if( pictures != null)
-      for (Picture item : pictures) { %>
-        <div class="picture">
-          <img src="uploads/<%= item.getName() %>" alt="<%= item.getName() %>"/>
-          <div>
-            <p><%= item.getDescription() %></p>
-            <p><%= item.getMoment() %></p>
-            <tt><%= item.getId() %></tt>
-          </div>
-          <button class="downlandButton">Download</button>
-        </div>
-     <% } %>
-  </div>
-  <form method="post"
-        enctype="multipart/form-data"
-        action="" >
-    <input type="file" name="galleryfile">
-    <br/>
-    <label> Description:
-      <textarea name="galleryDescription">New image</textarea>
-    </label>
-    <input type="submit" value="Send">
-  </form>
-  <% String uploadMessage =
-          (String) request.getAttribute("uploadMessage");
-     if (uploadMessage != null) { %>
->>>>>>> 01a956e5dbad6870f7ca975992d844ff3d772484
+  <div class="tool-button tool-delete" title="Удалить"></div>
+  <div class="tool-button tool-download" title="Скачать"></div>
+  <div class="tool-button tool-edit" title="Редактировать"></div>
 
 </div>
 <% } %>
@@ -94,8 +50,4 @@
 </body>
 
 <script src="js/gallery.js"></script>
-<<<<<<< HEAD
 </html>
-=======
-</html>
->>>>>>> 01a956e5dbad6870f7ca975992d844ff3d772484

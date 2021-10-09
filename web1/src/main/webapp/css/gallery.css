@@ -13,7 +13,6 @@ body {
     vertical-align: top;
     width: 25vw;
 }
-<<<<<<< HEAD
 .picture img {
     max-height: 10vw;
     max-width: 15vw;
@@ -30,31 +29,22 @@ body {
 .tool-button {
     background: url("../img/edit_icons.png");
     background-size: 300%;
+    border: 2px solid transparent;
     cursor: pointer;
     display: inline-block;
-    height: 50px;
+    height: 30px;
     margin: 2px;
-    width: 50px;
+    width: 30px;
+}
+.tool-button:hover {
+    border-color: #777777;
+}
+.tool-delete {
+    background-position: -50% 0 ;
 }
 .tool-download {
-    background-position: -100px -50px ;
+    background-position: -50% 50% ;
 }
-=======
-    .picture img {
-        max-height: 150px;
-        max-width: 200px;
-    }
-    .picture p {
-        font-size: 3vw;
-    }
-    .picture tt {
-        visibility: hidden;
-    }
-    .picture button {
-        color: maroon;
-    }
-
-.downlandButton {
-    border: 2px solid black;
+.tool-edit {
+    background-position: 0 0 ;
 }
->>>>>>> 01a956e5dbad6870f7ca975992d844ff3d772484
