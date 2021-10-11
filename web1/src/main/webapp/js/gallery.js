@@ -12,49 +12,65 @@ document.addEventListener("DOMContentLoaded",()=>{
 
 function editClick(e) {
     const pid = findPictureId(e);
-    console.log(pid);
-    /* В момент нажатия разрешить редактирование описания
-       Поменять картинку кнопки на "V", добавить кнопку "Х" */
-
-    // разрешить редактирование описания
     const container = e.target.parentNode ;
     const descr = container.querySelector("p");
-    let content = descr.innerText;
-    descr.setAttribute( "contenteditable", "true");
-    descr.focus();
-
-    // Поменять картинку кнопки на "V"
-    e.target.style["background-position"] = "50% 50%" ;
-    e.target.onclick = () => {
-        descr.removeAttribute("contenteditable");
-        container.removeChild( cancelBtn ) ;
-        // Поменять картинку кнопки на "Edit"
-        e.target.style["background-position"] = "0% 0%" ;
-
-        fetch("?id="+pid +"&descr="+descr.innerText,{method:"put"})
-            .then(r => r.json())
-            .then(j => {
-                console.log(j);
-
-                const obj = JSON.parse(j);
-                alert(obj.message);
-                if (obj.status === 1) {
-                    window.location.reload(false);
-                }
-            });
-    };
-
-    // добавить кнопку "Х"
-    const cancelBtn = document.createElement("div");
-    cancelBtn.className = "tool-button";
-    cancelBtn.style["background-position"] = "50% 0" ;
-    cancelBtn.onclick = () => {
-        container.removeChild( cancelBtn ) ;
+    if(typeof descr.savedText == 'undefined'){
+        // первое нажатие - edit
+        // разрешить редактирование описания
+        descr.setAttribute( "contenteditable", "true");
+        descr.focus();
+        // сохранить исходный текст (перед редактированием)
+        descr.savedText = descr.innerText;
+        // Поменять картинку кнопки на "V"
+        e.target.style["background-position"] = "50% 50%" ;
+        // добавить кнопку "Х"
+        const cancelBtn = document.createElement("div");
+        cancelBtn.className = "tool-button";
+        cancelBtn.style["background-position"] = "50% 0" ;
+        cancelBtn.onclick = () => {
+            // восстанавливаем сохраненный текст (отменяем изменения)
+            descr.innerText = descr.savedText;
+            delete descr.savedText;
+            container.removeChild( cancelBtn ) ;
+            descr.removeAttribute("contenteditable");
+            e.target.style["background-position"] = "0 0" ;
+        };
+        container.appendChild(cancelBtn);
+        container.cancelBtnRef = cancelBtn;
+    } else {
+        // второе нажатие - save
         descr.removeAttribute("contenteditable");
         e.target.style["background-position"] = "0 0" ;
-        descr.innerText = content;
-    };
-    container.appendChild(cancelBtn);
+        container.removeChild( container.cancelBtnRef ) ;
+        delete container.cancelBtnRef;
+
+        if( descr.savedText !== descr.innerText ) {
+            // console.log({id: pid, description: descr.innerText });
+            fetch(window.location.href, {
+                method: "PUT",
+                body: JSON.stringify({id: pid, description: descr.innerText}),
+                // body: `{"id": "${pid}", "description": "${descr.innerText}" }`,
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8"
+                }
+            }).then(r => r.json()).then(j => {
+                if( j.status > 0 ) {
+                    alert( "Update OK" ) ;
+                    delete descr.savedText;
+                } else {
+                    alert( "Update error" ) ;
+                    console.log(j);
+                    descr.innerText = descr.savedText;
+                    delete descr.savedText;
+                }
+            });
+        } else {
+            delete descr.savedText;
+        }
+
+    }
+
+
 }
 
 function deleteClick(e) {
@@ -64,12 +80,6 @@ function deleteClick(e) {
             .then(r => r.json())
             .then(j => {
                 console.log(j);
-
-                const obj = JSON.parse(j);
-                alert(obj.message);
-                if (obj.status === 1) {
-                    window.location.reload(false);
-                }
             });
     }
 }
@@ -85,3 +95,12 @@ function findPictureId(e) {
     if( ! tt) throw "tt not found in parent node";
     return tt.innerHTML;
 }
+
+/*
+    Задание.
+    1. Если после редактирования текст не поменялся,
+       то не отправлять на сервер
+    2. Провести анализ ответа сервера: если положительный,
+       то вывести сообщение (обновлено), если нет - восстановить
+       исходный текст (до редактирования)
+ */
