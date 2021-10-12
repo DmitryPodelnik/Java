@@ -12,7 +12,7 @@ public class JournalFactory
     public Literature create(JSONObject obj) {
         // obj.get...("field") throws JSONException if no field found
         try {
-            if (! "Journal".equals(obj.getString("type"))) {
+            if (!"Journal".equals(obj.getString("type"))) {
                 return null;
             }
             return new Journal(

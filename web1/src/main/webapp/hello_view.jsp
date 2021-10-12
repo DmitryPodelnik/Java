@@ -11,46 +11,46 @@
     <title>Hello</title>
 </head>
 <body>
-    <h1>Сервлеты</h1>
-    <p>
-        Сервлеты - это специальные классы (объекты) в Java, предназначенные для сетевых задач.
-        HttpServlet - аналог ApiController в (ASP.NET)
-    </p>
-    <p>
-        В HttpServlet заложена маршрутизация по методам запроса. Для реализации мы перегружаем
-        методы doGet, doPost, doPut и т.п.
-        Маршрутизация по URL (ЧПУ) обеспечивается:
-            а) аннотацией @WebServlet("Ч/П/У");
-            б) записью в web.xml
-    </p>
-    <h2>API</h2>
-    <button onclick="getClick()">GET</button>
-    <button onclick="postClick()">POST</button>
-    <button onclick="putClick()">PUT</button>
-    <button onclick="deleteClick()">DELETE</button>
-    <p id="server-result"></p>
-    <script src="js/hello_view.js"></script>
+<h1>Сервлеты</h1>
+<p>
+    Сервлеты - это специальные классы (объекты) в Java, предназначенные для сетевых задач.
+    HttpServlet - аналог ApiController в (ASP.NET)
+</p>
+<p>
+    В HttpServlet заложена маршрутизация по методам запроса. Для реализации мы перегружаем
+    методы doGet, doPost, doPut и т.п.
+    Маршрутизация по URL (ЧПУ) обеспечивается:
+    а) аннотацией @WebServlet("Ч/П/У");
+    б) записью в web.xml
+</p>
+<h2>API</h2>
+<button onclick="getClick()">GET</button>
+<button onclick="postClick()">POST</button>
+<button onclick="putClick()">PUT</button>
+<button onclick="deleteClick()">DELETE</button>
+<p id="server-result"></p>
+<script src="js/hello_view.js"></script>
 
 <h2>Формы. Продвинутая работа</h2>
-<form method="post" action="" >
+<form method="post" action="">
     Телефон <input name="cellular"
-                   value="<%= (request.getAttribute("cellValue") == null) ? "" : request.getAttribute("cellValue") %>" />
+                   value="<%= (request.getAttribute("cellValue") == null) ? "" : request.getAttribute("cellValue") %>"/>
     <%= request.getAttribute("cellphoneMessage") %>
     <br/>
     Имя <input name="username"
-               value="<%= (request.getAttribute("nameValue") == null) ? "" : request.getAttribute("nameValue") %>" />
+               value="<%= (request.getAttribute("nameValue") == null) ? "" : request.getAttribute("nameValue") %>"/>
     <%= request.getAttribute("usernameMessage") %>
     <br/>
     Email <input name="email"
-               value="<%= (request.getAttribute("emailValue") == null) ? "" : request.getAttribute("emailValue") %>" />
-    <input type="submit" value="Заказ звонка" />
+                 value="<%= (request.getAttribute("emailValue") == null) ? "" : request.getAttribute("emailValue") %>"/>
+    <input type="submit" value="Заказ звонка"/>
     <%= request.getAttribute("emailMessage") %>
 </form>
-    <br/>getContextPath() <%= request.getContextPath() %>
-    <br/>getPathInfo()    <%= request.getPathInfo()    %>
-    <br/>getQueryString() <%= request.getQueryString() %>
-    <br/>getRequestURI()  <%= request.getRequestURI()  %>
-    <br/>getServletPath() <%= request.getServletPath() %>
+<br/>getContextPath() <%= request.getContextPath() %>
+<br/>getPathInfo()    <%= request.getPathInfo()    %>
+<br/>getQueryString() <%= request.getQueryString() %>
+<br/>getRequestURI()  <%= request.getRequestURI()  %>
+<br/>getServletPath() <%= request.getServletPath() %>
 
 
 </body>

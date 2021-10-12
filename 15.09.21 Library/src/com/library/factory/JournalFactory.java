@@ -14,8 +14,8 @@ public class JournalFactory implements ConcreteFactory {
                     obj.getString("title"),
                     obj.getString("number")
             );
-        } catch( JSONException ignored ) {
-            return null ;
+        } catch (JSONException ignored) {
+            return null;
         }
     }
 

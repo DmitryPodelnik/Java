@@ -11,36 +11,36 @@
     <title>JSP</title>
 </head>
 <body>
-    <h1>Передача параметров</h1>
-    <p>
-        Browser (client) -> запрос ->
-        Listener (Tomcat) {
-            Разбор запроса,
-            создание "переменных окружения",
-        (request, response)
-            запуск приложения
-        } -> JVM ->
-        Java код {
-            анализируем request,
-            формируем response
-        }
-        Java код -> Результат -> Tomcat -> HTTP
-        -> Ответ клиенту
-    </p>
-    <form method="post" action="?userval1=GET">
-        <input name="userval" />
-        <input type="submit" value="Send" />
-    </form>
-    <p>
-        На сегодня стандартизированы 9 методов запроса:
-        CONNECT, GET, POST, PUT, HEAD, DELETE,
-        PATCH, OPTIONS, TRACE.
-        Передача параметров, традиционно, называется "get" и "post", подразумевая
-        включение параметров:
-            а) в состав URL (адресной строки);
-            б) в тело запроса;
-        В HTTP запросе параметры могут быть как в строке, так и в теле.
-    </p>
+<h1>Передача параметров</h1>
+<p>
+    Browser (client) -> запрос ->
+    Listener (Tomcat) {
+    Разбор запроса,
+    создание "переменных окружения",
+    (request, response)
+    запуск приложения
+    } -> JVM ->
+    Java код {
+    анализируем request,
+    формируем response
+    }
+    Java код -> Результат -> Tomcat -> HTTP
+    -> Ответ клиенту
+</p>
+<form method="post" action="?userval1=GET">
+    <input name="userval"/>
+    <input type="submit" value="Send"/>
+</form>
+<p>
+    На сегодня стандартизированы 9 методов запроса:
+    CONNECT, GET, POST, PUT, HEAD, DELETE,
+    PATCH, OPTIONS, TRACE.
+    Передача параметров, традиционно, называется "get" и "post", подразумевая
+    включение параметров:
+    а) в состав URL (адресной строки);
+    б) в тело запроса;
+    В HTTP запросе параметры могут быть как в строке, так и в теле.
+</p>
 <%
     String userval = request.getParameter("userval");
 
@@ -48,9 +48,9 @@
 <p>
     Параметр из формы:
     <% if (userval == null) { %>
-        Не передан
+    Не передан
     <% } else { %>
-        Передан <%= userval %>
+    Передан <%= userval %>
     <% } %>
 </p>
 <p>

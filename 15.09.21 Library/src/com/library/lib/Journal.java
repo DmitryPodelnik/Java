@@ -3,10 +3,10 @@ package com.library.lib;
 import org.json.JSONObject;
 
 public class Journal extends Literature {
-    private String number ;  // Year, No (2021,1)
+    private String number;  // Year, No (2021,1)
 
-    public Journal( String title, String number ) {
-        super.setTitle( title ) ;
+    public Journal(String title, String number) {
+        super.setTitle(title);
         this.number = number;
     }
 
@@ -28,12 +28,11 @@ public class Journal extends Literature {
     }
 
     /**
-     *
      * @param lit - Literature object
      * @return JSON string if lit is instanceof Journal or null
      */
     @Override
-    public String toJsonString (Literature lit) {
+    public String toJsonString(Literature lit) {
         if (lit instanceof Journal) {
             try {
                 Journal journal = (Journal) lit;

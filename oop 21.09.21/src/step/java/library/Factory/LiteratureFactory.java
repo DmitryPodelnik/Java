@@ -8,7 +8,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class LiteratureFactory {
     /**
@@ -17,15 +16,12 @@ public class LiteratureFactory {
     private ArrayList<ConcreteFactory> _factories;
 
     public LiteratureFactory() {
-
         _factories = new ArrayList<>();
-        registerFactory(new BookFactory());
-        registerFactory(new JournalFactory());
-        registerFactory(new NewspaperFactory());
     }
 
     /**
      * Registration for concrete factories
+     *
      * @param factory the factory
      * @return if registered OK, false if error or factory already registered
      */
@@ -40,10 +36,11 @@ public class LiteratureFactory {
 
     /**
      * Creates concrete Literature (Book, Journal, ...) from JSON Object
+     *
      * @param obj JSON Object with concrete fields
      * @return concrete Literature
      */
-    Literature createFrom (JSONObject obj) {
+    Literature createFrom(JSONObject obj) {
         for (ConcreteFactory factory : _factories) {
             Literature lit = factory.create(obj);
             if (lit != null) {
@@ -53,42 +50,25 @@ public class LiteratureFactory {
         return null;
     }
 
-    public Literature createFrom (File file) {
+    public Literature createFrom(File file) {
         if (file == null) {
             return null;
         }
 
-        try (Scanner scanner = new Scanner(file)) {
-            StringBuilder sb = new StringBuilder();
-
-            while(scanner.hasNext()) {
-                sb.append(scanner.nextLine());
-            }
-
-            return this.createFrom( new JSONObject(sb.toString()) );
-        } catch(Exception ex) {
-            System.out.println(ex.getMessage());
-            return null;
-        }
-        /* // Low-level reading
         try (InputStream reader = new FileInputStream(file)) {
             int sym;
             StringBuilder sb = new StringBuilder();
 
-            while((sym = reader.read()) != -1) {
+            while ((sym = reader.read()) != -1) {
                 sb.append((char) sym);
             }
 
-            return this.createFrom( new JSONObject(sb.toString()) );
-        } catch(Exception ex) {
+            return this.createFrom(new JSONObject(sb.toString()));
+        } catch (Exception ex) {
             System.out.println(ex.getMessage());
             return null;
         }
-         */
     }
-
-
-
 
 
 }

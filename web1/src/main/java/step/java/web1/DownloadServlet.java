@@ -45,9 +45,9 @@ public class DownloadServlet
         );
         //  1.2. Content-Disposition
         resp.setHeader("Content-Disposition",
-                       "attachment; filename=\"picture"
-                       + pic.getName().substring(pic.getName().lastIndexOf("."))
-                       + "\"");
+                "attachment; filename=\"picture"
+                        + pic.getName().substring(pic.getName().lastIndexOf("."))
+                        + "\"");
         //  1.3. Content-Length
         resp.setContentLengthLong(file.length());
         // 2. Записываем (копируем) файл в поток ответа (resp)
@@ -55,7 +55,7 @@ public class DownloadServlet
         byte[] buf = new byte[512];
         int n;
         try (InputStream inp = new FileInputStream(file)) {
-            while (( n = inp.read(buf) ) != -1) {
+            while ((n = inp.read(buf)) != -1) {
                 out.write(buf, 0, n);
             }
         } catch (IOException ex) {

@@ -9,14 +9,14 @@ public class BookFactory implements ConcreteFactory {
     @Override
     public Literature create(JSONObject obj) {
         try {
-            if( ! "Book".equals( obj.getString( "type" ) ) )
-                return null ;
+            if (!"Book".equals(obj.getString("type")))
+                return null;
 
             return new Book(
                     obj.getString("title"),
                     obj.getString("author")
             );
-        } catch( JSONException ignored ) {
+        } catch (JSONException ignored) {
             return null;
         }
     }

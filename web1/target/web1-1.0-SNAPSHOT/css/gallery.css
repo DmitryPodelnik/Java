@@ -13,19 +13,24 @@ body {
     vertical-align: top;
     width: 25vw;
 }
+
 .picture img {
     max-height: 10vw;
     max-width: 15vw;
 }
+
 .picture p {
     font-size: 3vw;
 }
+
 .picture tt {
     visibility: hidden;
 }
+
 .picture button {
     color: maroon;
 }
+
 .tool-button {
     background: url("../img/edit_icons.png");
     background-size: 300%;
@@ -36,15 +41,19 @@ body {
     margin: 2px;
     width: 30px;
 }
+
 .tool-button:hover {
     border-color: #777777;
 }
+
 .tool-delete {
-    background-position: -50% 0 ;
+    background-position: -50% 0;
 }
+
 .tool-download {
-    background-position: -50% 50% ;
+    background-position: -50% 50%;
 }
+
 .tool-edit {
-    background-position: 0 0 ;
+    background-position: 0 0;
 }

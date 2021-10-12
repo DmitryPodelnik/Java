@@ -23,8 +23,8 @@ public class ApiHelloServlet
                 // "Hello from API"
                 toStringFromJson(
                         new Book(
-                        "Stainback",
-                        "Grapes of Wrath"
+                                "Stainback",
+                                "Grapes of Wrath"
                         ).toJsonString()
                 )
         );

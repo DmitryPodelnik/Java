@@ -10,18 +10,18 @@ public class LiteratureFactoryTest {
 
     @Test
     public void registerFactory() {
-        BookFactory bookFactory = new BookFactory() ;
-        JournalFactory journalFactory = new JournalFactory() ;
-        LiteratureFactory literatureFactory = new LiteratureFactory() ;
+        BookFactory bookFactory = new BookFactory();
+        JournalFactory journalFactory = new JournalFactory();
+        LiteratureFactory literatureFactory = new LiteratureFactory();
 
         Assert.assertTrue(
-                literatureFactory.registerFactory( bookFactory ) ) ;
+                literatureFactory.registerFactory(bookFactory));
         Assert.assertFalse(
-                literatureFactory.registerFactory( bookFactory ) ) ;
+                literatureFactory.registerFactory(bookFactory));
         Assert.assertTrue(
-                literatureFactory.registerFactory( journalFactory ) ) ;
+                literatureFactory.registerFactory(journalFactory));
         Assert.assertFalse(
-                literatureFactory.registerFactory( journalFactory ) ) ;
+                literatureFactory.registerFactory(journalFactory));
 
     }
 
@@ -30,7 +30,7 @@ public class LiteratureFactoryTest {
     public void createFrom() {
         JSONObject objBook = TestSamples.getJsonBook();
         JSONObject objJournal = TestSamples.getJsonJournal();
-        JSONObject objInvalid= TestSamples.getJsonInvalidType();
+        JSONObject objInvalid = TestSamples.getJsonInvalidType();
         LiteratureFactory literatureFactory = new LiteratureFactory();
 
         Assert.assertNotNull(literatureFactory.createFrom(objBook));

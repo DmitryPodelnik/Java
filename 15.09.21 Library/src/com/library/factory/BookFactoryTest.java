@@ -10,23 +10,23 @@ public class BookFactoryTest {
 
     @org.junit.Test
     public void create() {
-        JSONObject book = TestSamples.getJsonBook() ;
-        JSONObject jrnl = TestSamples.getJsonJournal() ;
+        JSONObject book = TestSamples.getJsonBook();
+        JSONObject jrnl = TestSamples.getJsonJournal();
 
-        BookFactory factory = new BookFactory() ;
-        Assert.assertNull( factory.create( jrnl ) ) ;
-        Assert.assertNull( factory.create( TestSamples.getJsonInvalidType() ) ) ;
+        BookFactory factory = new BookFactory();
+        Assert.assertNull(factory.create(jrnl));
+        Assert.assertNull(factory.create(TestSamples.getJsonInvalidType()));
 
-        Book testBook = (Book) factory.create( book ) ;
-        Assert.assertNotNull( testBook ) ;
+        Book testBook = (Book) factory.create(book);
+        Assert.assertNotNull(testBook);
         Assert.assertEquals(
-                book.getString( "author" ),
+                book.getString("author"),
                 testBook.getAuthor()
-        ) ;
+        );
         Assert.assertEquals(
-                book.getString( "title" ),
+                book.getString("title"),
                 testBook.getTitle()
-        ) ;
+        );
     }
 
     @org.junit.Test

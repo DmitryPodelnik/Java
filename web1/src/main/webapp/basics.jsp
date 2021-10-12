@@ -12,7 +12,8 @@
 </head>
 <body>
 <% int x = 10; %>
-x = <b><%= x %></b>
+x = <b><%= x %>
+</b>
 <br/>
 <% if (x < 20) { %>
 <i>Less than 20</i>

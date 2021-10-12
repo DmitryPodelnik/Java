@@ -18,88 +18,88 @@ public class GalleryServlet extends HttpServlet {
     @Override
     @SuppressWarnings("unchecked")
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String pictureId = req.getParameter( "id" ) ;
-        JSONObject answer = new JSONObject() ;
-        if( pictureId == null || "".equals( pictureId ) ) {
-            answer.put( "status", "-1" ) ;
-            answer.put( "message", "Id required" ) ;
+        String pictureId = req.getParameter("id");
+        JSONObject answer = new JSONObject();
+        if (pictureId == null || "".equals(pictureId)) {
+            answer.put("status", "-1");
+            answer.put("message", "Id required");
         } else {
             // Удаление из БД
 
-            answer.put( "status", "1" ) ;
-            answer.put( "message", pictureId ) ;
+            answer.put("status", "1");
+            answer.put("message", pictureId);
         }
 
-        resp.setContentType( "application/json" ) ;
-        resp.getWriter().print( answer.toString() ) ;
+        resp.setContentType("application/json");
+        resp.getWriter().print(answer.toString());
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        req.setCharacterEncoding( "UTF-8" ) ;
-        HttpSession session = req.getSession() ;
+        req.setCharacterEncoding("UTF-8");
+        HttpSession session = req.getSession();
 
         // session attributes (messages)
-        String[] sessionAttributes = { "uploadMessage", "galleryDescription" } ;
-        for( String attrName : sessionAttributes ) {
+        String[] sessionAttributes = {"uploadMessage", "galleryDescription"};
+        for (String attrName : sessionAttributes) {
             String attrValue = (String)
-                    session.getAttribute( attrName ) ;
-            if( attrValue != null ) {
-                session.removeAttribute( attrName ) ;
+                    session.getAttribute(attrName);
+            if (attrValue != null) {
+                session.removeAttribute(attrName);
             } else {
-                attrValue = "" ;
+                attrValue = "";
             }
-            req.setAttribute( attrName, attrValue ) ;
+            req.setAttribute(attrName, attrValue);
         }
 
         // Main content - pictures collection
-        ArrayList<Picture> pictures = Db.getPictures() ;
-        Picture[] picturesArr = ( pictures == null )
+        ArrayList<Picture> pictures = Db.getPictures();
+        Picture[] picturesArr = (pictures == null)
                 ? new Picture[0]
-                : pictures.toArray( new Picture[0] ) ;
+                : pictures.toArray(new Picture[0]);
 
-        req.setAttribute( "pictures", picturesArr ) ;
+        req.setAttribute("pictures", picturesArr);
 
         // goto view
-        req.getRequestDispatcher( "gallery.jsp" )
-                .forward( req, resp ) ;
+        req.getRequestDispatcher("gallery.jsp")
+                .forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setCharacterEncoding( "UTF-8" ) ;
+        req.setCharacterEncoding("UTF-8");
 
-        String uploadMessage = "" ;
+        String uploadMessage = "";
 
         // Description -  передается как форма, извлекается обычным образом
-        String description = req.getParameter( "galleryDescription" ) ;
+        String description = req.getParameter("galleryDescription");
 
-        Part filePart = req.getPart( "galleryfile" ) ;  // имя  <input type="file"
-        HttpSession session = req.getSession() ;
+        Part filePart = req.getPart("galleryfile");  // имя  <input type="file"
+        HttpSession session = req.getSession();
 
-        String attachedFilename = null ;
+        String attachedFilename = null;
         String contentDisposition =
-                filePart.getHeader("content-disposition" ) ;
-        if( contentDisposition != null ) {
-            for( String part : contentDisposition.split( "; ") ) {
-                if( part.startsWith( "filename" ) ) {
-                    attachedFilename = part.substring( 10, part.length() - 1 ) ;
-                    break ;
+                filePart.getHeader("content-disposition");
+        if (contentDisposition != null) {
+            for (String part : contentDisposition.split("; ")) {
+                if (part.startsWith("filename")) {
+                    attachedFilename = part.substring(10, part.length() - 1);
+                    break;
                 }
             }
         }
-        if( attachedFilename != null ) {  // имя успешно извлечено
+        if (attachedFilename != null) {  // имя успешно извлечено
             // Задача: отделить имя и расширение
-            String extension ;
-            int dotPosition = attachedFilename.lastIndexOf( "." ) ;
-            if( dotPosition > -1 ) {
-                extension = attachedFilename.substring( dotPosition ) ;
+            String extension;
+            int dotPosition = attachedFilename.lastIndexOf(".");
+            if (dotPosition > -1) {
+                extension = attachedFilename.substring(dotPosition);
                 // Определяем путь в файловой системе
-                String path = req.getServletContext().getRealPath( "/uploads" ) ;
+                String path = req.getServletContext().getRealPath("/uploads");
 
-                File destination ;
-                String filename, savedFilename ;
+                File destination;
+                String filename, savedFilename;
                 do {
                     // формируем случайное имя файла, сохраняем расширение
                     savedFilename = Hasher.hash(attachedFilename) + extension;
@@ -107,42 +107,41 @@ public class GalleryServlet extends HttpServlet {
                     filename = path + "\\" + savedFilename;
                     destination = new File(filename);
                     attachedFilename = savedFilename;
-                } while( destination.exists() ) ;  // если файл с таким именем уже есть, перегенерировать имя
+                } while (destination.exists());  // если файл с таким именем уже есть, перегенерировать имя
 
                 Files.copy(
                         filePart.getInputStream(),  // source (Stream)
                         destination.toPath(),       // destination (Path)
                         StandardCopyOption.REPLACE_EXISTING
-                ) ;
+                );
 
                 // копируем в папку исходного проекта (для сохранения)
-                path = "D:\\JAVA_ITSTEP\\GIT\\web1\\src\\main\\webapp\\uploads" ;
-                filename = path + "\\" + savedFilename ;
+                path = "D:\\JAVA_ITSTEP\\GIT\\web1\\src\\main\\webapp\\uploads";
+                filename = path + "\\" + savedFilename;
                 destination = new File(filename);
                 Files.copy(
                         filePart.getInputStream(),  // source (Stream)
                         destination.toPath(),       // destination (Path)
                         StandardCopyOption.REPLACE_EXISTING
-                ) ;
+                );
                 // Файл сохранен под имененем  savedFilename
                 // Его описание в переменной   description
                 // Вносим в БД:
-                if( Db.addPicture( new Picture( savedFilename, description ) ) ) {
-                    uploadMessage = "Upload OK" ;
+                if (Db.addPicture(new Picture(savedFilename, description))) {
+                    uploadMessage = "Upload OK";
                 } else {
-                    uploadMessage = "Error inserting DB" ;
+                    uploadMessage = "Error inserting DB";
                 }
-            }
-            else {  // no file extension
-                attachedFilename = "no file extension" ;
+            } else {  // no file extension
+                attachedFilename = "no file extension";
             }
         }
-        session.setAttribute( "uploadMessage", uploadMessage ) ;
+        session.setAttribute("uploadMessage", uploadMessage);
         // Конец работы с файлом
 
-        session.setAttribute( "galleryDescription", description ) ;
+        session.setAttribute("galleryDescription", description);
 
-        resp.sendRedirect( req.getRequestURI() ) ;
+        resp.sendRedirect(req.getRequestURI());
     }
 }
 /*

@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Library {
     // Aggregation - collection of ...
-    private ArrayList<Literature> _funds ;  // Funds
+    private ArrayList<Literature> _funds;  // Funds
     //        = new ArrayList<>();  // Not recommended: code/declaration mixing
     private int n;  // threads counter
     private final Object mutex;
@@ -21,11 +21,11 @@ public class Library {
         mutex = new Object();
     }
 
-    public void add (Literature lit) {
+    public void add(Literature lit) {
         _funds.add(lit);
     }
 
-    public void print(){
+    public void print() {
         /* for (Literature lit: _funds) {
             lit.print();
             System.out.println(); // new line
@@ -42,7 +42,7 @@ public class Library {
         // The problem: some funds are printable, some are not
         // We want to add Holograms
 
-        for (Literature lit: _funds) {
+        for (Literature lit : _funds) {
             if (lit instanceof Printable) {
                 ((Printable) lit).print();
                 System.out.println(); // new line
@@ -52,9 +52,10 @@ public class Library {
 
     /**
      * Scan directory for JSON files and try to add them to funds
+     *
      * @param dirname directory path
      */
-    public void addDirectory (String dirname) {
+    public void addDirectory(String dirname) {
         String tag = "Library.addDirectory ";
         if (dirname == null) {
             System.err.println(tag + "no directory");
@@ -100,10 +101,11 @@ public class Library {
 
     /**
      * Scan directory for JSON files and try to add them to funds
+     *
      * @param dirname directory path
-     * @param then callback after finish
+     * @param then    callback after finish
      */
-    public void addDirectoryAsync (String dirname, Runnable then) {
+    public void addDirectoryAsync(String dirname, Runnable then) {
         String tag = "Library.addDirectory ";
         if (dirname == null) {
             System.err.println(tag + "no directory");
@@ -143,12 +145,11 @@ public class Library {
                     // if (count.get() == dir.listFiles().length) {
                     //    this.print();
                     // }
-                }
-                finally {
+                } finally {
                     synchronized (mutex) {
                         n--;
                         if (n == 0) {
-                            new Thread (then).start();
+                            new Thread(then).start();
                         }
                     }
                 }

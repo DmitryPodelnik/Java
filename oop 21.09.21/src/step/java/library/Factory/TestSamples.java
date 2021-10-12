@@ -7,7 +7,7 @@ import step.java.library.Journal;
 public class TestSamples {
 
     private static JSONObject
-        book, journal, invalid, newspaper;
+            book, journal, invalid, newspaper;
 
     public static JSONObject getJsonBook() {
         if (book == null) {
@@ -20,7 +20,7 @@ public class TestSamples {
         return book;
     }
 
-    public static JSONObject getJsonJournal () {
+    public static JSONObject getJsonJournal() {
         if (journal == null) {
             journal = new JSONObject();
             journal.put("type", "Journal");
@@ -31,7 +31,7 @@ public class TestSamples {
         return journal;
     }
 
-    public static JSONObject getJsonInvalidType () {
+    public static JSONObject getJsonInvalidType() {
         if (invalid == null) {
             invalid = new JSONObject();
             invalid.put("type", "invalid");

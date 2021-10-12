@@ -11,7 +11,7 @@ public class BookFactory
     @Override
     public Literature create(JSONObject obj) {
         try {
-            if (! "Book".equals(obj.getString("type"))) {
+            if (!"Book".equals(obj.getString("type"))) {
                 return null;
             }
             return new Book(

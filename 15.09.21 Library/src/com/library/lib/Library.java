@@ -9,31 +9,33 @@ import java.util.ArrayList;
 
 public class Library {
     // Aggregation - collection of ...
-    private ArrayList<Literature> funds ;   // Funds
+    private ArrayList<Literature> funds;   // Funds
     // = new ArrayList<>() ;  // Not recommend: code/declaration mixing
     private int n;  // threads counter
     private final Object mutex;
 
     public Library() {
-        funds = new ArrayList<>() ;  // OK
+        funds = new ArrayList<>();  // OK
         mutex = new Object();
     }
 
-    public void add( Literature lit ) {
-        funds.add( lit ) ;
+    public void add(Literature lit) {
+        funds.add(lit);
     }
 
     public void print() {
-        for( Literature lit : funds ) {
-            lit.print() ;
-            System.out.println() ;  // new line
+        for (Literature lit : funds) {
+            lit.print();
+            System.out.println();  // new line
         }
     }
+
     /**
      * Scan directory for JSON files and try to add them to funds
+     *
      * @param dirname directory path
      */
-    public void addDirectory (String dirname) {
+    public void addDirectory(String dirname) {
         String tag = "Library.addDirectory ";
         if (dirname == null) {
             System.err.println(tag + "no directory");
@@ -49,10 +51,10 @@ public class Library {
         LiteratureFactory literatureFactory = new LiteratureFactory();
         for (File file : dir.listFiles()) {
             Literature lit = literatureFactory.createFrom(file);
-            System.out.print( file.getName() + " ");
+            System.out.print(file.getName() + " ");
 
             // if lit is NOT NULL and has right file extension (.exe, .json or .txt), then add or ignore
-            if ( lit == null && !CreateFiles.checkRightExtension(file.getName())) {
+            if (lit == null && !CreateFiles.checkRightExtension(file.getName())) {
                 System.out.println("ignored");
             } else {
                 this.add(lit);
@@ -63,10 +65,11 @@ public class Library {
 
     /**
      * Scan directory for JSON files and try to add them to funds
+     *
      * @param dirname directory path
-     * @param then callback after finish
+     * @param then    callback after finish
      */
-    public void addDirectoryAsync (String dirname, Runnable then) {
+    public void addDirectoryAsync(String dirname, Runnable then) {
         String tag = "Library.addDirectory ";
         if (dirname == null) {
             System.err.println(tag + "no directory");
@@ -96,18 +99,17 @@ public class Library {
                     }
 
                     // if lit is NOT NULL and has right file extension (.exe, .json or .txt), then add or ignore
-                    if ( lit == null && !CreateFiles.checkRightExtension(file.getName())) {
+                    if (lit == null && !CreateFiles.checkRightExtension(file.getName())) {
                         System.out.println("ignored");
                     } else {
                         this.add(lit);
                         System.out.println("added");
                     }
-                }
-                finally {
+                } finally {
                     synchronized (mutex) {
                         n--;
                         if (n == 0) {
-                            new Thread (then).start();
+                            new Thread(then).start();
                         }
                     }
                 }

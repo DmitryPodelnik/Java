@@ -1,6 +1,6 @@
 {
-	"host": "localhost",
-	"port": 1521,
-	"user": "system",
-	"pass": "root"
+  "host": "localhost",
+  "port": 1521,
+  "user": "system",
+  "pass": "root"
 }

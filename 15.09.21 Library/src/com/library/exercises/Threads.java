@@ -34,6 +34,7 @@ public class Threads {
 
     private double res;  // non-reference type, not valid for synchronization
     private final Object semaphore = new Object();
+
     public void demo2() {
         Runnable plus10percent = () -> {
             double oldValue;
@@ -60,7 +61,7 @@ public class Threads {
         };
         res = 100;
 
-        for (int i = 0; i< 12; ++i) {
+        for (int i = 0; i < 12; ++i) {
             new Thread(plus10percent).start();
         }
     }

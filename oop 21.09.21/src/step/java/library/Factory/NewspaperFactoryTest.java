@@ -20,12 +20,12 @@ public class NewspaperFactoryTest {
         Assert.assertNull(factory.create(journal));
         Assert.assertNull(factory.create(invalid));
 
-        Newspaper nPaper = (Newspaper)factory.create(newspaper);
+        Newspaper nPaper = (Newspaper) factory.create(newspaper);
 
         Assert.assertEquals(
                 nPaper.getPublishingHouse(),
                 newspaper.getString("publisher")
-                );
+        );
     }
 
     @Test

@@ -13,10 +13,10 @@ public class NewspaperFactory
     public Literature create(JSONObject obj) {
         // obj.get...("field") throws JSONException if no field found
         try {
-            if (! "Newspaper".equals(obj.getString("type"))) {
+            if (!"Newspaper".equals(obj.getString("type"))) {
                 return null;
             }
-            return new Newspaper (
+            return new Newspaper(
                     obj.getString("title"),
                     obj.getString("publisher")
             );

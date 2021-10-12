@@ -48,7 +48,7 @@ public class CreateFiles {
         // try () {} catch() {}
         try (  // try-with-resource (~using(){} in C#)
                OutputStream writer =
-                       new FileOutputStream(file) ){
+                       new FileOutputStream(file)) {
             writer.write(
                     TestSamples.getJsonBook()
                             .toString().getBytes()
@@ -63,25 +63,26 @@ public class CreateFiles {
 
     /**
      * Read all file data and return as string
+     *
      * @param filename
      * @return
      */
     public String getFileContent(String filename) {
         File file = new File(filename);
-        if(!file.exists()) {
+        if (!file.exists()) {
             return null;
         }
         try (InputStream reader = new FileInputStream(file)) {
             int sym; // symbol from the file, -1 -> EOF
             StringBuilder sb = new StringBuilder();
 
-            while((sym = reader.read()) != -1) {
+            while ((sym = reader.read()) != -1) {
                 // str += (char) sym; not correct
                 sb.append((char) sym);
             }
 
             return sb.toString();
-        } catch(IOException ex) {
+        } catch (IOException ex) {
             System.out.println(ex.getMessage());
             return null;
         }
@@ -89,6 +90,7 @@ public class CreateFiles {
 
     /**
      * check for right file extension (.exe, .json or .txt)
+     *
      * @return true if extension is right and false if not
      */
     public static boolean checkRightExtension(String filename) {
@@ -100,11 +102,13 @@ public class CreateFiles {
                 ? true
                 : false;
     }
+
     public static boolean isExeFile(String filename) {
         return FilenameUtils.getExtension(filename) == "exe"
                 ? true
                 : false;
     }
+
     public static boolean isTxtFile(String filename) {
         return FilenameUtils.getExtension(filename) == "txt"
                 ? true

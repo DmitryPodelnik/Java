@@ -13,27 +13,27 @@ import java.sql.SQLException;
 
 public class DbFilter implements Filter {
 
-    private FilterConfig filterConfig ;
+    private FilterConfig filterConfig;
 
     @Override
-    public void init(FilterConfig filterConfig)  {
-        this.filterConfig = filterConfig ;
+    public void init(FilterConfig filterConfig) {
+        this.filterConfig = filterConfig;
     }
 
     @Override
-    public void doFilter( ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        servletRequest.setCharacterEncoding( "UTF-8" ) ;
-        servletResponse.setCharacterEncoding( "UTF-8" ) ;
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+        servletRequest.setCharacterEncoding("UTF-8");
+        servletResponse.setCharacterEncoding("UTF-8");
 
         // System.out.println( "Filter works!" ) ;
-        Db.setConnection( null ) ;
+        Db.setConnection(null);
         File config = new File(
                 filterConfig
                         .getServletContext()
-                        .getRealPath("/WEB-INF/config/" )
-                        + "/" + "db.json" ) ;
-        if( ! config.exists() ) {
-            System.err.println( "config/db.json not found" ) ;
+                        .getRealPath("/WEB-INF/config/")
+                        + "/" + "db.json");
+        if (!config.exists()) {
+            System.err.println("config/db.json not found");
         } else {
             try (InputStream reader = new FileInputStream(config)) {
                 int fileLength = (int) config.length();
@@ -42,27 +42,27 @@ public class DbFilter implements Filter {
                     throw new IOException("File read integrity falls");
                 JSONObject configData = (JSONObject)
                         new JSONParser().parse(new String(buf));
-                if( ! Db.setConnection( configData ) )
-                    throw new SQLException( "Db connection error" ) ;
-            } catch( Exception ex ) {
-                System.err.println( ex.getMessage() ) ;
+                if (!Db.setConnection(configData))
+                    throw new SQLException("Db connection error");
+            } catch (Exception ex) {
+                System.err.println(ex.getMessage());
             }
         }
         // Checking connection to be opened
-        if( Db.getConnection() == null ) {
+        if (Db.getConnection() == null) {
             // No connection - use static mode
             servletRequest
-                    .getRequestDispatcher( "/static.jsp" )
-                    .forward( servletRequest, servletResponse ) ;
+                    .getRequestDispatcher("/static.jsp")
+                    .forward(servletRequest, servletResponse);
         } else {
-            filterChain.doFilter( servletRequest, servletResponse ) ;
-            Db.closeConnection() ;
+            filterChain.doFilter(servletRequest, servletResponse);
+            Db.closeConnection();
         }
     }
 
     @Override
     public void destroy() {
-        filterConfig = null ;
+        filterConfig = null;
     }
 }
 /*

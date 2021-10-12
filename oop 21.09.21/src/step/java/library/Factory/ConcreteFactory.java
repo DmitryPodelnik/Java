@@ -9,6 +9,7 @@ import step.java.library.Literature;
 public interface ConcreteFactory {
     /**
      * Factory method
+     *
      * @param obj JSON object
      * @returnconcrete object of Literature type
      */
@@ -16,6 +17,7 @@ public interface ConcreteFactory {
 
     /**
      * Supported type of Literature
+     *
      * @return String type representation
      */
     String getLiteratureType();

@@ -9,6 +9,7 @@ import org.json.JSONObject;
 public interface ConcreteFactory {
     /**
      * Factory method
+     *
      * @param obj JSON object
      * @return concrete object of Literature type
      */
@@ -16,6 +17,7 @@ public interface ConcreteFactory {
 
     /**
      * Supported type of Literature
+     *
      * @return string type representation
      */
     String getLiteratureType();

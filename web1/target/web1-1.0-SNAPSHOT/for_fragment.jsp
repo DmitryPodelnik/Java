@@ -7,7 +7,9 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <ul>
-    <% int x = 10; for (int i = 0; i < x; ++i) { %>
-    <li>Item <%= i + 1 %></li>
+    <% int x = 10;
+        for (int i = 0; i < x; ++i) { %>
+    <li>Item <%= i + 1 %>
+    </li>
     <% } %>
 </ul>

@@ -67,14 +67,14 @@ public class Db {
         return connection;
     }
 
-    public String hash( String str ) {
-        if( str == null ) str = "" ;
+    public String hash(String str) {
+        if (str == null) str = "";
         try {
             MessageDigest messageDigest =
-                    MessageDigest.getInstance( "SHA-1" ) ;
+                    MessageDigest.getInstance("SHA-1");
             // MD5 - 128b, SHA-1 - 160b, SHA-2 (SHA256) - 256b
-            byte[] src = str.getBytes() ;
-            byte[] res = messageDigest.digest( src ) ;
+            byte[] src = str.getBytes();
+            byte[] res = messageDigest.digest(src);
             // return DatatypeConverter.printHexBinary( res ) ;
             char[] sym = new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
             StringBuilder sb = new StringBuilder();
@@ -83,9 +83,9 @@ public class Db {
                 sb.append(sym[b & 0xF]);
             }
             return sb.toString();
-        } catch( NoSuchAlgorithmException ex ) {
-            System.err.println( ex.getMessage() ) ;
-            return null ;
+        } catch (NoSuchAlgorithmException ex) {
+            System.err.println(ex.getMessage());
+            return null;
         }
     }
 
@@ -96,7 +96,7 @@ public class Db {
         String[] authData = userInput.split("/");
         System.out.println(authData[0] + " " + authData[1]);
 
-        if( authData.length != 2) {
+        if (authData.length != 2) {
             System.out.println("Invalid input format");
         } else {
             try (PreparedStatement prep = getConnection().prepareStatement(
@@ -490,15 +490,15 @@ public class Db {
                     )
             );
 
-            connectionString = String.format (
+            connectionString = String.format(
                     "jdbc:%s://%s:%d/%s"   // Размещение БД
                             + "?useUnicode=true&characterEncoding=UTF-8"             // Кодировка канала (подключения)
                             + "&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",   // При проблемах согласования времени
-                    conf.getString( "dbms" ),
-                    conf.getString( "host" ),
-                    conf.getInt( "port" ),
-                    conf.getString( "schema" )
-            ) ;
+                    conf.getString("dbms"),
+                    conf.getString("host"),
+                    conf.getInt("port"),
+                    conf.getString("schema")
+            );
             user = conf.getString("user");
             pass = conf.getString("pass");
         } catch (IOException ex) {
@@ -517,7 +517,7 @@ public class Db {
         Connection connection;
         try {
             connection = DriverManager.getConnection(
-                connectionString,
+                    connectionString,
                     user, pass);
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
@@ -573,8 +573,8 @@ public class Db {
 
         // Read-queries
         query = "SELECT * FROM exercise";
-        try (   Statement statement = connection.createStatement();
-                ResultSet res = statement.executeQuery(query)
+        try (Statement statement = connection.createStatement();
+             ResultSet res = statement.executeQuery(query)
         ) {
             while (res.next()) {
                 System.out.printf(

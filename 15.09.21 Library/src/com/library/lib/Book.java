@@ -6,16 +6,16 @@ public class Book
         extends Literature {  // extension - inheritance
 
     // Book( "Martin Eden", "Jack London" )
-    private String author ;
+    private String author;
 
-    public Book (String title, String author) {
+    public Book(String title, String author) {
         // this.title - error, no access
         // this.setTitle( title ) ;  // warning
-        super.setTitle( title ) ;  // OK
+        super.setTitle(title);  // OK
         this.author = author;
     }
 
-    public String getAuthor () {
+    public String getAuthor() {
         return author;
     }
 
@@ -24,7 +24,7 @@ public class Book
     }
 
     @Override
-    public void print () {
+    public void print() {
         System.out.printf(
                 "Book: %s (by %s)",
                 super.getTitle(),
@@ -33,12 +33,11 @@ public class Book
     }
 
     /**
-     *
      * @param lit - Literature object
      * @return JSON string if lit is instanceof Book or null
      */
     @Override
-    public String toJsonString (Literature lit) {
+    public String toJsonString(Literature lit) {
         if (lit instanceof Book) {
             try {
                 Book book = (Book) lit;

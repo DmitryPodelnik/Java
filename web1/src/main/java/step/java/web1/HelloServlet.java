@@ -16,14 +16,14 @@ public class HelloServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request,
                       HttpServletResponse response)
-                      throws IOException {
+            throws IOException {
         response.setContentType("text/html");
 
         try {
             // Проверяем наличие в сессии атрибутов
             HttpSession session = request.getSession();
             String cellphoneMessage = (String) session.getAttribute("cellphoneMessage");
-            if (cellphoneMessage != null ) {  // есть в сессии
+            if (cellphoneMessage != null) {  // есть в сессии
                 // удаляем из сессии, иначе сообщение будет с каждым обновлением страницы
                 session.removeAttribute("cellphoneMessage");
             } else {
@@ -123,7 +123,7 @@ public class HelloServlet extends HttpServlet {
         // Задача: отображать на форме ранее введенные значения,
         // ЕСЛИ данные формы не приняты
         if (usernameMessage.length() > 0 || cellphoneMessage.length() > 0
-            || emailMessage.length() > 0) {
+                || emailMessage.length() > 0) {
             // есть сообщение(я) - валидация не прошла
             // сохраняем в сессию полученные значения
             session.setAttribute("cellValue", cellphone);

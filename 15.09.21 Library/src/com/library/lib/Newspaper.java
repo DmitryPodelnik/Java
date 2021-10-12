@@ -16,7 +16,7 @@ public class Newspaper
         this._publishingHouse = _publishingHouse;
     }
 
-    public Newspaper (String title, String publishingHouse) {
+    public Newspaper(String title, String publishingHouse) {
         // this.title - error, no access
         // this.setTitle( title ) ;  // warning
         super.setTitle(title); // OK
@@ -24,7 +24,7 @@ public class Newspaper
     }
 
     @Override
-    public void print () {
+    public void print() {
         System.out.printf(
                 "Newspaper: %s (%s)",
                 super.getTitle(),
@@ -33,12 +33,11 @@ public class Newspaper
     }
 
     /**
-     *
      * @param lit - Literature object
      * @return JSON string if lit is instanceof Newspaper or null
      */
     @Override
-    public String toJsonString (Literature lit) {
+    public String toJsonString(Literature lit) {
         if (lit instanceof Newspaper) {
             try {
                 Newspaper newspaper = (Newspaper) lit;

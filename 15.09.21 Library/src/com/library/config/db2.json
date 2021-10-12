@@ -1,7 +1,7 @@
 {
-	"dbms": "oracle",
-	"host": "localhost",
-	"port": 1521,
-	"user": "system",
-	"pass": "root"
+  "dbms": "oracle",
+  "host": "localhost",
+  "port": 1521,
+  "user": "system",
+  "pass": "root"
 }

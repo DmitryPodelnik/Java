@@ -17,7 +17,7 @@
             loginMessage = "Login shell not be empty";
         } else {
             if (login.toLowerCase().equals("user1")
-             || login.equalsIgnoreCase("user1")) {
+                    || login.equalsIgnoreCase("user1")) {
                 loginMessage = "Login in use";
             }
         }
@@ -60,43 +60,47 @@
 <body>
 
 
-    <form method="post">
-        <div>
-            <label>Login:</label>
-            <input name="login" />
-            <i><%= loginMessage %></i>
-        </div>
-        <div>
-            <label>Password:</label>
-            <input type="password" name="password"/>
-            <i><%= passwordMessage %></i>
-        </div>
-        <div>
-            <label>Confirm Password:</label>
-            <input type="password" name="confirmPassword"
-            <i><%= confirmPasswordMessage %></i>
-        </div>
-        <div>
-            <label>Real name:</label>
-            <input name="realName" />
-            <i><%= realNameMessage %></i>
-        </div>
-        <div>
-            <input type="submit" value="Register" name="button"/>
-        </div>
-    </form>
+<form method="post">
+    <div>
+        <label>Login:</label>
+        <input name="login"/>
+        <i><%= loginMessage %>
+        </i>
+    </div>
+    <div>
+        <label>Password:</label>
+        <input type="password" name="password"/>
+        <i><%= passwordMessage %>
+        </i>
+    </div>
+    <div>
+        <label>Confirm Password:</label>
+        <input type="password" name="confirmPassword"
+        <i><%= confirmPasswordMessage %>
+        </i>
+    </div>
+    <div>
+        <label>Real name:</label>
+        <input name="realName"/>
+        <i><%= realNameMessage %>
+        </i>
+    </div>
+    <div>
+        <input type="submit" value="Register" name="button"/>
+    </div>
+</form>
 
-    <%
-        String userval = request.getParameter("userval");
+<%
+    String userval = request.getParameter("userval");
 
-    %>
-    <p>
-        Параметр из формы:
-        <% if (userval == null) { %>
-        Не передан
-        <% } else { %>
-        Передан <%= userval %>
-        <% } %>
-    </p>
+%>
+<p>
+    Параметр из формы:
+    <% if (userval == null) { %>
+    Не передан
+    <% } else { %>
+    Передан <%= userval %>
+    <% } %>
+</p>
 </body>
 </html>
