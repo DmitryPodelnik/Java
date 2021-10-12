@@ -9,6 +9,5 @@
     <jsp:include page="fragments/header.jsp" />
     <jsp:include page="fragments/main.jsp" />
     <jsp:include page="fragments/footer.jsp" />
-    LIBRARY
 </body>
 </html>

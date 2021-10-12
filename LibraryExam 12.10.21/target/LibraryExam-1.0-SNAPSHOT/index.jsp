@@ -7,6 +7,7 @@
 </head>
 <body>
     <jsp:include page="fragments/header.jsp" />
-    LIBRARY
+    <jsp:include page="fragments/main.jsp" />
+    <jsp:include page="fragments/footer.jsp" />
 </body>
 </html>

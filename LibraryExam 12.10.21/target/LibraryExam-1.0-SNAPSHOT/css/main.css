@@ -6,6 +6,7 @@ body {
 header {
     background: azure;
     color: steelblue;
+    font-size: 4vw;
     font-variant: all-small-caps;
     font-weight: 800;
     height: 10vh;
