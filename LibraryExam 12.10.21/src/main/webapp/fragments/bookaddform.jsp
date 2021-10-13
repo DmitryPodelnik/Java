@@ -39,3 +39,19 @@
 
     <% } %>
 </div>
+
+<!-- JS/FormData variant -->
+<div>
+    <form method="post"
+          enctype="multipart/form-data"
+          action="">
+
+        <label>Author <input name="author" /></label>
+        <br/>
+        <label>Title <input name="title" /></label>
+        <br/>
+        <label>Cover <input type="file" name="cover" /></label>
+        <br/>
+        <input type="submit" value="Add" />
+    </form>
+</div>
