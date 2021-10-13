@@ -3,13 +3,13 @@
 <% Book[] books;
     try {
         books = (Book[])
-                request.getAttribute("pictures");
+                request.getAttribute("books");
     } catch (ClassCastException ignored) {
         books = new Book[0];
     }
     if (books != null)
         for (Book book : books) { %>
-<div class="picture">
+<div>
     <img src="uploads/<%= book.getTitle() %>" alt="<%= book.getTitle() %>"/>
     <p><%= book.getAuthor() %>
     </p>
@@ -20,7 +20,7 @@
 
 </div>
 <% } %>
-<div class="book-add-form">
+<div>
     <form method="post">
         <label>Author <input name="author" /></label>
         <br/>
