@@ -16,6 +16,11 @@
     <% } else if (Db.getBookOrm().installTable()) { %>
 
         <b>CREATED</b>
+        <script>
+            setTimeout(() => {
+                window.location.href = window.location.pathname}, 1000
+            );
+        </script>
 
     <% } else { %>
 
