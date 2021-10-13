@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
 
 @WebFilter("/*")
 public class DbFilter implements Filter {
@@ -26,7 +28,7 @@ public class DbFilter implements Filter {
         // this filter. Suck as .css, .js, etc.
         String req = ((HttpServletRequest) servletRequest).getRequestURI();
         for (String ext : new String[] {".css", ".js", ".jsp"}) {
-            if (req.endsWith("")) {
+            if (req.endsWith(ext)) {
                 filterChain.doFilter(servletRequest, servletResponse);
                 return;
             }
@@ -62,6 +64,22 @@ public class DbFilter implements Filter {
                         servletRequest
                                 .getRequestDispatcher("/install.jsp")
                                 .forward(servletRequest, servletResponse);
+                    }
+                } else if (!Db.setConnection(json)) {
+                    try {
+                        String url = "jdbc:mysql://localhost:3306/J181?useUnicode=true&characterEncoding=UTF-8"
+                                     + "&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+                        String username = "root";
+                        String password = "password";
+                        Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
+                        try (Connection conn = DriverManager.getConnection(url, username, password)) {
+                            System.out.println("Connection to MySQL BookDB successful!");
+
+
+                        }
+                    } catch (Exception ex) {
+                        System.out.println("Connection to MySQL BookDB failed...");
+                        System.out.println(ex.getMessage());
                     }
                 } else {
                     // Show static page
