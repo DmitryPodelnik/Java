@@ -22,6 +22,16 @@ public class DbFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+        // Filter path is "/*", so all requests pass through
+        // this filter. Suck as .css, .js, etc.
+        String req = ((HttpServletRequest) servletRequest).getRequestURI();
+        for (String ext : new String[] {".css", ".js", ".jsp"}) {
+            if (req.endsWith("")) {
+                filterChain.doFilter(servletRequest, servletResponse);
+                return;
+            }
+        }
+
         // Real file path - stores in Servlet Context
         String path =
                 ((HttpServletRequest) servletRequest)
@@ -44,7 +54,15 @@ public class DbFilter implements Filter {
                 );
                 // Test connection
                 if (Db.setConnection(json)) {
-                    filterChain.doFilter(servletRequest, servletResponse);
+                    // Check for Books table
+                    if (Db.getBookOrm().isTableExists()) {
+                        filterChain.doFilter(servletRequest, servletResponse);
+                    } else {
+                        // Install page
+                        servletRequest
+                                .getRequestDispatcher("/install.jsp")
+                                .forward(servletRequest, servletResponse);
+                    }
                 } else {
                     // Show static page
                     // No connection - use static mode

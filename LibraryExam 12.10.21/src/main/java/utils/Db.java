@@ -7,10 +7,17 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class Db {
-    final private static String SUFFIX = "_14";
     private static JSONObject config ;
     private static Connection connection ;
+    private static final String PREFIX = "KH181_14_";
 
+    private static BookOrm bookOrm;
+    public static BookOrm getBookOrm() {
+        if (bookOrm == null) {
+            bookOrm = new BookOrm(connection, PREFIX, config);
+        }
+        return bookOrm;
+    }
     public static Connection getConnection() {
         return connection;
     }
@@ -64,7 +71,7 @@ public class Db {
     public static ArrayList<Book> getPictures() {
         ArrayList<Book> res = null;
         try (Statement statement = connection.createStatement()) {
-            String query = "SELECT * FROM Books" + SUFFIX;
+            String query = "SELECT * FROM Books" + PREFIX;
             ResultSet answer = statement.executeQuery(query);
             res = new ArrayList<>();
             while (answer.next()) {
@@ -79,24 +86,5 @@ public class Db {
             System.err.println("getPictures: " + ex.getMessage());
         }
         return res;
-    }
-
-    /**
-     * Creates table for gallery
-     */
-    private static void createLibrary() {
-        if (connection == null) return;
-        String query = null;
-        try (Statement statement = connection.createStatement()) {
-            query = "CREATE TABLE Books" + SUFFIX +
-                    "(Id          RAW(16) DEFAULT SYS_GUID() PRIMARY KEY, " +
-                    " Title        NVARCHAR2(256) NOT NULL, " +
-                    " Author NVARCHAR2(256) NOT NULL, " +
-                    " Moment      DATE DEFAULT CURRENT_TIMESTAMP )";
-            statement.executeUpdate(query);
-        } catch (SQLException ex) {
-            System.err.println(
-                    "createLibrary: " + ex.getMessage() + " " + query);
-        }
     }
 }

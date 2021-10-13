@@ -6,23 +6,29 @@ public class Book {
     private String id;
     private String author;
     private String title;
-    private String moment;
+    private String cover;
 
     public String toJsonString() {
         JSONObject obj = new JSONObject();
         obj.put("id", id);
         obj.put("author", author);
         obj.put("title", title);
-        obj.put("moment", moment);
+        obj.put("cover", cover);
 
         return obj.toString();
     }
 
-    public Book(String id, String author, String title, String moment) {
+    public Book(String author, String title, String cover) {
+        this.author = author;
+        this.title = title;
+        this.cover = cover;
+    }
+
+    public Book(String id, String author, String title, String cover) {
         this.id = id;
         this.author = author;
         this.title = title;
-        this.moment = moment;
+        this.cover = cover;
     }
 
     public String getAuthor() {
@@ -37,12 +43,12 @@ public class Book {
         this.id = id;
     }
 
-    public String getMoment() {
-        return moment;
+    public String getCover() {
+        return cover;
     }
 
-    public void setMoment(String moment) {
-        this.moment = moment;
+    public void setCover(String cover) {
+        this.cover = cover;
     }
 
     public void setAuthor(String author) {
