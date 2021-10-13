@@ -1,5 +1,6 @@
 package com.example.libraryexam;
 
+import utils.Db;
 import utils.Hasher;
 
 import javax.servlet.ServletException;
@@ -12,11 +13,30 @@ import java.nio.file.StandardCopyOption;
 public class LibraryServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
 
+        // session attributes
+        String[] sessionAttributes = {"uploadMessage", "author", "title"};
+        for (String attrName : sessionAttributes) {
+            String attrValue = (String)
+                    session.getAttribute(attrName);
+            if (attrValue != null) {
+                session.removeAttribute(attrName);
+            } else {
+                attrValue = "";
+            }
+            req.setAttribute(attrName, attrValue);
+        }
+
+        // goto view
+        req.getRequestDispatcher("bookaddform.jsp")
+                .forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String uploadMessage = "";
+
         // Author - передается как форма, извлекается обычным образом
         String author = req.getParameter("author");
         // Title - передается как форма, извлекается обычным образом
@@ -54,12 +74,26 @@ public class LibraryServlet extends HttpServlet {
                     filename = path + "\\" + savedFilename;
                     destination = new File(filename);
                     attachedFilename = savedFilename;
-                } while (destination.exists());  // если файл с таким именем уже есть, перегенерировать имя
+                } while (destination.exists());  // если файл с таким именем уже есть, сгенерировать новое имя
 
                 Files.copy(
                         filePart.getInputStream(),  // source (Stream)
                         destination.toPath(),       // destination (Path)
                         StandardCopyOption.REPLACE_EXISTING
                 );
+                // Файл сохранен под именем savedFilename.
+                // Сохраняем в БД:
+
+            } else {  // no file extension
+                attachedFilename = "no file extension";
+            }
+        }
+        session.setAttribute("uploadMessage", uploadMessage);
+        // Конец работы с файлом
+
+        session.setAttribute("author", author);
+        session.setAttribute("title", title);
+
+        resp.sendRedirect(req.getRequestURI());
     }
 }
