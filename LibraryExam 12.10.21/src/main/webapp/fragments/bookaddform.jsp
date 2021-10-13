@@ -1,4 +1,28 @@
+<%@ page import="models.Book" %>
 <%@ page contentType="text/html;charset=UTF-8"%>
+<% Book[] books;
+    try {
+        books = (Book[])
+                request.getAttribute("pictures");
+    } catch (ClassCastException ignored) {
+        books = new Book[0];
+    }
+    if (books != null)
+        for (Book book : books) { %>
+<div class="picture">
+    <img src="uploads/<%= book.getName() %>" alt="<%= book.getName() %>"/>
+    <p><%= book.getAuthor() %>
+    </p>
+    <i><%= book.getTitle() %>
+    </i>
+    <tt><%= book.getId() %>
+    </tt>
+    <div class="tool-button tool-delete" title="Удалить"></div>
+    <div class="tool-button tool-download" title="Скачать"></div>
+    <div class="tool-button tool-edit" title="Редактировать"></div>
+
+</div>
+<% } %>
 <div class="book-add-form">
     <form method="post">
         <label>Author <input name="author" /></label>
@@ -9,4 +33,12 @@
         <br/>
         <input type="submit" value="Add" />
     </form>
+    <% String uploadMessage = (String)
+            request.getAttribute("uploadMessage");
+        if (uploadMessage != null) { %>
+
+    <b><%= uploadMessage %>
+    </b>
+
+    <% } %>
 </div>

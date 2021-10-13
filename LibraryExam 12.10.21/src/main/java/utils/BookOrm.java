@@ -1,11 +1,13 @@
 package utils;
 
+import models.Book;
 import org.json.JSONObject;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class BookOrm {
     private Connection connection;
@@ -63,5 +65,28 @@ public class BookOrm {
                     "BookOrm.installTable(): " + ex.getMessage() + "\n" + query);
             return false;
         }
+    }
+
+    /**
+     * Loads books(s) list (library)
+     */
+    public ArrayList<Book> getBooks() {
+        ArrayList<Book> res = null;
+        try (Statement statement = connection.createStatement()) {
+            String query = "SELECT * FROM Books" + PREFIX;
+            ResultSet answer = statement.executeQuery(query);
+            res = new ArrayList<>();
+            while (answer.next()) {
+                res.add(new Book(
+                        answer.getString("ID"),
+                        answer.getString("AUTHOR"),
+                        answer.getString("TITLE"),
+                        answer.getString("COVER")
+                ));
+            }
+        } catch (Exception ex) {
+            System.err.println("getBooks: " + ex.getMessage());
+        }
+        return res;
     }
 }

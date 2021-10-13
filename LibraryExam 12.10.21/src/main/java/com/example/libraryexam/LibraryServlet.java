@@ -1,5 +1,6 @@
 package com.example.libraryexam;
 
+import models.Book;
 import utils.Db;
 import utils.Hasher;
 
@@ -9,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 
 public class LibraryServlet extends HttpServlet {
     @Override
@@ -27,6 +29,14 @@ public class LibraryServlet extends HttpServlet {
             }
             req.setAttribute(attrName, attrValue);
         }
+
+        // Main content - pictures collection
+        ArrayList<Book> books = Db.getBookOrm().getBooks();
+        Book[] booksArr = (books == null)
+                ? new Book[0]
+                : books.toArray(new Book[0]);
+
+        req.setAttribute("books", booksArr);
 
         // goto view
         req.getRequestDispatcher("bookaddform.jsp")
