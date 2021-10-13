@@ -4,6 +4,8 @@ import org.json.JSONObject;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class Db {
     final private static String SUFFIX = "_14";
@@ -55,5 +57,24 @@ public class Db {
             } catch (Exception ignored) {
 
             }
+    }
+
+    /**
+     * Creates table for gallery
+     */
+    private static void createLibrary() {
+        if (connection == null) return;
+        String query = null;
+        try (Statement statement = connection.createStatement()) {
+            query = "CREATE TABLE Books" + SUFFIX +
+                    "(Id          RAW(16) DEFAULT SYS_GUID() PRIMARY KEY, " +
+                    " Title        NVARCHAR2(256) NOT NULL, " +
+                    " Author NVARCHAR2(256) NOT NULL, " +
+                    " Moment      DATE DEFAULT CURRENT_TIMESTAMP )";
+            statement.executeUpdate(query);
+        } catch (SQLException ex) {
+            System.err.println(
+                    "createLibrary: " + ex.getMessage() + " " + query);
+        }
     }
 }
