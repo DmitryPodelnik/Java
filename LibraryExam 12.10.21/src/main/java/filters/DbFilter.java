@@ -67,3 +67,8 @@ public class DbFilter implements Filter {
         this.filterConfig = null;
     }
 }
+
+/*
+    Фильтр проверяет, есть ли таблица Books.
+    Если нет, то переходит на страницу install.jsp, на которой есть кнопка "Создать БД"
+ */

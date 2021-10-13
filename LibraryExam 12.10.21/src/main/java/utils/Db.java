@@ -1,11 +1,10 @@
 package utils;
 
+import models.Book;
 import org.json.JSONObject;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.ArrayList;
 
 public class Db {
     final private static String SUFFIX = "_14";
@@ -57,6 +56,29 @@ public class Db {
             } catch (Exception ignored) {
 
             }
+    }
+
+    /**
+     * Loads books(s) list (library)
+     */
+    public static ArrayList<Book> getPictures() {
+        ArrayList<Book> res = null;
+        try (Statement statement = connection.createStatement()) {
+            String query = "SELECT * FROM Books" + SUFFIX;
+            ResultSet answer = statement.executeQuery(query);
+            res = new ArrayList<>();
+            while (answer.next()) {
+                res.add(new Book(
+                        answer.getString("ID"),
+                        answer.getString("AUTHOR"),
+                        answer.getString("TITLE"),
+                        answer.getString("MOMENT")
+                ));
+            }
+        } catch (Exception ex) {
+            System.err.println("getPictures: " + ex.getMessage());
+        }
+        return res;
     }
 
     /**
