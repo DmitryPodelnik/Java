@@ -55,12 +55,12 @@ public class BookOrm {
                     "(Id     RAW(16) DEFAULT SYS_GUID() PRIMARY KEY, " +
                     " Title  NVARCHAR2(128) NOT NULL, " +
                     " Author NVARCHAR2(128) NOT NULL, " +
-                    " Cover  NVARCHAR2(128) NULL";
+                    " Cover  NVARCHAR2(128) )";
             statement.executeUpdate(query);
             return true;
         } catch (SQLException ex) {
             System.err.println(
-                    "BookOrm.installTable(): " + ex.getMessage() + " " + query);
+                    "BookOrm.installTable(): " + ex.getMessage() + "\n" + query);
             return false;
         }
     }
