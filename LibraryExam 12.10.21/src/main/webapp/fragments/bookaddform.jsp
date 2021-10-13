@@ -10,16 +10,13 @@
     if (books != null)
         for (Book book : books) { %>
 <div class="picture">
-    <img src="uploads/<%= book.getName() %>" alt="<%= book.getName() %>"/>
+    <img src="uploads/<%= book.getTitle() %>" alt="<%= book.getTitle() %>"/>
     <p><%= book.getAuthor() %>
     </p>
-    <i><%= book.getTitle() %>
-    </i>
-    <tt><%= book.getId() %>
-    </tt>
-    <div class="tool-button tool-delete" title="Удалить"></div>
-    <div class="tool-button tool-download" title="Скачать"></div>
-    <div class="tool-button tool-edit" title="Редактировать"></div>
+    <p><%= book.getTitle() %>
+    </p>
+    <p><%= book.getId() %>
+    </p>
 
 </div>
 <% } %>
