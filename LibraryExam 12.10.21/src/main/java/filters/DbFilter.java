@@ -1,6 +1,7 @@
 package filters;
 
 import org.json.JSONObject;
+import utils.Db;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -42,8 +43,16 @@ public class DbFilter implements Filter {
                         new String(buf)
                 );
                 // Test connection
+                if (Db.setConnection(json)) {
+                    filterChain.doFilter(servletRequest, servletResponse);
+                } else {
+                    // Show static page
+                    // No connection - use static mode
+                    servletRequest
+                            .getRequestDispatcher("/static.jsp")
+                            .forward(servletRequest, servletResponse);
+                }
 
-                filterChain.doFilter(servletRequest, servletResponse);
                 return;
             } catch (IOException ex) {
                 System.err.println("DbFilter: " + ex.getMessage());
