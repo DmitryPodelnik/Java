@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <div class="book-add-form">
-    <form >
+    <form method="post">
         <label>Author <input name="author" /></label>
         <br/>
         <label>Title <input name="title" /></label>

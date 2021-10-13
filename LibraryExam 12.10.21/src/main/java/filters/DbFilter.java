@@ -69,8 +69,8 @@ public class DbFilter implements Filter {
                     try {
                         String url = "jdbc:mysql://localhost:3306/J181?useUnicode=true&characterEncoding=UTF-8"
                                      + "&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-                        String username = "root";
-                        String password = "password";
+                        String username = "user181";
+                        String password = "pass181";
                         Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
                         try (Connection conn = DriverManager.getConnection(url, username, password)) {
                             System.out.println("Connection to MySQL BookDB successful!");
