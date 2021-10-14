@@ -8,6 +8,18 @@ function sendClick(e) {
     const cover  = e.target.querySelector("input[name=cover]");
     // TODO data validation
 
+    if (author.value === null || author.value.length < 2) {
+        alert("Author length must be longer than 1!");
+        return;
+    }
+    if (title.value === null || title.value.length < 2) {
+        alert("Title length must be longer than 1!");
+        return;
+    }
+    if (cover.value === null) {
+        alert("You must upload a file!");
+        return;
+    }
 
     const formData = new FormData();
     formData.append("author", author.value);

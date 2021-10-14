@@ -3,10 +3,7 @@ package utils;
 import models.Book;
 import org.json.JSONObject;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class BookOrm {
@@ -63,6 +60,29 @@ public class BookOrm {
         } catch (SQLException ex) {
             System.err.println(
                     "BookOrm.installTable(): " + ex.getMessage() + "\n" + query);
+            return false;
+        }
+    }
+
+    /**
+     * Inserts Picture in DB
+     */
+    public boolean addBook(Book book) {
+        if (connection == null) {
+            return false;
+        }
+        String query = "INSERT INTO Books" +
+                "(Title, Author) VALUES(?, ?)";
+        try (PreparedStatement statement =
+                     connection.prepareStatement(query)) {
+            statement.setString(1, book.getTitle());
+            statement.setString(2, book.getAuthor());
+            statement.executeUpdate();
+
+            return true;
+        } catch (SQLException ex) {
+            System.err.println(
+                    "addBook: " + ex.getMessage() + " " + query);
             return false;
         }
     }
