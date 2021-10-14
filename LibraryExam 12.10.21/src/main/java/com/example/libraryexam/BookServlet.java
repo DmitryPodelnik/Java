@@ -46,15 +46,20 @@ public class BookServlet extends HttpServlet {
             resultMessage = "Cover file required";
         } else {
             String savedName = moveUploadedFile(cover, true);
-            Db.getBookOrm().addBook(
+            if (Db.getBookOrm().addBook(
                     new Book(
                             author,
                             title,
                             savedName
-                    )
-            );
-            resultStatus = 1;
-            resultMessage = author + " " + title + " " + savedName;
+                    ))
+            ) {
+
+            } else {
+                resultStatus = 1;
+                resultMessage = author + " " + title + " " + savedName;
+            }
+            resultStatus = -4;
+            resultMessage = "Cannot add book to database";
         }
 
         JSONObject result = new JSONObject();

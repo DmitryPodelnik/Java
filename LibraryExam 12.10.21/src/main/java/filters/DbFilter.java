@@ -73,12 +73,12 @@ public class DbFilter implements Filter {
                         String password = "dmytropass";
                         Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
                         try (Connection conn = DriverManager.getConnection(url, username, password)) {
-                            System.out.println("Connection to MySQL BookDB successful!");
+                            System.out.println("Connection to MySQL BooksDb successful!");
 
 
                         }
                     } catch (Exception ex) {
-                        System.out.println("Connection to MySQL BookDB failed...");
+                        System.out.println("Connection to MySQL BooksDb failed...");
                         System.out.println(ex.getMessage());
                     }
                 } else {
