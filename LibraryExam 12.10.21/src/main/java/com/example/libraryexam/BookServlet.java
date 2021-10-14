@@ -1,6 +1,9 @@
 package com.example.libraryexam;
 
+import models.Book;
 import org.json.JSONObject;
+import utils.BookOrm;
+import utils.Db;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -43,6 +46,13 @@ public class BookServlet extends HttpServlet {
             resultMessage = "Cover file required";
         } else {
             String savedName = moveUploadedFile(cover, true);
+            Db.getBookOrm().addBook(
+                    new Book(
+                            author,
+                            title,
+                            savedName
+                    )
+            );
             resultStatus = 1;
             resultMessage = author + " " + title + " " + savedName;
         }

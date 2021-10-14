@@ -50,11 +50,10 @@ public class BookOrm {
         }
         String query = null;
         try (Statement statement = connection.createStatement()) {
-            query = "CREATE TABLE " + PREFIX + "Books " +
-                    "(Id     RAW(16) DEFAULT SYS_GUID() PRIMARY KEY, " +
-                    " Title  NVARCHAR2(128) NOT NULL, " +
-                    " Author NVARCHAR2(128) NOT NULL, " +
-                    " Cover  NVARCHAR2(128) )";
+            query = "CREATE TABLE IF NOT EXISTS " + "Books " +
+                    "(id BIGINT DEFAULT UUID_SHORT() PRIMARY KEY, " +
+                    " Title  VARCHAR(128) NOT NULL, " +
+                    " Author VARCHAR2(128) NOT NULL )";
             statement.executeUpdate(query);
             return true;
         } catch (SQLException ex) {
@@ -78,7 +77,6 @@ public class BookOrm {
             statement.setString(1, book.getTitle());
             statement.setString(2, book.getAuthor());
             statement.executeUpdate();
-
             return true;
         } catch (SQLException ex) {
             System.err.println(
