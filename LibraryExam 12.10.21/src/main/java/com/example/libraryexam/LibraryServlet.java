@@ -5,6 +5,8 @@ import utils.Db;
 import utils.Hasher;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.File;
 import java.io.IOException;
@@ -12,6 +14,8 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 
+@WebServlet("/library")
+@MultipartConfig  // !!1 Без этого multipart/form-data не работает
 public class LibraryServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

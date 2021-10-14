@@ -1,7 +1,7 @@
 <component name="libraryTable">
-  <library name="org.apache.commons.io">
+  <library name="ojdbc8 (2)">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/lib/org.apache.commons.io.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/main/webapp/WEB-INF/lib/ojdbc8.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

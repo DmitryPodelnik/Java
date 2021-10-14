@@ -32,7 +32,7 @@ public class Db {
                         json.getString("user"),
                         json.getString("pass"),
                         json.getString("host"),
-                        json.getString("port")
+                        json.getInt("port")
                 );
                 DriverManager.registerDriver(
                         new oracle.jdbc.driver.OracleDriver()

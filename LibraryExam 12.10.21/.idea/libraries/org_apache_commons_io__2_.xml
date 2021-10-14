@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="org.apache.commons.io (2)">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/src/main/webapp/WEB-INF/lib/org.apache.commons.io.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
