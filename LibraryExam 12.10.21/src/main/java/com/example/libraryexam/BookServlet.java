@@ -46,20 +46,24 @@ public class BookServlet extends HttpServlet {
             resultMessage = "Cover file required";
         } else {
             String savedName = moveUploadedFile(cover, true);
-            if (Db.getBookOrm().addBook(
-                    new Book(
-                            author,
-                            title,
-                            savedName
-                    ))
-            ) {
-
+            if (savedName == null) {
+                resultStatus = -4;
+                resultMessage = "Cover save error";
             } else {
-                resultStatus = 1;
-                resultMessage = author + " " + title + " " + savedName;
+                if (Db.getBookOrm().addBook(
+                        new Book(
+                                author,
+                                title,
+                                savedName
+                        ))
+                ) {
+                    resultStatus = 1;
+                    resultMessage = author + " " + title + " " + savedName;
+                } else {
+                    resultStatus = -5;
+                    resultMessage = "Book store error";
+                }
             }
-            resultStatus = -4;
-            resultMessage = "Cannot add book to database";
         }
 
         JSONObject result = new JSONObject();
@@ -84,7 +88,7 @@ public class BookServlet extends HttpServlet {
         }
         String hostingFolder =
                 this.getServletContext().getRealPath("/uploads") + "/";
-        String devFolder = "D:\\JAVA ITSTEP\\GIT\\LibraryExam 12.10.21\\src\\main\\webapp\\uploads";
+        String devFolder = "D:\\JAVA ITSTEP\\GIT\\LibraryExam 12.10.21\\src\\main\\webapp\\uploads\\";
         String uploadedFilename = null;
         try {
             uploadedFilename = filePart.getSubmittedFileName();

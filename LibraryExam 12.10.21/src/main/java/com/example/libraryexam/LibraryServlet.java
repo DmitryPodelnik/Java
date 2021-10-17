@@ -1,6 +1,7 @@
 package com.example.libraryexam;
 
 import models.Book;
+import org.json.JSONArray;
 import utils.Db;
 import utils.Hasher;
 
@@ -18,33 +19,17 @@ import java.util.ArrayList;
 @MultipartConfig  // !!1 Без этого multipart/form-data не работает
 public class LibraryServlet extends HttpServlet {
     @Override
+    // API style - return json
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
+        resp.setContentType("application/json");
 
-        // session attributes
-        String[] sessionAttributes = {"uploadMessage", "author", "title"};
-        for (String attrName : sessionAttributes) {
-            String attrValue = (String)
-                    session.getAttribute(attrName);
-            if (attrValue != null) {
-                session.removeAttribute(attrName);
-            } else {
-                attrValue = "";
-            }
-            req.setAttribute(attrName, attrValue);
-        }
+        resp.getWriter().print(
+                new JSONArray(
+                        Db.getBookOrm().getBooks()
+                ).toString()
+        );
 
-        // Main content - pictures collection
-        ArrayList<Book> books = Db.getBookOrm().getBooks();
-        Book[] booksArr = (books == null)
-                ? new Book[0]
-                : books.toArray(new Book[0]);
-
-        req.setAttribute("books", booksArr);
-
-        // goto view
-        req.getRequestDispatcher("bookaddform.jsp")
-                .forward(req, resp);
+        //resp.setContentType("application/json");
     }
 
     @Override

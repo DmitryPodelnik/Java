@@ -37,9 +37,9 @@ public class DbFilter implements Filter {
         // Real file path - stores in Servlet Context
         String path =
                 ((HttpServletRequest) servletRequest)
-                .getSession()
-                .getServletContext()
-                .getRealPath("/WEB-INF/");
+                        .getSession()
+                        .getServletContext()
+                        .getRealPath("/WEB-INF/");
         // System.out.println(path);
         File config = new File(path + "config.json");
         if (config.exists()) {
@@ -60,6 +60,7 @@ public class DbFilter implements Filter {
                     if (Db.getBookOrm().isTableExists()) {
                         filterChain.doFilter(servletRequest, servletResponse);
                     } else {
+                        Db.getBookOrm().installTable();
                         // Install page
                         servletRequest
                                 .getRequestDispatcher("/install.jsp")
@@ -68,7 +69,7 @@ public class DbFilter implements Filter {
                 } else if (!Db.setConnection(json)) {
                     try {
                         String url = "jdbc:mysql://localhost:3306/BooksDb?useUnicode=true&characterEncoding=UTF-8"
-                                     + "&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+                                + "&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
                         String username = "dmytro";
                         String password = "dmytropass";
                         Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
