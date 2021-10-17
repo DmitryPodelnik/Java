@@ -37,7 +37,7 @@ function fillContainer(container, j) {
 function deleteClick(e) {
     const bid = findBookId(e);
     if (confirm("Таки удалять?")) {
-        fetch("?id=" + bid, {method: "delete"})
+        fetch("books?id=" + bid, {method: "delete"})
             .then(r => r.json())
             .then(j => {
                 console.log(j);
@@ -46,7 +46,7 @@ function deleteClick(e) {
 }
 
 function editClick(e) {
-    const bid = findPictureId(e);
+    const bid = findBookId(e);
     const container = e.target.parentNode;
     const title = container.querySelector("p");
     const author = container.querySelector("b");
@@ -84,7 +84,7 @@ function editClick(e) {
 
         if (title.savedText !== title.innerText) {
             // console.log({id: bid, title: title.innerText });
-            fetch(window.location.href, {
+            fetch("books", {
                 method: "PUT",
                 body: JSON.stringify({
                     id: bid,
@@ -113,7 +113,7 @@ function editClick(e) {
     }
 }
 
-function findPictureId(e) {
+function findBookId(e) {
     const id = document.querySelector(".bookid");
     if( ! id) throw "id not found in parent node";
     return id.innerHTML;
