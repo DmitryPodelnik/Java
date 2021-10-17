@@ -1,6 +1,8 @@
 package com.example.libraryexam;
 
+import jdk.nashorn.internal.parser.JSONParser;
 import models.Book;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import utils.BookOrm;
 import utils.Db;
@@ -14,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
@@ -22,8 +25,61 @@ import java.nio.file.StandardCopyOption;
 public class BookServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // Данные, передаваемые не в формате <form>
+        // не разбираются в reg.getParameter
+        resp.setContentType( "application/json" ) ;
+        try {
+            InputStream reader = req.getInputStream() ;
+            int sym ;
+            StringBuilder sb = new StringBuilder() ;
+            while( ( sym = reader.read() ) != -1 ) {
+                sb.append( (char) sym ) ;
+            }
+            String body = new String(
+                    sb.toString().getBytes(
+                            StandardCharsets.ISO_8859_1 ),
+                    StandardCharsets.UTF_8
+            ) ;
+            // error - testing
+            if( body.contains( "?" ) ) {
+                resp.getWriter().print( "{\"status\":-3}" ) ;
+                return ;
+            }
+            JSONObject params = (JSONObject)
+                    new JSONParser().parse( body ) ;
+            if( Db.updatePicture( new Picture(
+                    (String) params.get( "id" ),
+                    null,
+                    (String) params.get( "description" ),
+                    null
+            ) ) ) {
+                resp.getWriter().print( "{\"status\":1}" ) ;
+            } else {
+                resp.getWriter().print( "{\"status\":-1}" ) ;
+            }
+        } catch( Exception ex ) {
+            System.err.println( "GalleryServlet(PUT): " + ex.getMessage() ) ;
+            resp.getWriter().print( "{\"status\":-2}" ) ;
+        }
+
+    }
+    }
+
+    @Override
+    // API style - returns JSON of Book[]
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType( "application/json" ) ;
+        resp.getWriter().print(
+                new JSONArray(
+                        Db.getBookOrm().getBooks()
+                ).toString()
+        );
     }
 
     @Override
