@@ -8,9 +8,8 @@ document.addEventListener("DOMContentLoaded",()=>{
         .then(j => fillContainer(container, j))
 
     for (let btn of document.querySelectorAll(".book-delete")) {
-        btn.addEventListener("click", downloadClick);
+        btn.addEventListener("click", deleteClick);
     }
-
     for (let btn of document.querySelectorAll(".book-edit")) {
         btn.addEventListener("click", editClick);
     }
@@ -79,10 +78,12 @@ function editClick(e) {
     } else {
         // второе нажатие - save
         title.removeAttribute("contenteditable");
+        author.removeAttribute("contenteditable");
         container.removeChild(container.cancelBtnRef);
         delete container.cancelBtnRef;
 
-        if (title.savedText !== title.innerText) {
+        if (title.savedText !== title.innerText &&
+            author.savedText !== author.innerText) {
             // console.log({id: bid, title: title.innerText });
             fetch("books", {
                 method: "PUT",
@@ -99,15 +100,19 @@ function editClick(e) {
                 if (j.status > 0) {
                     alert("Update OK");
                     delete title.savedText;
+                    delete author.savedText;
                 } else {
                     alert("Update error");
                     console.log(j);
                     title.innerText = title.savedText;
+                    author.innerText = author.savedText;
                     delete title.savedText;
+                    delete author.savedText;
                 }
             });
         } else {
             delete title.savedText;
+            delete author.savedText;
         }
 
     }
