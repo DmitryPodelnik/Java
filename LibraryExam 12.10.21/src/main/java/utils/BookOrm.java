@@ -160,4 +160,20 @@ public class BookOrm {
             return false;
         }
     }
+
+    public boolean deleteBook(String id) {
+        if (connection == null) return false;
+        try (PreparedStatement prep = connection.prepareStatement(
+                "DELETE FROM " + PREFIX + "Books" +
+                    " WHERE Id = ?"
+        )) {
+            prep.setString(1, id);
+            prep.executeQuery();
+            return true;
+        } catch (SQLException ex) {
+            System.err.println("getPictureById: "
+                    + ex.getMessage());
+            return false;
+        }
+    }
 }

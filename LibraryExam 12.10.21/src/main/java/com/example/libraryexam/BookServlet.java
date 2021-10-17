@@ -27,18 +27,21 @@ public class BookServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String pictureId = req.getParameter( "id" ) ;
+        String bookId = req.getParameter( "id" ) ;
         JSONObject answer = new JSONObject() ;
-        if( pictureId == null || "".equals( pictureId ) ) {
+        if( bookId == null || "".equals( bookId ) ) {
             answer.put( "status", "-1" ) ;
             answer.put( "message", "Id required" ) ;
         } else {
             // Удаление из БД
-
-            answer.put( "status", "1" ) ;
-            answer.put( "message", pictureId ) ;
+            if (Db.getBookOrm().deleteBook(bookId)) {
+                answer.put( "status", "1" ) ;
+                answer.put( "message", bookId ) ;
+            } else {
+                answer.put( "status", "-2" ) ;
+                answer.put( "message", "Cannot delete book" ) ;
+            }
         }
-
         resp.setContentType( "application/json" ) ;
         resp.getWriter().print( answer.toString() ) ;
     }
@@ -81,8 +84,6 @@ public class BookServlet extends HttpServlet {
             System.err.println( "BookServlet(PUT): " + ex.getMessage() ) ;
             resp.getWriter().print( "{\"status\":-2}" ) ;
         }
-
-    }
     }
 
     @Override
