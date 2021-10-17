@@ -112,4 +112,52 @@ public class BookOrm {
         }
         return res;
     }
+
+    /**
+     * Book picture
+     */
+    public boolean updateBook(Book book) {
+        if (connection == null
+                || book == null
+                || book.getId() == null) {
+            return false;
+        }
+        // Validate Id
+        if (!book.getId().matches("^[0-9A-F]+$")) {
+            System.err.println("updateBook: Id error " + book.getId());
+            return false;
+        }
+        String query = "UPDATE Books" + PREFIX + " SET ";
+        boolean needComma = false;
+
+        if (book.getTitle() != null) {
+            query += " Title = '" +
+                    book.getTitle().replace("'", "''") + "'";
+            needComma = true;
+        }
+        if (book.getAuthor() != null) {
+            if (needComma) query += ", ";
+            query += " Author = '" + book.getAuthor().replace("'", "''") + "'";
+            needComma = true;
+        }
+        if (book.getCover() != null) {
+            if (needComma) query += ", ";
+            query += " Cover = '" + book.getCover().replace("'", "''") + "'";
+            needComma = true;
+        }
+        if (!needComma) {
+            // No fields were added
+            return false;
+        }
+        query += " WHERE Id = '" + book.getId() + "'";
+
+        try (Statement statement = connection.createStatement()) {
+            statement.executeUpdate(query);
+            return true;
+        } catch (SQLException ex) {
+            System.err.println(
+                    "updateBook: " + ex.getMessage() + " " + query);
+            return false;
+        }
+    }
 }

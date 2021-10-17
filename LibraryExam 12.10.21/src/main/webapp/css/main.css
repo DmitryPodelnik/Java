@@ -14,3 +14,16 @@ header {
     text-align: center;
     width: 100vw;
 }
+
+.tool-button {
+    background-size: 300%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    display: inline-block;
+    height: 30px;
+    margin: 2px;
+    width: 30px;
+}
+.tool-button:hover {
+    border-color: #777777;
+}

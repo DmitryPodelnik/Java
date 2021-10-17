@@ -22,7 +22,7 @@ function fillContainer(container, j) {
         .then(r => r.text())
         .then( tpl => {
             var html = "" ;
-            for(let book of j){
+            for(let book of j) {
                 html += tpl
                     .replace("{{id}}", book["id"])
                     .replace("{{author}}", book["author"])
@@ -35,9 +35,9 @@ function fillContainer(container, j) {
 }
 
 function deleteClick(e) {
-    const pid = findPictureId(e);
+    const bid = findBookId(e);
     if (confirm("Таки удалять?")) {
-        fetch("?id=" + pid, {method: "delete"})
+        fetch("?id=" + bid, {method: "delete"})
             .then(r => r.json())
             .then(j => {
                 console.log(j);
@@ -46,64 +46,75 @@ function deleteClick(e) {
 }
 
 function editClick(e) {
-    const pid = findPictureId(e);
+    const bid = findPictureId(e);
     const container = e.target.parentNode;
-    const descr = container.querySelector("p");
-    if (typeof descr.savedText == 'undefined') {
+    const title = container.querySelector("p");
+    const author = container.querySelector("b");
+    if (typeof title.savedText == 'undefined' &&
+        typeof author.savedText == 'undefined') {
         // первое нажатие - edit
         // разрешить редактирование описания
-        descr.setAttribute("contenteditable", "true");
-        descr.focus();
+        title.setAttribute("contenteditable", "true");
+        author.setAttribute("contenteditable", "true");
+        title.focus();
         // сохранить исходный текст (перед редактированием)
-        descr.savedText = descr.innerText;
-        // Поменять картинку кнопки на "V"
-        e.target.style["background-position"] = "50% 50%";
+        title.savedText = title.innerText;
+        author.savedText = author.innerText;
         // добавить кнопку "Х"
         const cancelBtn = document.createElement("div");
+        cancelBtn.innerText = "cancel";
         cancelBtn.className = "tool-button";
-        cancelBtn.style["background-position"] = "50% 0";
         cancelBtn.onclick = () => {
             // восстанавливаем сохраненный текст (отменяем изменения)
-            descr.innerText = descr.savedText;
-            delete descr.savedText;
+            title.innerText = title.savedText;
+            author.innerText = author.savedText;
+            delete title.savedText;
+            delete author.savedText;
             container.removeChild(cancelBtn);
-            descr.removeAttribute("contenteditable");
-            e.target.style["background-position"] = "0 0";
+            title.removeAttribute("contenteditable");
+            author.removeAttribute("contenteditable");
         };
         container.appendChild(cancelBtn);
         container.cancelBtnRef = cancelBtn;
     } else {
         // второе нажатие - save
-        descr.removeAttribute("contenteditable");
-        e.target.style["background-position"] = "0 0";
+        title.removeAttribute("contenteditable");
         container.removeChild(container.cancelBtnRef);
         delete container.cancelBtnRef;
 
-        if (descr.savedText !== descr.innerText) {
-            // console.log({id: pid, description: descr.innerText });
+        if (title.savedText !== title.innerText) {
+            // console.log({id: bid, title: title.innerText });
             fetch(window.location.href, {
                 method: "PUT",
-                body: JSON.stringify({id: pid, description: descr.innerText}),
-                // body: `{"id": "${pid}", "description": "${descr.innerText}" }`,
+                body: JSON.stringify({
+                    id: bid,
+                    title: title.innerText,
+                    author: author.innerText,
+                }),
+                // body: `{"id": "${bid}", "title": "${title.innerText}" }`,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8"
                 }
             }).then(r => r.json()).then(j => {
                 if (j.status > 0) {
                     alert("Update OK");
-                    delete descr.savedText;
+                    delete title.savedText;
                 } else {
                     alert("Update error");
                     console.log(j);
-                    descr.innerText = descr.savedText;
-                    delete descr.savedText;
+                    title.innerText = title.savedText;
+                    delete title.savedText;
                 }
             });
         } else {
-            delete descr.savedText;
+            delete title.savedText;
         }
 
     }
+}
 
-
+function findPictureId(e) {
+    const id = document.querySelector(".bookid");
+    if( ! id) throw "id not found in parent node";
+    return id.innerHTML;
 }

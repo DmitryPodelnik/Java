@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
@@ -26,7 +27,20 @@ public class BookServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String pictureId = req.getParameter( "id" ) ;
+        JSONObject answer = new JSONObject() ;
+        if( pictureId == null || "".equals( pictureId ) ) {
+            answer.put( "status", "-1" ) ;
+            answer.put( "message", "Id required" ) ;
+        } else {
+            // Удаление из БД
 
+            answer.put( "status", "1" ) ;
+            answer.put( "message", pictureId ) ;
+        }
+
+        resp.setContentType( "application/json" ) ;
+        resp.getWriter().print( answer.toString() ) ;
     }
 
     @Override
@@ -53,10 +67,10 @@ public class BookServlet extends HttpServlet {
             }
             JSONObject params = (JSONObject)
                     new JSONParser().parse( body ) ;
-            if( Db.updatePicture( new Picture(
+            if( Db.getBookOrm().updateBook( new Book(
                     (String) params.get( "id" ),
-                    null,
-                    (String) params.get( "description" ),
+                    (String) params.get( "title" ),
+                    (String) params.get( "author" ),
                     null
             ) ) ) {
                 resp.getWriter().print( "{\"status\":1}" ) ;
@@ -64,7 +78,7 @@ public class BookServlet extends HttpServlet {
                 resp.getWriter().print( "{\"status\":-1}" ) ;
             }
         } catch( Exception ex ) {
-            System.err.println( "GalleryServlet(PUT): " + ex.getMessage() ) ;
+            System.err.println( "BookServlet(PUT): " + ex.getMessage() ) ;
             resp.getWriter().print( "{\"status\":-2}" ) ;
         }
 
