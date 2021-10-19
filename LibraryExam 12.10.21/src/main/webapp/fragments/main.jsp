@@ -1,5 +1,8 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%-- Main content --%>
 
-LIBRARY
-<jsp:include page="bookaddform.jsp" />
+AJAX: fetch -> [{}, {}, {}] -> display
+1. получить массив, вывести в консоль
+<div id="books-container"></div>
+<script src="js/main.js"></script>
+<jsp:include page="bookaddform.jsp"/>

@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded",()=>{
+document.addEventListener("DOMContentLoaded",() => {
     const container =
         document.getElementById("books-container")
     if(!container) throw "books-container not found";
@@ -6,13 +6,6 @@ document.addEventListener("DOMContentLoaded",()=>{
     fetch("books")
         .then(r => r.json())
         .then(j => fillContainer(container, j))
-
-    for (let btn of document.querySelectorAll(".book-delete")) {
-        btn.addEventListener("click", deleteClick);
-    }
-    for (let btn of document.querySelectorAll(".book-edit")) {
-        btn.addEventListener("click", editClick);
-    }
 });
 
 function fillContainer(container, j) {
@@ -22,13 +15,19 @@ function fillContainer(container, j) {
         .then( tpl => {
             var html = "" ;
             for(let book of j) {
-                html += tpl
-                    .replace("{{id}}", book["id"])
-                    .replace("{{author}}", book["author"])
-                    .replace("{{title}}",  book["title"])
-                    .replace("{{cover}}",  book["cover"]);
+                let t = tpl;
+                for (let prop in book) {
+                    t = t.replace(`{{${prop}}}`, book[prop]);
+                }
+                html += t ;
             }
             container.innerHTML = html;
+            for (let btn of document.querySelectorAll(".tool-delete")) {
+                btn.addEventListener("click", deleteClick);
+            }
+            for (let btn of document.querySelectorAll(".tool-edit")) {
+                btn.addEventListener("click", editClick);
+            }
         });
 
 }
@@ -37,7 +36,7 @@ function deleteClick(e) {
     const bid = findBookId(e);
     if (confirm("Таки удалять?")) {
         fetch("books?id=" + bid, {method: "delete"})
-            .then(r => r.json())
+            .then(r => r.text())
             .then(j => {
                 console.log(j);
             });
@@ -119,7 +118,7 @@ function editClick(e) {
 }
 
 function findBookId(e) {
-    const id = document.querySelector(".bookid");
+    const id = document.querySelector("bookid");
     if( ! id) throw "id not found in parent node";
     return id.innerHTML;
 }

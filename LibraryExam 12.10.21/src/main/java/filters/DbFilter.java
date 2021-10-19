@@ -27,7 +27,7 @@ public class DbFilter implements Filter {
         // Filter path is "/*", so all requests pass through
         // this filter. Suck as .css, .js, etc.
         String req = ((HttpServletRequest) servletRequest).getRequestURI();
-        for (String ext : new String[] {".css", ".js", ".jsp"}) {
+        for (String ext : new String[] {".css", ".js", ".jsp", ".html"}) {
             if (req.endsWith(ext)) {
                 filterChain.doFilter(servletRequest, servletResponse);
                 return;

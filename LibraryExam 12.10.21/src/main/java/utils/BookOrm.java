@@ -165,7 +165,7 @@ public class BookOrm {
         if (connection == null) return false;
         try (PreparedStatement prep = connection.prepareStatement(
                 "DELETE FROM " + PREFIX + "Books" +
-                    " WHERE Id = ?"
+                        " WHERE Id = ?"
         )) {
             prep.setString(1, id);
             prep.executeQuery();

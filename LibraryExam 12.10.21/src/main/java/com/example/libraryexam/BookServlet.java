@@ -48,7 +48,7 @@ public class BookServlet extends HttpServlet {
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // Данные, передаваемые не в формате <form>
-        // не разбираются в reg.getParameter
+        // не разбираются в req.getParameter
         resp.setContentType( "application/json" ) ;
         try {
             InputStream reader = req.getInputStream() ;

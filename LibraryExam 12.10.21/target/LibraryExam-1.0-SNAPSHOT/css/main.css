@@ -7,10 +7,68 @@ header {
     background: azure;
     color: steelblue;
     font-size: 4vw;
-    font-variant: all-small-caps;
+    font-variant: small-caps;
     font-weight: 800;
-    height: 10vh;
-    padding-top: 5vh;
+    height: 10vw;
+    padding-top: 5vw;
     text-align: center;
     width: 100vw;
+}
+
+.book-add-form {
+    border: 2px solid #888;
+    display: block;
+    height: 12vw;
+    width: 30vw;
+}
+.book-add-form input[type=file] {
+    position: absolute;
+    height: 10vw;
+    visibility: hidden;
+    width: 7vw;
+}
+.book-add-form label[for=cover] {
+    border: 1px solid #777;
+    float: left;
+    height: 10vw;
+    width: 7vw;
+}
+.book-add-form img {
+    max-height: 10vw;
+    max-width: 7vw;
+}
+.book-item {
+    display: inline-block;
+    margin: 1vw;
+    width: 25vw;
+}
+.book-item img {
+    max-height: 20vw;
+    max-width: 15vw;
+}
+
+.tool-button {
+    background: url("../img/edit_icons.png");
+    background-size: 300%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    display: inline-block;
+    height: 30px;
+    margin: 2px;
+    width: 30px;
+}
+.tool-button:hover {
+    border-color: #777777;
+}
+
+.tool-delete {
+    background-position: -50% 0;
+}
+
+.tool-download {
+    background-position: -50% 50%;
+}
+
+.tool-edit {
+    background-position: 0 0;
 }
